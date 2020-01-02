@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import Nav from './components/Nav';
 import About from './components/About';
 import Dashboard from './components/Dashboard';
+import Stock from './components/Stock';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route exact path='/about' component={About} />
       <Route exact path='/signup' component={SignUp} />
       <Route exact path='/signin' component={SignIn} />
+      <Route exact path='/stock/' component={Stock} />
     </div>
   );
 }
