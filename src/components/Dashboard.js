@@ -15,8 +15,8 @@ function Dashboard(props) {
       <h4>{props.dailyChange} (%{props.dailyPercent})</h4>
       <PortfolioChart />
       <div>
-        <h3>Watchlist</h3>
-        <Link to='/stock/'>Stock</Link>
+        <h3>Stock List</h3>
+        <Link to='/stock/'>Single Stock</Link>
       </div>
     </div>
   );

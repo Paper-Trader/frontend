@@ -7,17 +7,17 @@ const initialState = {
       {
         symbol: 'MU',
         price: 65.37,
-        amount: 3
+        amount: 14
       },
       {
         symbol: 'AAPL',
         price: 300.28,
-        amount: 5
+        amount: 35
       },
       {
         symbol: 'MSFT',
         price: 160.52,
-        amount: 2
+        amount: 21
       },
     ]
   },
@@ -56,7 +56,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        symbolsList: action.payload.symbolsList,
+        stockList: action.payload.stockList,
         isFetching: false,
         valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
           acc + (val.price * val.amount), 0)) * 100) / 100,
@@ -68,12 +68,11 @@ export const rootReducer = (state = initialState, action) => {
         portfolio: {
           cash: state.portfolio.cash,
           stocks: state.portfolio.stocks.map(val => {
-            if (val.price !== action.payload.symbolsList[action.payload.symbolsList.findIndex(x => x.symbol === val.symbol)].price) {
-              return {
-                ...state.portfolio.stocks,
-                price: action.payload.symbolsList[action.payload.symbolsList.findIndex(x => x.symbol === val.symbol)].price
-              }
-          }})
+            return {
+              ...val,
+              price: action.payload.stockList[action.payload.stockList.findIndex(x => x.symbol === val.symbol)].price
+            }
+          })
         }
       }
     case actionType.ERROR:

@@ -26,7 +26,7 @@ export const fetchStock = () => dispatch => {
 export const fetchAll = () => dispatch => {
   dispatch({ type: FETCH_ALL_STOCKS });
   axios
-    .get('https://financialmodelingprep.com/api/v3/company/stock/list')
+    .get('https://financialmodelingprep.com/api/v3/stock/real-time-price')
     .then(res => {
       console.log(res.data)
       dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
