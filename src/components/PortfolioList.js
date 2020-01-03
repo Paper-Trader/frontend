@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchAll } from "../actions";
 import { Header, Divider } from "semantic-ui-react";
 
-function Dashboard({ portfolio }) {
-  const [stocks, setStocks] = useState(portfolio.stocks);
-  console.log("stocks", stocks);
+function Dashboard({ portfolio, stocks }) {
 
   return (
     <div className="portfoliolist">
