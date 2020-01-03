@@ -10,7 +10,7 @@ function SideNav() {
     <div className="side-nav">
       <div className="sidenav-item sidenav-dashboard">
         <Image src={dashboardIcon} size="mini" spaced="right" />
-        <Link to="/" className="sidenav-link">
+        <Link to="/dashboard" className="sidenav-link">
           DASHBOARD
         </Link>
       </div>
