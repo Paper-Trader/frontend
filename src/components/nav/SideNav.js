@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
-import dashboardIcon from "../assets/activity-icon.svg";
-import watchListIcon from "../assets/bar-chart-icon.svg";
-import browseIcon from "../assets/eye-icon.svg";
+import dashboardIcon from "../../assets/activity-icon.svg";
+import watchListIcon from "../../assets/bar-chart-icon.svg";
+import browseIcon from "../../assets/eye-icon.svg";
 
 function SideNav() {
   return (
