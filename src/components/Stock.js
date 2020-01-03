@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchStock } from "../actions";
+import Loader from "react-loader-spinner";
 import {
   LineChart,
   Line,
@@ -16,6 +17,7 @@ function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHigh, setLowHigh] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const company = "AAPL";
 
@@ -32,81 +34,86 @@ function Stock(props) {
   let high, low;
 
   useEffect(() => {
-    // runs every 30 minutes
-    // company variable will need to be changed depending on what prop is being passed in
-    axios
-      .get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=GLZW25M1M9C0O9XZ`
-      )
-      .then(data => {
-        let newArr = [];
-        for (const key in data.data["Time Series (60min)"]) {
-          if (key.includes(formatDate(Date.now()))) {
-            newArr.push({
-              ...data.data["Time Series (60min)"][key],
-              timestamp: key.split(" ")[1]
-            });
+    if (lowHigh.length > 0) {
+      setLoading(false);
+    } else {
+      axios
+        .get(
+          `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=GLZW25M1M9C0O9XZ`
+        )
+        .then(data => {
+          let newArr = [];
+          for (const key in data.data["Time Series (60min)"]) {
+            if (key.includes(formatDate(Date.now()))) {
+              newArr.push({
+                ...data.data["Time Series (60min)"][key],
+                timestamp: key.split(" ")[1]
+              });
+            }
           }
-        }
-        setGraphInfo(newArr.reverse());
-        high = newArr[0]["1. open"];
-        low = newArr[0]["1. open"];
+          high = newArr[0]["2. high"];
+          low = newArr[0]["3. low"];
 
-        newArr.forEach(obj => {
-          if (obj["3. low"] < low) {
-            low = obj["3. low"];
-          }
-          if (obj["2. high"] > high) {
-            high = obj["2. high"];
-          }
+          newArr.forEach(obj => {
+            if (obj["3. low"] < low) {
+              low = obj["3. low"];
+            }
+            if (obj["2. high"] > high) {
+              high = obj["2. high"];
+            }
+          });
+          setGraphInfo(newArr.reverse());
+          setLowHigh([low, high]);
         });
-        console.log("after forEach: ", low, high);
-        setLowHigh([low, high]);
-      });
-    axios
-      .get(
-        `https://financialmodelingprep.com/api/v3/company/profile/${company}`
-      )
-      .then(data => {
-        console.log("Company info: ", data.data.profile);
-        setCompanyInfo(data.data.profile);
-      });
-  }, []);
+      axios
+        .get(
+          `https://financialmodelingprep.com/api/v3/company/profile/${company}`
+        )
+        .then(data => {
+          setCompanyInfo(data.data.profile);
+        });
+    }
+  }, [lowHigh]);
 
-  console.log("Graph Info: ", graphInfo);
-
-  return (
+  return loading ? (
+    <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
+  ) : (
     <>
-      {console.log("Low high value in return:", lowHigh)}
       <h1>
         {companyInfo.companyName}({company}) <span>{companyInfo.price}</span>
       </h1>
-      <LineChart
-        width={500}
-        height={200}
-        data={graphInfo}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="timestamp" />
-        <YAxis domain={[lowHigh[0], lowHigh[1]]} />
-        <Tooltip />
-        <Line
-          connectNulls
-          type="monotone"
-          dataKey="1. open"
-          stroke="#8884d8"
-          fill="#8884d8"
-        />
-      </LineChart>
+      <ResponsiveContainer height={300} width="50%">
+        <LineChart
+          width={500}
+          height={200}
+          data={graphInfo}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 0,
+            bottom: 0
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="timestamp" />
+          <YAxis
+            hide={true}
+            domain={[Number(lowHigh[0]), Number(lowHigh[1])]}
+          />
+          <Tooltip />
+          <Line
+            connectNulls
+            type="monotone"
+            dataKey="1. open"
+            stroke="#8884d8"
+            fill="#8884d8"
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </>
   );
 }
+// }
 
 const mapStateToProps = state => ({
   stock: state.stock
