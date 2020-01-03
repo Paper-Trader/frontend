@@ -7,10 +7,9 @@ import { fetchAll } from '../actions';
 function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
   useEffect(() => {
     fetchAll()
-    setInterval(() => { // runs every 15 seconds
+    setInterval(() => { // runs every 60 seconds
       fetchAll()
-      console.log(new Date())
-    }, 15000);
+    }, 60 * 100);
   }, [fetchAll]);
 
   return (

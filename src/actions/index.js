@@ -15,7 +15,6 @@ export const fetchStock = () => dispatch => {
   axios
     .get('https://financialmodelingprep.com/api/v3/stock/real-time-price/AAPL')
     .then(res => {
-      console.log(res.data)
       dispatch({ type: FETCH_STOCK_SUCCESS, payload: res.data})
     })
     .catch(err => {
@@ -31,7 +30,6 @@ export const fetchAll = () => dispatch => {
   axios
     .get('https://financialmodelingprep.com/api/v3/stock/real-time-price')
     .then(res => {
-      console.log(res.data)
       dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
       dispatch({ type: UPDATE_PORTFOLIO })
     })
