@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchAll } from "../../actions";
+import { fetchAll } from "../actions";
 import { Header, Divider } from "semantic-ui-react";
-import PortfolioChart from "../portfolio/PortfolioChart";
-import PortfolioList from "../portfolio/PortfolioList";
+import PortfolioChart from "./PortfolioChart";
+import PortfolioList from "./PortfolioList";
 
-function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
+function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll}) {
+  console.log(dailyPercent)
+
   useEffect(() => {
     fetchAll()
     setInterval(() => { // runs every 60 seconds
       fetchAll()
     }, 60 * 100);
   }, [fetchAll]);
-  
+
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">
@@ -23,11 +25,9 @@ function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
         </Header>
         <PortfolioChart />
       </div>
-
-      <Divider />
       <div className="dashboard-listing">
         <Header as="h5">Portfolio Stock Listing</Header>
-        <PortfolioList />
+        <PortfolioList stocks={stocks} />
       </div>
     </div>
   );
@@ -36,7 +36,8 @@ function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
 const mapStateToProps = state => ({
   value: state.valueCurr,
   dailyChange: state.dailyChange,
-  dailyPercent: state.dailyPercentChange
+  dailyPercent: state.dailyPercentChange,
+  stocks: state.portfolio.stocks
 });
 
 export default connect(mapStateToProps, { fetchAll })(Dashboard);
