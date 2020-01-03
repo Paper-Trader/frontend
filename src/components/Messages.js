@@ -6,37 +6,50 @@ import { css } from 'glamor';
 
 
 const Messages = props => {
-  const notify = () => toast(props.error ,{
-    className: css({
-      background: 'red'
-    }),
-    bodyClassName: css({
-      fontSize: '1rem',
-      color: 'white'
-    }),
-    progressClassName: css({
-      background: "#ffb7b7"
+  if (props.error) {
+    toast(props.error ,{
+      toastId: 2,
+      className: css({
+        background: 'red'
+      }),
+      bodyClassName: css({
+        fontSize: '1rem',
+        color: 'white'
+      }),
+      progressClassName: css({
+        background: "#ffb7b7"
+      })
     })
-  });
+  }
 
-  const successToast = () => toast(props.success ,{
-    className: css({
-      background: 'green'
-    }),
-    bodyClassName: css({
-      fontSize: '1rem',
-      color: 'white'
-    }),
-    progressClassName: css({
-      background: "white"
+  if (props.success) {
+    toast(props.success ,{
+      toastId: 2,
+      className: css({
+        background: 'green'
+      }),
+      bodyClassName: css({
+        fontSize: '1rem',
+        color: 'white'
+      }),
+      progressClassName: css({
+        background: "white"
+      })
     })
-  });
+  }
 
   return (
     <div>
-      {props.error && <p>{notify()}</p>}
-      {props.success && <p>{successToast()}</p>}
-      <ToastContainer autoClose={3000}/>
+      <ToastContainer 
+        autoClose={3000}
+        position="top-right"
+        hideProgressBar={false}
+        closeOnClick
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

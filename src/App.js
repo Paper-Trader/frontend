@@ -13,7 +13,6 @@ import Messages from './components/Messages';
 function App() {
   return (
     <div className="App">
-      <Messages />
       <Route path ='/' component={Nav} />
       <Route exact path='/' component={Dashboard} />
       <Route exact path='/about' component={About} />
@@ -21,6 +20,7 @@ function App() {
       <Route exact path='/signin' component={SignIn} />
       <Route exact path='/stock/' component={Stock} />
       <Route exact path='/buy' component={BuyStock} />
+      <Messages />
     </div>
   );
 }
