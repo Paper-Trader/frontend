@@ -19,7 +19,7 @@ function Stock(props) {
   const [lowHigh, setLowHigh] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const company = "AAPL";
+  const company = "GE";
 
   function formatDate(date) {
     var d = new Date(date),
@@ -47,7 +47,8 @@ function Stock(props) {
             if (key.includes(formatDate(Date.now()))) {
               newArr.push({
                 ...data.data["Time Series (60min)"][key],
-                timestamp: key.split(" ")[1]
+                timestamp: key.split(" ")[1],
+                price: data.data["Time Series (60min)"][key]["1. open"]
               });
             }
           }
@@ -75,14 +76,47 @@ function Stock(props) {
     }
   }, [lowHigh]);
 
+  const green = {
+    color: "green"
+  };
+
+  const red = {
+    color: "red"
+  };
+
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
-    <>
-      <h1>
-        {companyInfo.companyName}({company}) <span>{companyInfo.price}</span>
-      </h1>
-      <ResponsiveContainer height={300} width="50%">
+    <div className="stock-container">
+      <div className="topbar">
+        <div className="description">
+          <h1>
+            {company} <span>{companyInfo.companyName}</span>
+          </h1>
+          <h3>{`$${companyInfo.price}`}</h3>
+          <h4>
+            {companyInfo.changes < 0 ? (
+              <span style={red}>{`-$${companyInfo.changes
+                .toString()
+                .substring(1)}`}</span>
+            ) : (
+              <span style={green}>{`$${companyInfo.changes}`}</span>
+            )}
+            {companyInfo.changesPercentage.includes("-") ? (
+              <span
+                style={red}
+              >{`  ${companyInfo.changesPercentage.toString()}  Today`}</span>
+            ) : (
+              <span
+                style={green}
+              >{`  ${companyInfo.changesPercentage}  Today`}</span>
+            )}
+          </h4>
+        </div>
+        {/* <img src="/plus-solid.svg" style={{ width: "30px" }} /> */}
+        <button>WATCH</button>
+      </div>
+      <ResponsiveContainer height={300} width="100%">
         <LineChart
           width={500}
           height={200}
@@ -101,16 +135,28 @@ function Stock(props) {
             domain={[Number(lowHigh[0]), Number(lowHigh[1])]}
           />
           <Tooltip />
-          <Line
-            connectNulls
-            type="monotone"
-            dataKey="1. open"
-            stroke="#8884d8"
-            fill="#8884d8"
-          />
+          {companyInfo.changes < 0 ? (
+            <Line
+              connectNulls
+              type="monotone"
+              dataKey="price"
+              strokeWidth="3"
+              stroke="red"
+              dot={false}
+            />
+          ) : (
+            <Line
+              connectNulls
+              type="monotone"
+              dataKey="price"
+              strokeWidth="3"
+              stroke="green"
+              dot={false}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
-    </>
+    </div>
   );
 }
 // }
