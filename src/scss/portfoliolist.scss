@@ -1,0 +1,35 @@
+.portfoliolist {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 2rem;
+  width: 100%;
+  .stock {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    .stock-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      h2 {
+        padding: 0;
+        margin: 0;
+        font-family: "Baloo", sans-serif;
+
+      }
+      h6 {
+        padding: 0;
+        margin: 0;
+        font-weight: normal;
+        color: #666;
+      }
+    }
+    h3 {
+      padding: 0;
+      margin: 0;
+      font-family: "Baloo", sans-serif;
+    }
+  }
+}

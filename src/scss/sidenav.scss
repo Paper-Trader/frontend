@@ -1,0 +1,16 @@
+.side-nav {
+  background-color: #261f35;
+  height: calc(100vh - 72px);
+  width: 20%;
+  padding: 0 .5rem;
+  .sidenav-item {
+    display: flex;
+    margin: 2.5rem 1rem;
+    .sidenav-link {
+      color: #fff;
+    }
+    img {
+      max-height: 1rem;
+    }
+  }
+}

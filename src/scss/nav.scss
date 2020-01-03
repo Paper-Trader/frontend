@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   background: #110034;
+  // background: #1b1c1d;
   color: #00D1C5;
   .nav-left {
     display: flex;
@@ -13,6 +14,7 @@
       margin: .5rem 1.25rem;
     }
     .nav-left-link {
+      color: #fff;
       margin: .65rem;
     }
   }

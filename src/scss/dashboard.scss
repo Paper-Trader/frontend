@@ -1,0 +1,41 @@
+.dashboard {
+  display: flex;
+  // align-items: flex-start;
+  flex-direction: column;
+  // width: 100%;
+  .dashboard-breakdown {
+    width: 100%;
+    display: flex;
+    // justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    h5 {
+      // padding: 0;
+      // margin: 0;
+      font-weight: normal;
+    }
+    h2 {
+      padding: 0;
+      margin: 0;
+      font-family: "Baloo", sans-serif;
+    }
+    h4 {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  .dashboard-listing {
+    width: 100%;
+    display: flex;
+    // justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    h5 {
+      // padding: 0;
+      // margin: 0;
+      font-weight: normal;
+    }
+  }
+}
