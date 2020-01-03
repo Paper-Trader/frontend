@@ -21,7 +21,7 @@ const initialState = {
       },
     ]
   },
-  dailyInitial: 10000,
+  dailyInitial: 11500,
   valueCurr: 0,
   isFetching: false,
   dailyChange: 0,
@@ -70,16 +70,13 @@ export const rootReducer = (state = initialState, action) => {
         }
       }
     case actionType.UPDATE_PORTFOLIO:
+      let currPort = (state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
       return {
         ...state,
         error: '',
-        valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) * 100) / 100,
-        dailyChange: Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) - state.dailyInitial) * 100) / 100,
-        dailyPercentChange: Math.round((Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) * 100) / 100 / Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) - state.dailyInitial) * 100) / 100) * 100) / 100,
+        valueCurr: Math.round(currPort * 100) / 100,
+        dailyChange: Math.round((currPort - state.dailyInitial) * 100) / 100,
+        dailyPercentChange: Math.round(((currPort - state.dailyInitial) * 100) / 100) / 100
       }
     case actionType.ERROR:
       return {
