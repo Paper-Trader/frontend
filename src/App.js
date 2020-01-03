@@ -8,10 +8,12 @@ import About from './components/About';
 import Dashboard from './components/Dashboard';
 import Stock from './components/Stock';
 import BuyStock from './components/Buy';
+import Messages from './components/Messages';
 
 function App() {
   return (
     <div className="App">
+      <Messages />
       <Route path ='/' component={Nav} />
       <Route exact path='/' component={Dashboard} />
       <Route exact path='/about' component={About} />

@@ -99,12 +99,12 @@ export const rootReducer = (state = initialState, action) => {
           ...state,
           error: '',
           portfolio: {
-            cash: state.portfolio.cash,
+            cash: (state.portfolio.cash) - (action.payload.amount * action.payload.price),
             stocks: state.portfolio.stocks.map(val => val.symbol === action.payload.symbol 
               ? {...val, price: action.payload.price, amount: val.amount += action.payload.amount}
               : val)
           },
-          success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for ${action.payload.symbol * action.payload.amount}.`,
+          success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       }  
     default:

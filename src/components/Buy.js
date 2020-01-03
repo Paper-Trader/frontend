@@ -5,7 +5,7 @@ import { buyStock } from '../actions';
 const initialStock = {
   symbol: 'AAPL',
   price: 300,
-  amount: 0
+  amount: 0,
 };
 
 function BuyStock(props) {
@@ -16,16 +16,28 @@ function BuyStock(props) {
     props.buyStock(newStock)
   }
 
+  const onChange = (e) => {
+    const re = /^[0-9\b]+$/; 
+
+    if (e.target.value === '' || re.test(e.target.value)) {
+      setNewStock({ 
+        ...newStock, 
+        [e.target.name]: e.target.value
+      })
+   }
+  }
+
   return (
     <div >
       <form onSubmit={buyStock}>
         <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
-          <input
-            onChange={e =>
-              setNewStock({ ...newStock, amount: parseInt(e.target.value) })
-            }
+          <input 
+            type="number"
+            min="1"
+            name="amount"
+            onChange={onChange}
             value={newStock.amount}
           />
         </label>
