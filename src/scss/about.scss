@@ -1,21 +1,22 @@
 .about-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: space-evenly;
+  // align-items: center;
   h2 {
-    font-family: "Baloo";
+    // font-family: "Baloo";
   }
   img {
-    margin: .75rem;
-    max-width: 30vw;
+    // margin: .75rem;
+    // max-width: 30vw;
   }
   .right-content {
-    max-width: 40%;
     h3 {
-      font-family: "Baloo";
+      // font-family: "Baloo";
     }
     p {
-      margin: 1rem .5rem;
+      margin: 1rem 0;
+      font-size: large;
+      line-height: normal;
     }
   }
 }
