@@ -57,7 +57,7 @@ function Stock(props) {
 
   return (
     <>
-      <h1>{companyInfo.companyName}({graphInfo["Meta Data"]}) <span>{companyInfo.price}</span></h1>
+      <h1>{companyInfo.companyName}({company}) <span>{companyInfo.price}</span></h1>
       <LineChart
         width={500}
         height={200}
