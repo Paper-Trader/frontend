@@ -1,13 +1,5 @@
 import React from "react";
-import graphic from "../assets/about-graphic.svg";
-import {
-  Header,
-  Image,
-  Segment,
-  Grid,
-  GridColumn,
-  List
-} from "semantic-ui-react";
+import { Header, Image, Segment, Grid, List } from "semantic-ui-react";
 
 function Team() {
   return (
