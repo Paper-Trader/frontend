@@ -16,10 +16,10 @@ import axios from "axios";
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
-  const [lowHigh, setLowHigh] = useState([]);
+  const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const company = "GE";
+  const company = "TWTR";
 
   function formatDate(date) {
     var d = new Date(date),
@@ -32,9 +32,11 @@ function Stock(props) {
   }
 
   let high, low;
-
+  let cash, perc;
+  const green = { color: "green" },
+    red = { color: "red" };
   useEffect(() => {
-    if (lowHigh.length > 0) {
+    if (lowHighCashPerc.length > 0) {
       setLoading(false);
     } else {
       axios
@@ -64,7 +66,9 @@ function Stock(props) {
             }
           });
           setGraphInfo(newArr.reverse());
-          setLowHigh([low, high]);
+          cash = newArr[newArr.length - 1]["4. close"] - newArr[0].price;
+          perc = (cash / Math.abs(newArr[0].price)) * 100;
+          setLowHighCashPerc([low, high, cash.toFixed(2), perc.toFixed(2)]);
         });
       axios
         .get(
@@ -74,15 +78,7 @@ function Stock(props) {
           setCompanyInfo(data.data.profile);
         });
     }
-  }, [lowHigh]);
-
-  const green = {
-    color: "green"
-  };
-
-  const red = {
-    color: "red"
-  };
+  }, [lowHighCashPerc]);
 
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
@@ -93,23 +89,21 @@ function Stock(props) {
           <h1>
             {company} <span>{companyInfo.companyName}</span>
           </h1>
-          <h3>{`$${companyInfo.price}`}</h3>
+          <h3>{`$${graphInfo[graphInfo.length - 1]["4. close"]}`}</h3>
           <h4>
-            {companyInfo.changes < 0 ? (
-              <span style={red}>{`-$${companyInfo.changes
+            {lowHighCashPerc[2] < 0 ? (
+              <span style={red}>{`-$${lowHighCashPerc[2]
                 .toString()
                 .substring(1)}`}</span>
             ) : (
-              <span style={green}>{`$${companyInfo.changes}`}</span>
+              <span style={green}>{`$${lowHighCashPerc[2]}`}</span>
             )}
-            {companyInfo.changesPercentage.includes("-") ? (
+            {lowHighCashPerc[3].toString().includes("-") ? (
               <span
                 style={red}
-              >{`  ${companyInfo.changesPercentage.toString()}  Today`}</span>
+              >{`  (${lowHighCashPerc[3].toString()}%)  Today`}</span>
             ) : (
-              <span
-                style={green}
-              >{`  ${companyInfo.changesPercentage}  Today`}</span>
+              <span style={green}>{`  (${lowHighCashPerc[3]}%)  Today`}</span>
             )}
           </h4>
         </div>
@@ -132,10 +126,10 @@ function Stock(props) {
           <XAxis dataKey="timestamp" />
           <YAxis
             hide={true}
-            domain={[Number(lowHigh[0]), Number(lowHigh[1])]}
+            domain={[Number(lowHighCashPerc[0]), Number(lowHighCashPerc[1])]}
           />
           <Tooltip />
-          {companyInfo.changes < 0 ? (
+          {lowHighCashPerc[2] < 0 ? (
             <Line
               connectNulls
               type="monotone"
@@ -159,7 +153,6 @@ function Stock(props) {
     </div>
   );
 }
-// }
 
 const mapStateToProps = state => ({
   stock: state.stock
