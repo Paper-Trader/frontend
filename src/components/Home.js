@@ -1,9 +1,11 @@
 import React from 'react';
+import About from "./About";
+
 
 function Home() {
   return (
-    <div>
-      Home Page
+    <div className="home">
+      <About />
     </div>
   );
 }
