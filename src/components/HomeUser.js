@@ -1,10 +1,12 @@
 import React from 'react';
+import SideNav from "./SideNav";
+import Dashboard from './Dashboard';
 
 function HomeUser() {
   return (
-    <div>
-      Investing
-      $3,000.00
+    <div className="homeuser">
+      <SideNav />
+      <Dashboard />
     </div>
   );
 }

@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PortfolioChart from './PortfolioChart';
-import { fetchAll } from '../actions';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchAll } from "../actions";
+import { Header, Divider } from "semantic-ui-react";
+import PortfolioChart from "./PortfolioChart";
+import PortfolioList from "./PortfolioList";
 
 function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
   useEffect(() => {
@@ -11,15 +13,22 @@ function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
       fetchAll()
     }, 60 * 100);
   }, [fetchAll]);
-
+  
   return (
-    <div>
-      <h2>${value}</h2>
-      <h4>{dailyChange} (%{dailyPercent})</h4>
-      <PortfolioChart />
-      <div>
-        <h3>Stock List</h3>
-        <Link to='/stock/'>Single Stock</Link>
+    <div className="dashboard">
+      <div className="dashboard-breakdown">
+        <Header as="h5">Aggregated Activity</Header>
+        <Header as="h2">${value}</Header>
+        <Header as="h4">
+          {dailyChange} ({dailyPercent}%)
+        </Header>
+        <PortfolioChart />
+      </div>
+
+      <Divider />
+      <div className="dashboard-listing">
+        <Header as="h5">Portfolio Stock Listing</Header>
+        <PortfolioList />
       </div>
     </div>
   );
@@ -29,6 +38,6 @@ const mapStateToProps = state => ({
   value: state.valueCurr,
   dailyChange: state.dailyChange,
   dailyPercent: state.dailyPercentChange
-})
+});
 
 export default connect(mapStateToProps, { fetchAll })(Dashboard);
