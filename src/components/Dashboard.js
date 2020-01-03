@@ -4,15 +4,19 @@ import { connect } from 'react-redux';
 import PortfolioChart from './PortfolioChart';
 import { fetchAll } from '../actions';
 
-function Dashboard(props) {
+function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
   useEffect(() => {
-    props.fetchAll()
-  }, []);
+    fetchAll()
+    setInterval(() => { // runs every 15 seconds
+      fetchAll()
+      console.log(new Date())
+    }, 15000);
+  }, [fetchAll]);
 
   return (
     <div>
-      <h2>${props.value}</h2>
-      <h4>{props.dailyChange} (%{props.dailyPercent})</h4>
+      <h2>${value}</h2>
+      <h4>{dailyChange} (%{dailyPercent})</h4>
       <PortfolioChart />
       <div>
         <h3>Stock List</h3>
