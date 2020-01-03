@@ -6,12 +6,11 @@ import logo from '../assets/logo.svg'
 function SideNav() {
   return (
     <div className="side-nav" >
-      <Link to="/about">About</Link>
-      <Link to="/team">Team</Link>
-      <Button><Link to="/signin">Sign In</Link></Button>
-      <Button><Link to="/signup">Sign Up</Link></Button>
+      <Link to="/">DASHBOARD</Link>
+      <Link to="/watchlist">WATCHLIST</Link>
+      <Link to="/browse">BROWSE</Link>
     </div>
   );
 }
 
-export default Nav;
+export default SideNav;
