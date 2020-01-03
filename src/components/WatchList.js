@@ -1,6 +1,5 @@
 // Import all dependencies 
-import React, {useState, useEffect} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import {
   LineChart, Line, XAxis, YAxis, Tooltip,
 } from 'recharts';
