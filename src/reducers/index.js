@@ -6,7 +6,7 @@ const initialState = {
     stocks: [
       {
         symbol: 'MU',
-        price: 60.37,
+        price: 65.37,
         amount: 3
       },
       {
@@ -58,9 +58,23 @@ export const rootReducer = (state = initialState, action) => {
         error: '',
         symbolsList: action.payload.symbolsList,
         isFetching: false,
-        valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) * 100) / 100,
-        dailyChange: Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100,
-        dailyPercentChange: Math.round((Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) * 100) / 100 / Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100) * 100) / 100
+        valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) * 100) / 100,
+        dailyChange: Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100,
+        dailyPercentChange: Math.round((Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) * 100) / 100 / Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100) * 100) / 100,
+        portfolio: {
+          cash: state.portfolio.cash,
+          stocks: state.portfolio.stocks.map(val => {
+            if (val.price !== action.payload.symbolsList[action.payload.symbolsList.findIndex(x => x.symbol === val.symbol)].price) {
+              return {
+                ...state.portfolio.stocks,
+                price: action.payload.symbolsList[action.payload.symbolsList.findIndex(x => x.symbol === val.symbol)].price
+              }
+          }})
+        }
       }
     case actionType.ERROR:
       return {
