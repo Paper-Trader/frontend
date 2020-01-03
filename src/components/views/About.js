@@ -1,5 +1,5 @@
 import React from "react";
-import graphic from "../assets/about-graphic.svg";
+import graphic from "../../assets/about-graphic.svg";
 import { Header, Image, Segment, Grid } from "semantic-ui-react";
 
 function About() {

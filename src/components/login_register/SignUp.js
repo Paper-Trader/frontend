@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
-import paper from "../assets/paper-icon.svg";
+import paper from "../../assets/paper-icon.svg";
 
 function SignUp() {
   return (
