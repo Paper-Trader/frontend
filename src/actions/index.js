@@ -2,10 +2,13 @@ import axios from 'axios';
 
 export const FETCH_STOCK_START = 'FETCH_STOCK_START';
 export const FETCH_STOCK_SUCCESS = 'FETCH_STOCK_SUCCESS';
-export const ERROR = 'ERROR';
 
 export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS';
 export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
+
+export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
+
+export const ERROR = 'ERROR';
 
 export const fetchStock = () => dispatch => {
   dispatch({ type: FETCH_STOCK_START });
@@ -30,6 +33,7 @@ export const fetchAll = () => dispatch => {
     .then(res => {
       console.log(res.data)
       dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
+      dispatch({ type: UPDATE_PORTFOLIO })
     })
     .catch(err => {
       dispatch({

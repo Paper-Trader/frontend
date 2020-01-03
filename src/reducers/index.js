@@ -12,7 +12,7 @@ const initialState = {
       {
         symbol: 'AAPL',
         price: 300.28,
-        amount: 35
+        amount: 17
       },
       {
         symbol: 'MSFT',
@@ -21,7 +21,7 @@ const initialState = {
       },
     ]
   },
-  valueInitial: 2500,
+  dailyInitial: 10000,
   valueCurr: 0,
   isFetching: false,
   dailyChange: 0,
@@ -58,13 +58,6 @@ export const rootReducer = (state = initialState, action) => {
         error: '',
         stockList: action.payload.stockList,
         isFetching: false,
-        valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) * 100) / 100,
-        dailyChange: Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100,
-        dailyPercentChange: Math.round((Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) * 100) / 100 / Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
-          acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100) * 100) / 100,
         portfolio: {
           cash: state.portfolio.cash,
           stocks: state.portfolio.stocks.map(val => {
@@ -74,6 +67,18 @@ export const rootReducer = (state = initialState, action) => {
             }
           })
         }
+      }
+    case actionType.UPDATE_PORTFOLIO:
+      return {
+        ...state,
+        error: '',
+        valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) * 100) / 100,
+        dailyChange: Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) - state.dailyInitial) * 100) / 100,
+        dailyPercentChange: Math.round((Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) * 100) / 100 / Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => 
+          acc + (val.price * val.amount), 0)) - state.dailyInitial) * 100) / 100) * 100) / 100,
       }
     case actionType.ERROR:
       return {

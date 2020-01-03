@@ -28,4 +28,4 @@ const mapStateToProps = state => ({
   dailyPercent: state.dailyPercentChange
 })
 
-export default connect(mapStateToProps, {fetchAll})(Dashboard);
+export default connect(mapStateToProps, { fetchAll })(Dashboard);
