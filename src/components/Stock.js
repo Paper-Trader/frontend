@@ -72,6 +72,9 @@ function Stock(props) {
         <Tooltip />
         <Line connectNulls type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" />
       </LineChart>
+
+      <p>%{}</p>
+      <p>${}</p>
     </>
 
   )
