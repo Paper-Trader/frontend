@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
+import { buyStock } from '../actions';
 
 const initialStock = {
-  symbol: 'APPL',
+  symbol: 'AAPL',
   price: 300,
   amount: 0
 };
@@ -10,15 +11,20 @@ const initialStock = {
 function BuyStock(props) {
   const [newStock, setNewStock] = useState(initialStock);
 
+  const buyStock = (e) => {
+    e.preventDefault();
+    props.buyStock(newStock)
+  }
+
   return (
     <div >
-      <form>
+      <form onSubmit={buyStock}>
         <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
           <input
             onChange={e =>
-              setNewStock({ ...newStock, amount: e.target.value })
+              setNewStock({ ...newStock, amount: parseInt(e.target.value) })
             }
             value={newStock.amount}
           />
@@ -41,4 +47,4 @@ const mapStateToProps = state => ({
   
 })
 
-export default connect(mapStateToProps, {})(BuyStock);
+export default connect(mapStateToProps, { buyStock })(BuyStock);
