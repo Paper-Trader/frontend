@@ -6,6 +6,7 @@ import PortfolioChart from "./PortfolioChart";
 import PortfolioList from "./PortfolioList";
 
 function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
+  console.log(dailyPercent)
   useEffect(() => {
     fetchAll()
     setInterval(() => { // runs every 60 seconds
