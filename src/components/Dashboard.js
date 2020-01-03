@@ -2,23 +2,25 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchAll } from "../actions";
-
 import { Header, Divider } from "semantic-ui-react";
 import PortfolioChart from "./PortfolioChart";
 import PortfolioList from "./PortfolioList";
 
-function Dashboard(props) {
+function Dashboard({value, dailyChange, dailyPercent, fetchAll}) {
   useEffect(() => {
-    props.fetchAll();
-  }, []);
-
+    fetchAll()
+    setInterval(() => { // runs every 60 seconds
+      fetchAll()
+    }, 60 * 100);
+  }, [fetchAll]);
+  
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">
         <Header as="h5">Aggregated Activity</Header>
-        <Header as="h2">${props.value}</Header>
+        <Header as="h2">${value}</Header>
         <Header as="h4">
-          {props.dailyChange} (%{props.dailyPercent})
+          {dailyChange} ({dailyPercent}%)
         </Header>
         <PortfolioChart />
       </div>

@@ -10,6 +10,8 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import WatchList from './components/WatchList';
 import Stock from './components/Stock';
+import BuyStock from './components/Buy';
+import Messages from './components/Messages';
 
 function App() {
   return (
