@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import About from './components/About';
 import Dashboard from './components/Dashboard';
 import Stock from './components/Stock';
+import BuyStock from './components/Buy';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route exact path='/signup' component={SignUp} />
       <Route exact path='/signin' component={SignIn} />
       <Route exact path='/stock/' component={Stock} />
+      <Route exact path='/buy' component={BuyStock} />
     </div>
   );
 }
