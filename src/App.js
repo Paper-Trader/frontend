@@ -18,6 +18,7 @@ function App() {
     <div className="App">
       <Route path="/" render={props => <Nav {...props} />} />
       <Route exact path="/" component={Home} />
+      <Route exact path='/buy' component={BuyStock} />
       <Route exact path="/about" component={About} />
       <Route exact path="/team" component={Team} />
       <Route exact path="/signup" component={SignUp} />
@@ -26,6 +27,7 @@ function App() {
       <Route exact path="/dashboard" component={HomeUser} />
       <Route exact path="/watchlist" component={WatchList} />
       <Route exact path="/stock/" component={Stock} />
+      <Messages />
     </div>
   );
 }
