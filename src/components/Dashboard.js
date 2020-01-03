@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PortfolioChart from './PortfolioChart';
 
-function Dashboard() {
+function Dashboard(props) {
   return (
     <div>
-      <h2>Investing</h2>
-      <h2>$2,314.41</h2>
+      <h2>{props.value}</h2>
       <h4>Daily Change (Percent)</h4>
-      <div>Chart</div>
+      <PortfolioChart />
       <div>
         <h3>Watchlist</h3>
         <Link to='/stock/'>Stock</Link>
@@ -16,4 +17,8 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  value: state.value
+})
+
+export default connect(mapStateToProps, {})(Dashboard);

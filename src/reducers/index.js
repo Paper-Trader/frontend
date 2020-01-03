@@ -5,6 +5,16 @@ const initialState = {
     symbol: '',
     price: 0
   },
+  portfolio: {
+    cash: 2500,
+    stock: {
+      symbol: '',
+      price: 0,
+      amount: 0,
+      purchased: '00-00-0000'
+    }
+  },
+  value: 2500,
   isFetching: false
 }
 
