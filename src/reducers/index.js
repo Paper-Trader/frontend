@@ -1,22 +1,31 @@
 import * as actionType from '../actions';
 
 const initialState = {
-  stock: {
-    symbol: '',
-    price: 0
-  },
   portfolio: {
-    cash: 2500,
+    cash: 515,
     stocks: [
       {
-        symbol: '',
-        price: 0,
-        amount: 0
-      }
+        symbol: 'MU',
+        price: 60.37,
+        amount: 3
+      },
+      {
+        symbol: 'AAPL',
+        price: 300.28,
+        amount: 5
+      },
+      {
+        symbol: 'MSFT',
+        price: 160.52,
+        amount: 2
+      },
     ]
   },
-  value: 2500,
-  isFetching: false
+  valueInitial: 2500,
+  valueCurr: 0,
+  isFetching: false,
+  dailyChange: 0,
+  dailyPercentChange: 0,
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -49,6 +58,9 @@ export const rootReducer = (state = initialState, action) => {
         error: '',
         symbolsList: action.payload.symbolsList,
         isFetching: false,
+        valueCurr: Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) * 100) / 100,
+        dailyChange: Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100,
+        dailyPercentChange: Math.round((Math.round((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) * 100) / 100 / Math.round(((state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)) - state.valueInitial) * 100) / 100) * 100) / 100
       }
     case actionType.ERROR:
       return {

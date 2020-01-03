@@ -4,11 +4,34 @@
   justify-content: space-between;
   align-items: center;
   background: #110034;
+  color: #00D1C5;
   .nav-left {
     display: flex;
-
+    justify-content: center;
+    align-items: center;
+    .logo {
+      margin: .5rem 1.25rem;
+    }
+    .nav-left-link {
+      margin: .65rem;
+    }
   }
   .nav-right {
-    display: flex;
+    // display: flex;
+
+    .signin-button {
+      background-color: #110034;
+      border: 2px solid #DC4A7F;
+      .signin-button-text {
+        color: #DC4A7F;
+      }
+    }
+    .signup-button {
+      margin: 0 1rem;
+      background-color: #fff;
+      .signup-button-text {
+        color: #DC4A7F;
+      }
+    }
   }
 }

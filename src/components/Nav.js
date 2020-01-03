@@ -11,18 +11,18 @@ function Nav() {
           <img src={logo} alt="logo" />
         </Link>
         <Link to="/about" className="nav-left-link">
-          About
+          ABOUT
         </Link>
         <Link to="/team" className="nav-left-link">
-          Team
+          TEAM
         </Link>
       </div>
       <div className="nav-right">
-        <Button className="nav-signin-button">
-          <Link to="/signin">Sign In</Link>
+        <Button className="signin-button">
+          <Link to="/signin" className="signin-button-text">SIGN IN</Link>
         </Button>
-        <Button className="nav-signup-button">
-          <Link to="/signup">Sign Up</Link>
+        <Button className="signup-button">
+          <Link to="/signup" className="signup-button-text">SIGN UP</Link>
         </Button>
       </div>
     </div>

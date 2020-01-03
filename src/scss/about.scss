@@ -1,0 +1,21 @@
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    font-family: "Baloo";
+  }
+  img {
+    margin: .75rem;
+    max-width: 30vw;
+  }
+  .right-content {
+    max-width: 40%;
+    h3 {
+      font-family: "Baloo";
+    }
+    p {
+      margin: 1rem .5rem;
+    }
+  }
+}

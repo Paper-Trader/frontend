@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  LineChart, Line, XAxis, YAxis, Tooltip,
 } from 'recharts';
 
 
