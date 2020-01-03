@@ -7,12 +7,13 @@ const initialState = {
   },
   portfolio: {
     cash: 2500,
-    stock: {
-      symbol: '',
-      price: 0,
-      amount: 0,
-      purchased: '00-00-0000'
-    }
+    stocks: [
+      {
+        symbol: '',
+        price: 0,
+        amount: 0
+      }
+    ]
   },
   value: 2500,
   isFetching: false
@@ -34,6 +35,19 @@ export const rootReducer = (state = initialState, action) => {
           symbol: action.payload.symbol,
           price: action.payload.price
         },
+        isFetching: false,
+      }
+    case actionType.FETCH_ALL_STOCKS:
+      return {
+        ...state,
+        error: '',
+        isFetching: true,
+      }
+    case actionType.FETCH_ALL_SUCCESS:
+      return {
+        ...state,
+        error: '',
+        symbolsList: action.payload.symbolsList,
         isFetching: false,
       }
     case actionType.ERROR:

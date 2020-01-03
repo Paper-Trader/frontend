@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchStock } from '../actions';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 
 function Stock(props) {
 
@@ -28,8 +29,16 @@ function Stock(props) {
     },
   ]
 
+  const company = 'APPL';
+
   useEffect(() => {
     // runs every 30 minutes
+    // company variable will need to be changed depending on what prop is being passed in
+    axios
+      .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=GLZW25M1M9C0O9XZ`)
+      .then(data => {
+        console.log(data);
+      })
     setInterval(() => {
       props.fetchStock()
     }, 1000*60*30)

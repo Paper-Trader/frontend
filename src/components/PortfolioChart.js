@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 
 const data = [
   {name: '9:00AM', value: 2500},
@@ -23,9 +23,11 @@ const data = [
 function PortfolioChart(props) {
   return (
     <div>
+      {/* chart for dashboard page, x and y axis are hidden*/}
       <LineChart width={400} height={400} data={data}>
         <Line type="monotone" dataKey="value" stroke="#00D1C5" strokeWidth={3}/>
         <YAxis hide={true} domain={['dataMin - 100', 'dataMax + 100']} />
+        <XAxis dataKey="name" hide={true} stroke="#8884d8" />
         <Tooltip />
       </LineChart>
     </div>

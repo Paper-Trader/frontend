@@ -5,12 +5,26 @@ import logo from '../assets/logo.svg'
 
 function Nav() {
   return (
-    <div className="navbar" >
-      <Link to="/"><img src={logo} alt="logo" /></Link>
-      <Link to="/about">About</Link>
-      <Link to="/team">Team</Link>
-      <Button><Link to="/signin">Sign In</Link></Button>
-      <Button><Link to="/signup">Sign Up</Link></Button>
+    <div className="navbar">
+      <div className="nav-left">
+        <Link to="/" className="logo">
+          <img src={logo} alt="logo" />
+        </Link>
+        <Link to="/about" className="nav-left-link">
+          About
+        </Link>
+        <Link to="/team" className="nav-left-link">
+          Team
+        </Link>
+      </div>
+      <div className="nav-right">
+        <Button className="nav-signin-button">
+          <Link to="/signin">Sign In</Link>
+        </Button>
+        <Button className="nav-signup-button">
+          <Link to="/signup">Sign Up</Link>
+        </Button>
+      </div>
     </div>
   );
 }
