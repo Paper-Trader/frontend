@@ -104,6 +104,11 @@ export const rootReducer = (state = initialState, action) => {
           success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       }  
+    case actionType.SELL_STOCK:
+      return {
+        ...state,
+        error: '',
+      }
     default:
       return state;
   }
