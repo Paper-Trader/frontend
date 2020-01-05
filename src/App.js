@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Home from './components/views/Home';
-import HomeUser from './components/HomeUser';
+import Home from './components/pages/Home';
+import HomeUser from './components/pages/HomeUser';
 // import Dashboard from './components/Dashboard';
 import Nav from './components/nav/Nav';
 import About from './components/views/About';
@@ -9,8 +9,8 @@ import Team from './components/views/Team';
 import SignUp from './components/login_register/SignUp';
 import SignIn from './components/login_register/SignIn';
 import WatchList from './components/watchlist/WatchList';
-import Stock from './components/Stock';
-import BuyStock from './components/Buy';
+import Stock from './components/views/Stock';
+import BuyStock from './components/views/Buy';
 import Messages from './components/Messages';
 
 function App() {

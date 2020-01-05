@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { fetchStock } from "../actions";
 import Loader from "react-loader-spinner";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
+import { connect } from "react-redux";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip,
   ResponsiveContainer
 } from "recharts";
 import axios from "axios";
+import { fetchStock } from "../../actions";
 
-function Stock(props) {
+function Stock({ match}) {
+  console.log('single stock:', match)
+  // let { slug } = match.params
+
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // KB: change to state
   const company = "TWTR";
 
   function formatDate(date) {
@@ -35,22 +33,31 @@ function Stock(props) {
   let cash, perc;
   const green = { color: "green" },
     red = { color: "red" };
+
   useEffect(() => {
+
     if (lowHighCashPerc.length > 0) {
       setLoading(false);
     } else {
+      //KB: should we move this to redux?
       axios
         .get(
-          `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=GLZW25M1M9C0O9XZ`
+          `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`
         )
         .then(data => {
+          console.log('stock axios data', data)
+
           let newArr = [];
-          for (const key in data.data["Time Series (60min)"]) {
-            if (key.includes(formatDate(Date.now()))) {
+          // for (const key in data.data["Time Series (60min)"]) {
+          for (const key in data.data["Weekly Time Series"]) {
+            // if (key.includes(formatDate(Date.now()))) {
+            if (key.includes("2020-01-03")) {
               newArr.push({
-                ...data.data["Time Series (60min)"][key],
+                // ...data.data["Time Series (60min)"][key],
+                ...data.data["Weekly Time Series"][key],
                 timestamp: key.split(" ")[1],
-                price: data.data["Time Series (60min)"][key]["1. open"]
+                // price: data.data["Time Series (60min)"][key]["1. open"]
+                price: data.data["Weekly Time Series"][key]["1. open"]
               });
             }
           }
@@ -70,6 +77,7 @@ function Stock(props) {
           perc = (cash / Math.abs(newArr[0].price)) * 100;
           setLowHighCashPerc([low, high, cash.toFixed(2), perc.toFixed(2)]);
         });
+
       axios
         .get(
           `https://financialmodelingprep.com/api/v3/company/profile/${company}`

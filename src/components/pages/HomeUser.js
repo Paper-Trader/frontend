@@ -1,6 +1,6 @@
 import React from 'react';
-import SideNav from "./nav/SideNav";
-import Dashboard from './views/Dashboard';
+import SideNav from "../nav/SideNav";
+import Dashboard from '../views/Dashboard';
 
 function HomeUser() {
   return (
