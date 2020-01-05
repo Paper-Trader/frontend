@@ -7,9 +7,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip,
 import axios from "axios";
 import { fetchStock } from "../../actions";
 
-function Stock({ match}) {
-  console.log('single stock:', match)
-  // let { slug } = match.params
+function Stock() {
 
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
@@ -45,20 +43,16 @@ function Stock({ match}) {
           `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`
         )
         .then(data => {
-          console.log('stock axios data', data)
-
           let newArr = [];
-          // for (const key in data.data["Time Series (60min)"]) {
-          for (const key in data.data["Weekly Time Series"]) {
-            // if (key.includes(formatDate(Date.now()))) {
-            if (key.includes("2020-01-03")) {
-              newArr.push({
-                // ...data.data["Time Series (60min)"][key],
-                ...data.data["Weekly Time Series"][key],
-                timestamp: key.split(" ")[1],
-                // price: data.data["Time Series (60min)"][key]["1. open"]
-                price: data.data["Weekly Time Series"][key]["1. open"]
-              });
+          for (const key in data.data["Time Series (60min)"]) {
+            if (key.includes(formatDate(Date.now()))) {
+              for (const key in data.data["Time Series (60min)"]) {
+                newArr.push({
+                  ...data.data["Time Series (60min)"][key],
+                  timestamp: key.split(" ")[1],
+                  price: data.data["Time Series (60min)"][key]["1. open"]
+                });
+              }
             }
           }
           high = newArr[0]["2. high"];
