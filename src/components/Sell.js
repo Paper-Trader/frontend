@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-// import { sellStock } from '../actions';
-
-const initialStock = {
-  symbol: 'AAPL',
-  price: 300,
-  amount: 0,
-};
+import { sellStock } from '../actions';
 
 function SellStock(props) {
+  let initialStock = {
+    symbol: 'AAPL',
+    price: props.stocks[1].price,
+    amount: props.stocks[1].amount,
+  };
   const [newStock, setNewStock] = useState(initialStock);
 
   const sellStock = (e) => {
@@ -24,6 +23,7 @@ function SellStock(props) {
         ...newStock, 
         [e.target.name]: e.target.value
       })
+      console.log(newStock)
    }
   }
 
@@ -45,7 +45,7 @@ function SellStock(props) {
             Market Price x {newStock.price}
         </label>
         <label>
-            EST COST = {newStock.amount * newStock.price}
+            EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
         </label>
         <div>
           <button type="submit">Sell</button>
@@ -56,7 +56,7 @@ function SellStock(props) {
 };
 
 const mapStateToProps = state => ({
-  
+  stocks: state.portfolio.stocks
 })
 
-export default connect(mapStateToProps, {  })(SellStock);
+export default connect(mapStateToProps, { sellStock })(SellStock);
