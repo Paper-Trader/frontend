@@ -1,0 +1,51 @@
+.watchlist-container {
+  display: flex;
+  width: 100%;
+  .watchlist-content {
+    display: flex;
+    align-items: flex-start;
+    // flex-direction: column;
+    padding: 1rem 2rem;
+    width: 100%;
+    h5 {
+      font-weight: normal;
+    }
+    .recharts-wrapper {
+      margin: 1rem;
+    }
+    .watchlist {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 1rem 2rem;
+      .stock {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+        ​ .stock-header {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          flex-direction: column;
+          h2 {
+            padding: 0;
+            margin: 0;
+            font-family: "Baloo", sans-serif;
+          }
+          h6 {
+            padding: 0;
+            margin: 0;
+            font-weight: normal;
+            color: #666;
+          }
+        }
+        h3 {
+          padding: 0;
+          margin: 0;
+          font-family: "Baloo", sans-serif;
+        }
+      }
+    }
+  }
+}
