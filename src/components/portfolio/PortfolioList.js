@@ -5,7 +5,6 @@ import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
 
 function PortfolioList(props) {
-  console.log('portfolio list props', props)
   return (
     <div className="portfoliolist">
       {props.stocks.map(stock => (
