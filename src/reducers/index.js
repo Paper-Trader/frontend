@@ -21,7 +21,20 @@ const initialState = {
       },
     ]
   },
-  watchList: [],
+  watchList: [
+    {
+      symbol: 'TWTR',
+      price: 31.64
+    },
+    {
+      symbol: 'ATVI',
+      price: 59.74
+    },
+    {
+      symbol: 'AMD',
+      price: 48.39
+    },
+  ],
   dailyInitial: 10000,
   valueCurr: 0,
   isFetching: false,

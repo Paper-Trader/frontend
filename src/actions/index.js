@@ -11,6 +11,8 @@ export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
 export const BUY_STOCK = 'BUY_STOCK';
 export const SELL_STOCK = 'SELL_STOCK';
 
+export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
+
 export const ERROR = 'ERROR';
 
 export const fetchStock = () => dispatch => {
@@ -54,6 +56,13 @@ export const buyStock = (data) => {
 export const sellStock = (data) => {
   return {
     type: SELL_STOCK,
+    payload: { ...data }
+  }
+}
+
+export const addWatchList = (data) => {
+  return {
+    type: ADD_WATCH_LIST,
     payload: { ...data }
   }
 }

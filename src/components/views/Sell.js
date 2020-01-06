@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { sellStock } from '../../actions';
 
 function SellStock(props) {
+  let stock = props.stocks.filter(stock => props.company === stock.symbol)
+
   let initialStock = {
     symbol: props.company,
     price: parseInt(props.currPrice[props.currPrice.length - 1]["4. close"]).toFixed(2),
-    amount: props.stocks[1].amount,
+    amount: stock[0].amount,
   };
   const [newStock, setNewStock] = useState(initialStock);
 
