@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchStock } from "../../actions";
+import { fetchStock, addWatchList } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -89,7 +89,7 @@ function Stock(props) {
           <h1>
             {company} <span>{companyInfo.companyName}</span>
           </h1>
-          <h3>{`$${parseInt(graphInfo[graphInfo.length - 1]["4. close"]).toFixed(2)}`}</h3>
+          <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"])}`}</h3>
           <h4>
             {lowHighCashPerc[2] < 0 ? (
               <span style={red}>{`-$${lowHighCashPerc[2]
@@ -108,7 +108,10 @@ function Stock(props) {
           </h4>
         </div>
         {/* <img src="/plus-solid.svg" style={{ width: "30px" }} /> */}
-        <button>WATCH</button>
+        <button onClick={() => props.addWatchList({
+          symbol: company,
+          price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
+        })}>WATCH</button>
       </div>
       <ResponsiveContainer height={300} width="100%">
         <LineChart
@@ -162,4 +165,4 @@ const mapStateToProps = state => ({
   stock: state.stock
 });
 
-export default connect(mapStateToProps, { fetchStock })(Stock);
+export default connect(mapStateToProps, { fetchStock, addWatchList })(Stock);

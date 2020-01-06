@@ -8,7 +8,7 @@ function SellStock(props) {
   let initialStock = {
     symbol: props.company,
     price: parseInt(props.currPrice[props.currPrice.length - 1]["4. close"]).toFixed(2),
-    amount: stock[0].amount,
+    amount: stock.length === 1 ? stock[0].amount : 0,
   };
   const [newStock, setNewStock] = useState(initialStock);
 

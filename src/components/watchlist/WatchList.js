@@ -5,17 +5,6 @@ import SideNav from "../nav/SideNav";
 import { Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-// const data = [
-//   { symbol: "APPL", time: "9:00 AM", price: 2.34 },
-//   { symbol: "GOOG", time: "10:00 AM", price: 5.09 },
-//   { symbol: "AMZN", time: "11:00 AM", price: 3.5 },
-//   { symbol: "FB", time: "12:00 AM", price: 3.8 },
-//   { symbol: "SPY", time: "1:00 AM", price: 3.75 },
-//   { symbol: "COST", time: "2:00 AM", price: 4.02 },
-//   { symbol: "TGT", time: "3:00 AM", price: 3.2 },
-//   { symbol: "FIT", time: "4:00 AM", price: 4.68 }
-// ];
-
 function WatchList(props) {
   return (
     <div className="watchlist-container">

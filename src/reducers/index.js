@@ -153,7 +153,14 @@ export const rootReducer = (state = initialState, action) => {
           success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       }
-
+    case actionType.ADD_WATCH_LIST:
+      // if (state.watchList.)
+      return {
+        ...state,
+        error: '',
+        success: `${action.payload.symbol} added to watch list.`,
+        watchList: [...state.watchList, action.payload]
+      }
     default:
       return state;
   }
