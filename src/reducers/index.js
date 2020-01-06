@@ -105,33 +105,30 @@ export const rootReducer = (state = initialState, action) => {
           error: 'Amount required',
           success: '',
         }
-      } 
-
-      if (state.portfolio.cash < (action.payload.amount * action.payload.price)) {
+      } else if (state.portfolio.cash < (action.payload.amount * action.payload.price)) { // check if you have enough cash 
         return {
           ...state,
           success: '',
           error: `You do not have sufficient funds in your account. Current cash balance of $${state.portfolio.cash}.`
         }
-      } 
-
-      if (state.portfolio.stocks.filter(stock => stock.symbol === action.payload.symbol).length === 1) {
+      } else if (state.portfolio.stocks.filter(stock => stock.symbol === action.payload.symbol).length === 1) { // check if you already own that stock 
         for (let i=0; i < state.portfolio.stocks.length; i++) { // find the array
           if (state.portfolio.stocks[i].symbol === action.payload.symbol) {
-            state.portfolio.stocks[i].amount += action.payload.amount
-            return {
-              ...state,
-              portfolio: {
-                cash: (state.portfolio.cash) - (action.payload.amount * action.payload.price),
-                stocks: [...state.portfolio.stocks]
-              },
-              success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
-            }
+            state.portfolio.stocks[i].amount += action.payload.amount // add to the already existing amount
           }
         }
-      }
-
-      else {
+        console.log('Cash', state.portfolio.cash)
+        console.log('Amount * Price', action.payload.amount * action.payload.price)
+        console.log('Total', state.portfolio.cash - (action.payload.amount * action.payload.price))
+        return {
+          ...state,
+          portfolio: {
+            cash: (state.portfolio.cash) - (action.payload.amount * action.payload.price),
+            stocks: [...state.portfolio.stocks] // update with the new amount
+          },
+          success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
+        }
+      } else { // add stock to portfolio list
         return {
           ...state,
           error: '',
@@ -157,23 +154,21 @@ export const rootReducer = (state = initialState, action) => {
           stock = state.portfolio.stocks[i] // set stock var to the proper stock in portfolio
         }
       }
-      console.log(typeof stock.amount)
-      console.log(typeof action.payload.amount)
+
       if (parseFloat(action.payload.amount) > stock.amount) { // check if user put more than they own
         return {
           ...state,
           error: `Too many, you only have ${stock.amount} shares of ${stock.symbol} in your account.`,
           success: '',
         }
-      } else if (parseFloat(action.payload.amount) === stock.amount) {
-        console.log(action.payload)
+      } else if (parseFloat(action.payload.amount) === stock.amount) { // check if user is selling the max stock they own
         return {
           ...state,
           error: '',
           success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
           portfolio: {
             cash: (state.portfolio.cash) + (action.payload.amount * action.payload.price),
-            stocks: state.portfolio.stocks.filter(val => val != stock)
+            stocks: state.portfolio.stocks.filter(val => val !== stock) // remove the stock from portfolio since we no longer own any
           }
         }
       } else {

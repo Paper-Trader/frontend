@@ -26,7 +26,7 @@ function BuyStock(props) {
       })
     }
   }
-
+  console.log((newStock.amount * newStock.price))
   return (
     <div >
       <form onSubmit={buyStock}>
@@ -44,7 +44,7 @@ function BuyStock(props) {
             Market Price x {newStock.price}
         </label>
         <label>
-            EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
+            EST COST = ${(newStock.amount * newStock.price)}
         </label>
         <button type="submit">Buy</button>
       </form>
