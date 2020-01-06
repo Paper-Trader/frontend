@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { sellStock } from '../actions';
+import { sellStock } from '../../actionsons';
 
 function SellStock(props) {
   let initialStock = {
