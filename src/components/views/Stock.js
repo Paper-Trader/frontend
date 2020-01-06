@@ -12,13 +12,17 @@ import {
   ResponsiveContainer
 } from "recharts";
 import axios from "axios";
+import BuyStock from './Buy';
+import SellStock from './Sell';
+import Sell from "./Sell";
 
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
-  const company = "TWTR";
+  const company = "AAPL";
+
   function formatDate(date) {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
@@ -28,10 +32,13 @@ function Stock(props) {
     if (day.length < 2) day = "0" + day;
     return [year, month, day].join("-");
   }
+
   let high, low;
   let cash, perc;
+
   const green = { color: "green" },
     red = { color: "red" };
+
   useEffect(() => {
     if (lowHighCashPerc.length > 0) {
       setLoading(false);
@@ -73,6 +80,7 @@ function Stock(props) {
         });
     }
   }, [lowHighCashPerc]);
+
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
@@ -143,10 +151,16 @@ function Stock(props) {
           )}
         </LineChart>
       </ResponsiveContainer>
+      <div>
+          <BuyStock />
+          <SellStock />
+      </div>
     </div>
   );
 }
+
 const mapStateToProps = state => ({
   stock: state.stock
 });
+
 export default connect(mapStateToProps, { fetchStock })(Stock);

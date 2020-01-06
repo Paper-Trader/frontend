@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { buyStock } from '../../actions';
-import SellStock from './Sell';
 
 const initialStock = {
   symbol: 'AAPL',
@@ -52,8 +51,6 @@ function BuyStock(props) {
           <button type="submit">Buy</button>
         </div>
       </form>
-
-      <SellStock />
     </div>
   );
 };
