@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
-import Loader from "react-loader-spinner";
 import { connect } from "react-redux";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip,
+import { fetchStock } from "../../actions";
+import Loader from "react-loader-spinner";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
   ResponsiveContainer
 } from "recharts";
 import axios from "axios";
-import { fetchStock } from "../../actions";
 
-function Stock() {
-
+function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // KB: change to state
   const company = "TWTR";
-
   function formatDate(date) {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
@@ -26,38 +28,29 @@ function Stock() {
     if (day.length < 2) day = "0" + day;
     return [year, month, day].join("-");
   }
-
   let high, low;
   let cash, perc;
   const green = { color: "green" },
     red = { color: "red" };
-
   useEffect(() => {
-
     if (lowHighCashPerc.length > 0) {
       setLoading(false);
     } else {
-      //KB: should we move this to redux?
       axios
-        .get(
-          `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`
-        )
+        .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`)
         .then(data => {
           let newArr = [];
           for (const key in data.data["Time Series (60min)"]) {
             if (key.includes(formatDate(Date.now()))) {
-              for (const key in data.data["Time Series (60min)"]) {
-                newArr.push({
-                  ...data.data["Time Series (60min)"][key],
-                  timestamp: key.split(" ")[1],
-                  price: data.data["Time Series (60min)"][key]["1. open"]
-                });
-              }
+              newArr.push({
+                ...data.data["Time Series (60min)"][key],
+                timestamp: key.split(" ")[1],
+                price: data.data["Time Series (60min)"][key]["1. open"]
+              });
             }
           }
           high = newArr[0]["2. high"];
           low = newArr[0]["3. low"];
-
           newArr.forEach(obj => {
             if (obj["3. low"] < low) {
               low = obj["3. low"];
@@ -71,7 +64,6 @@ function Stock() {
           perc = (cash / Math.abs(newArr[0].price)) * 100;
           setLowHighCashPerc([low, high, cash.toFixed(2), perc.toFixed(2)]);
         });
-
       axios
         .get(
           `https://financialmodelingprep.com/api/v3/company/profile/${company}`
@@ -81,7 +73,6 @@ function Stock() {
         });
     }
   }, [lowHighCashPerc]);
-
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
@@ -155,9 +146,7 @@ function Stock() {
     </div>
   );
 }
-
 const mapStateToProps = state => ({
   stock: state.stock
 });
-
 export default connect(mapStateToProps, { fetchStock })(Stock);
