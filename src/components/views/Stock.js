@@ -22,8 +22,6 @@ function Stock(props) {
   const [loading, setLoading] = useState(true);
   const company = props.match.params.id;
 
-  console.log(props)
-
   function formatDate(date) {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),

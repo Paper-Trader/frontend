@@ -21,7 +21,8 @@ const initialState = {
       },
     ]
   },
-  dailyInitial: 11500,
+  watchList: [],
+  dailyInitial: 10000,
   valueCurr: 0,
   isFetching: false,
   dailyChange: 0,
