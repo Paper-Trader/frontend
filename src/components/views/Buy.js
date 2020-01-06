@@ -26,7 +26,7 @@ function BuyStock(props) {
       })
     }
   }
-  console.log((newStock.amount * newStock.price))
+
   return (
     <div >
       <form onSubmit={buyStock}>

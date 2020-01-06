@@ -117,9 +117,6 @@ export const rootReducer = (state = initialState, action) => {
             state.portfolio.stocks[i].amount += action.payload.amount // add to the already existing amount
           }
         }
-        console.log('Cash', state.portfolio.cash)
-        console.log('Amount * Price', action.payload.amount * action.payload.price)
-        console.log('Total', state.portfolio.cash - (action.payload.amount * action.payload.price))
         return {
           ...state,
           portfolio: {
