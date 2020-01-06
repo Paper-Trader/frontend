@@ -4,8 +4,8 @@ import { sellStock } from '../../actions';
 
 function SellStock(props) {
   let initialStock = {
-    symbol: 'AAPL',
-    price: props.stocks[1].price,
+    symbol: props.company,
+    price: parseInt(props.currPrice[props.currPrice.length - 1]["4. close"]).toFixed(2),
     amount: props.stocks[1].amount,
   };
   const [newStock, setNewStock] = useState(initialStock);
@@ -23,7 +23,6 @@ function SellStock(props) {
         ...newStock, 
         [e.target.name]: e.target.value
       })
-      console.log(newStock)
    }
   }
 

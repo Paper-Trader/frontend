@@ -90,7 +90,7 @@ function Stock(props) {
           <h1>
             {company} <span>{companyInfo.companyName}</span>
           </h1>
-          <h3>{`$${graphInfo[graphInfo.length - 1]["4. close"]}`}</h3>
+          <h3>{`$${parseInt(graphInfo[graphInfo.length - 1]["4. close"]).toFixed(2)}`}</h3>
           <h4>
             {lowHighCashPerc[2] < 0 ? (
               <span style={red}>{`-$${lowHighCashPerc[2]
@@ -152,8 +152,8 @@ function Stock(props) {
         </LineChart>
       </ResponsiveContainer>
       <div>
-          <BuyStock />
-          <SellStock />
+        <BuyStock currPrice={graphInfo} company={company}/>
+        <SellStock currPrice={graphInfo} company={company}/>
       </div>
     </div>
   );

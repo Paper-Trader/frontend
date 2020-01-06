@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { buyStock } from '../../actions';
 
-const initialStock = {
-  symbol: 'AAPL',
-  price: 300,
-  amount: 0,
-};
-
 function BuyStock(props) {
+  const initialStock = {
+    symbol: props.company,
+    price: parseInt(props.currPrice[props.currPrice.length - 1]["4. close"]).toFixed(2),
+    amount: 0,
+  };
+
   const [newStock, setNewStock] = useState(initialStock);
 
   const buyStock = (e) => {
