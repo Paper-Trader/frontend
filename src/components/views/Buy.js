@@ -45,7 +45,7 @@ function BuyStock(props) {
             Market Price x {newStock.price}
         </label>
         <label>
-            EST COST = {newStock.amount * newStock.price}
+            EST COST = {(newStock.amount * newStock.price).toFixed(2)}
         </label>
         <div>
           <button type="submit">Buy</button>
