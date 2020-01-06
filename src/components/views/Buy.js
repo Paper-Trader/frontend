@@ -30,7 +30,6 @@ function BuyStock(props) {
   return (
     <div >
       <form onSubmit={buyStock}>
-        <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
           <input
@@ -45,18 +44,12 @@ function BuyStock(props) {
             Market Price x {newStock.price}
         </label>
         <label>
-            EST COST = {(newStock.amount * newStock.price).toFixed(2)}
+            EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
         </label>
-        <div>
-          <button type="submit">Buy</button>
-        </div>
+        <button type="submit">Buy</button>
       </form>
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-
-})
-
-export default connect(mapStateToProps, { buyStock })(BuyStock);
+export default connect(null, { buyStock })(BuyStock);

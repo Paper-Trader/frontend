@@ -29,7 +29,6 @@ function SellStock(props) {
   return (
     <div >
       <form onSubmit={sellStock}>
-        <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
           <input 
@@ -46,9 +45,7 @@ function SellStock(props) {
         <label>
             EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
         </label>
-        <div>
-          <button type="submit">Sell</button>
-        </div>
+        <button type="submit">Sell</button>
       </form>
     </div>
   );

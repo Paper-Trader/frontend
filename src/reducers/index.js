@@ -89,7 +89,7 @@ export const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           success: '',
-          error: 'You do not have sufficient funds in your account.'
+          error: `You do not have sufficient funds in your account. Current cash balance of $${state.portfolio.cash}.`
         }
       } else {
         return {
