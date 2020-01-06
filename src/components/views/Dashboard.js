@@ -16,7 +16,7 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll}) {
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">
-        <Header as="h5">Aggregated Activity</Header>
+        <Header as="h5">Aggregated Daily Activity</Header>
         <Header as="h2">${value}</Header>
         <Header as="h4">
           {dailyChange} ({dailyPercent}%)

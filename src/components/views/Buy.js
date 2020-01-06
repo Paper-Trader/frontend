@@ -18,14 +18,14 @@ function BuyStock(props) {
   }
 
   const onChange = (e) => {
-    const re = /^[0-9\b]+$/; 
+    const re = /^[0-9\b]+$/;
 
     if (e.target.value === '' || re.test(e.target.value)) {
-      setNewStock({ 
-        ...newStock, 
+      setNewStock({
+        ...newStock,
         [e.target.name]: e.target.value
       })
-   }
+    }
   }
 
   return (
@@ -34,7 +34,7 @@ function BuyStock(props) {
         <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
-          <input 
+          <input
             type="number"
             min="1"
             name="amount"
@@ -59,7 +59,7 @@ function BuyStock(props) {
 };
 
 const mapStateToProps = state => ({
-  
+
 })
 
 export default connect(mapStateToProps, { buyStock })(BuyStock);
