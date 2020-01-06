@@ -5,7 +5,7 @@ import { buyStock } from '../../actions';
 function BuyStock(props) {
   const initialStock = {
     symbol: props.company,
-    price: parseInt(props.currPrice[props.currPrice.length - 1]["4. close"]).toFixed(2),
+    price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
     amount: 0,
   };
 

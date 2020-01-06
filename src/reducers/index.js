@@ -154,7 +154,13 @@ export const rootReducer = (state = initialState, action) => {
         }
       }
     case actionType.ADD_WATCH_LIST:
-      // if (state.watchList.)
+      if (state.watchList.filter(stock => stock.symbol === action.payload.symbol).length === 1) {
+        return {
+          ...state,
+          error: `You are already watching ${action.payload.symbol}.`,
+          success: ''
+        }
+      }
       return {
         ...state,
         error: '',

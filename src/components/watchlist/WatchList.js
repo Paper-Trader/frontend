@@ -41,7 +41,7 @@ function WatchList(props) {
           <div className="watchlist-list">
             {props.watchList.map(stock => (
               <div key={stock.symbol} className="stock-wrapper">
-                <Link to="/stock/">
+                <Link to={`/stock/${stock.symbol}`}>
                   <div className="stock">
                     <div className="stock-header">
                       <Header as="h2">{stock.symbol}</Header>
