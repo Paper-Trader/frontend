@@ -14,14 +14,15 @@ import {
 import axios from "axios";
 import BuyStock from './Buy';
 import SellStock from './Sell';
-import Sell from "./Sell";
 
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
-  const company = "AAPL";
+  const company = props.match.params.id;
+
+  console.log(props)
 
   function formatDate(date) {
     var d = new Date(date),
