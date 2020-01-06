@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchStock } from "../../actions";
+import { fetchStock, addWatchList } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -12,13 +12,16 @@ import {
   ResponsiveContainer
 } from "recharts";
 import axios from "axios";
+import BuyStock from './Buy';
+import SellStock from './Sell';
 
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
-  const company = "TWTR";
+  const company = props.match.params.id;
+
   function formatDate(date) {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
@@ -28,10 +31,13 @@ function Stock(props) {
     if (day.length < 2) day = "0" + day;
     return [year, month, day].join("-");
   }
+
   let high, low;
   let cash, perc;
+
   const green = { color: "green" },
     red = { color: "red" };
+
   useEffect(() => {
     if (lowHighCashPerc.length > 0) {
       setLoading(false);
@@ -73,6 +79,7 @@ function Stock(props) {
         });
     }
   }, [lowHighCashPerc]);
+
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
@@ -82,7 +89,7 @@ function Stock(props) {
           <h1>
             {company} <span>{companyInfo.companyName}</span>
           </h1>
-          <h3>{`$${graphInfo[graphInfo.length - 1]["4. close"]}`}</h3>
+          <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"])}`}</h3>
           <h4>
             {lowHighCashPerc[2] < 0 ? (
               <span style={red}>{`-$${lowHighCashPerc[2]
@@ -101,7 +108,10 @@ function Stock(props) {
           </h4>
         </div>
         {/* <img src="/plus-solid.svg" style={{ width: "30px" }} /> */}
-        <button>WATCH</button>
+        <button onClick={() => props.addWatchList({
+          symbol: company,
+          price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
+        })}>WATCH</button>
       </div>
       <ResponsiveContainer height={300} width="100%">
         <LineChart
@@ -143,10 +153,16 @@ function Stock(props) {
           )}
         </LineChart>
       </ResponsiveContainer>
+      <div>
+        <BuyStock currPrice={graphInfo} company={company}/>
+        <SellStock currPrice={graphInfo} company={company}/>
+      </div>
     </div>
   );
 }
+
 const mapStateToProps = state => ({
   stock: state.stock
 });
-export default connect(mapStateToProps, { fetchStock })(Stock);
+
+export default connect(mapStateToProps, { fetchStock, addWatchList })(Stock);

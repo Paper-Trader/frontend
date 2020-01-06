@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { buyStock } from '../../actions';
-import SellStock from './Sell';
-
-const initialStock = {
-  symbol: 'AAPL',
-  price: 300,
-  amount: 0,
-};
 
 function BuyStock(props) {
+  const initialStock = {
+    symbol: props.company,
+    price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
+    amount: 0,
+  };
+
   const [newStock, setNewStock] = useState(initialStock);
 
   const buyStock = (e) => {
@@ -23,7 +22,7 @@ function BuyStock(props) {
     if (e.target.value === '' || re.test(e.target.value)) {
       setNewStock({
         ...newStock,
-        [e.target.name]: e.target.value
+        [e.target.name]: parseInt(e.target.value)
       })
     }
   }
@@ -31,7 +30,6 @@ function BuyStock(props) {
   return (
     <div >
       <form onSubmit={buyStock}>
-        <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
           <input
@@ -46,20 +44,12 @@ function BuyStock(props) {
             Market Price x {newStock.price}
         </label>
         <label>
-            EST COST = {newStock.amount * newStock.price}
+            EST COST = ${(newStock.amount * newStock.price)}
         </label>
-        <div>
-          <button type="submit">Buy</button>
-        </div>
+        <button type="submit">Buy</button>
       </form>
-
-      <SellStock />
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-
-})
-
-export default connect(mapStateToProps, { buyStock })(BuyStock);
+export default connect(null, { buyStock })(BuyStock);

@@ -26,7 +26,7 @@ function App() {
       {/* <PrivateRoute path='/' component={sideNav} /> */}
       <Route exact path="/dashboard" component={HomeUser} />
       <Route exact path="/watchlist" component={WatchList} />
-      <Route exact path="/stock/" component={Stock} />
+      <Route exact path="/stock/:id" component={Stock} />
       <Messages />
     </div>
   );

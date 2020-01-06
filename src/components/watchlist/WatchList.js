@@ -1,29 +1,18 @@
 import React from "react";
-// import { connect } from "react-redux";
-import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+import { connect } from "react-redux";
+// import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import SideNav from "../nav/SideNav";
 import { Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-const data = [
-  { symbol: "APPL", time: "9:00 AM", price: 2.34 },
-  { symbol: "GOOG", time: "10:00 AM", price: 5.09 },
-  { symbol: "AMZN", time: "11:00 AM", price: 3.5 },
-  { symbol: "FB", time: "12:00 AM", price: 3.8 },
-  { symbol: "SPY", time: "1:00 AM", price: 3.75 },
-  { symbol: "COST", time: "2:00 AM", price: 4.02 },
-  { symbol: "TGT", time: "3:00 AM", price: 3.2 },
-  { symbol: "FIT", time: "4:00 AM", price: 4.68 }
-];
-
-export default function WatchList() {
+function WatchList(props) {
   return (
     <div className="watchlist-container">
       <SideNav />
       <div className="watchlist-content">
         <Header as="h5">Watchlist</Header>
         <div className="watchlist-content-noheader">
-          <LineChart
+          {/* <LineChart
             width={500}
             height={300}
             data={data}
@@ -48,11 +37,11 @@ export default function WatchList() {
               stroke="#8884d8"
               fill="#8884d8"
             />
-          </LineChart>
+          </LineChart> */}
           <div className="watchlist-list">
-            {data.map(stock => (
+            {props.watchList.map(stock => (
               <div key={stock.symbol} className="stock-wrapper">
-                <Link to="/stock/">
+                <Link to={`/stock/${stock.symbol}`}>
                   <div className="stock">
                     <div className="stock-header">
                       <Header as="h2">{stock.symbol}</Header>
@@ -68,3 +57,9 @@ export default function WatchList() {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  watchList: state.watchList
+})
+
+export default connect(mapStateToProps, {})(WatchList);

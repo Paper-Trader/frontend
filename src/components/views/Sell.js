@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { sellStock } from '../../actions';
 
 function SellStock(props) {
+  let stock = props.stocks.filter(stock => props.company === stock.symbol)
+
   let initialStock = {
-    symbol: 'AAPL',
-    price: props.stocks[1].price,
-    amount: props.stocks[1].amount,
+    symbol: props.company,
+    price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
+    amount: stock.length === 1 ? stock[0].amount : 0,
   };
   const [newStock, setNewStock] = useState(initialStock);
 
@@ -23,34 +25,32 @@ function SellStock(props) {
         ...newStock, 
         [e.target.name]: e.target.value
       })
-      console.log(newStock)
    }
   }
-
   return (
     <div >
-      <form onSubmit={sellStock}>
-        <legend>{newStock.symbol}</legend>
-        <label>
-          Shares of {newStock.symbol}:
-          <input 
-            type="number"
-            min="1"
-            name="amount"
-            onChange={onChange}
-            value={newStock.amount}
-          />
-        </label>
-        <label>
-            Market Price x {newStock.price}
-        </label>
-        <label>
-            EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
-        </label>
-        <div>
+      {
+        stock.length > 0 &&
+        <form onSubmit={sellStock}>
+          <label>
+            Shares of {newStock.symbol}:
+            <input 
+              type="number"
+              min="1"
+              name="amount"
+              onChange={onChange}
+              value={newStock.amount}
+            />
+          </label>
+          <label>
+              Market Price x {newStock.price}
+          </label>
+          <label>
+              EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
+          </label>
           <button type="submit">Sell</button>
-        </div>
-      </form>
+        </form>
+      }
     </div>
   );
 };

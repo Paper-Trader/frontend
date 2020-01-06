@@ -9,13 +9,13 @@ function PortfolioList(props) {
     <div className="portfoliolist">
       {props.stocks.map(stock => (
         <div key={stock.symbol} className="stock-wrapper">
-          <Link to={location => `/stock/${stock.symbol}`} >
+          <Link to={() => `/stock/${stock.symbol}`} >
             <div className="stock">
               <div className="stock-header">
                 <Header as="h2">{stock.symbol}</Header>
                 <Header as="h6">{stock.amount} shares</Header>
               </div>
-              <Header as="h3">${stock.price}</Header>
+              <Header as="h3">${stock.price.toFixed(2)}</Header>
             </div>
           </Link>
         </div>

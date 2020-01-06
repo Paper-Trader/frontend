@@ -6,52 +6,36 @@ import { css } from 'glamor';
 
 
 const Messages = props => {
-  if (props.error) {
-    toast(props.error ,{
-      toastId: 2,
-      className: css({
-        background: 'red'
-      }),
-      bodyClassName: css({
-        fontSize: '1rem',
-        color: 'white'
-      }),
-      progressClassName: css({
-        background: "#ffb7b7"
-      })
+  const errorToast = () => toast(props.error ,{
+    className: css({
+      background: 'red'
+    }),
+    bodyClassName: css({
+      fontSize: '1rem',
+      color: 'white'
+    }),
+    progressClassName: css({
+      background: "#ffb7b7"
     })
-  }
+  });
 
-  if (props.success) {
-    toast(props.success ,{
-      toastId: 2,
-      className: css({
-        background: 'green'
-      }),
-      bodyClassName: css({
-        fontSize: '1rem',
-        color: 'white'
-      }),
-      progressClassName: css({
-        background: "white"
-      })
+  const successToast = () => toast(props.success ,{
+    className: css({
+      background: 'green'
+    }),
+    bodyClassName: css({
+      fontSize: '1rem',
+      color: 'white'
+    }),
+    progressClassName: css({
+      background: "white"
     })
-  }
+  });
 
-  return (
-    <div>
-      <ToastContainer 
-        autoClose={3000}
-        position="top-right"
-        hideProgressBar={false}
-        closeOnClick
-        rtl={false}
-        pauseOnVisibilityChange
-        draggable
-        pauseOnHover
-      />
-    </div>
-  );
+  if (props.error) errorToast();
+  if (props.success) successToast()
+
+  return <ToastContainer autoClose={3000} />;
 }
 
 const mapStateToProps = state => ({
