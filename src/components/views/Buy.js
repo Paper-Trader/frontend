@@ -22,7 +22,7 @@ function BuyStock(props) {
     if (e.target.value === '' || re.test(e.target.value)) {
       setNewStock({
         ...newStock,
-        [e.target.name]: e.target.value
+        [e.target.name]: parseInt(e.target.value)
       })
     }
   }

@@ -27,28 +27,30 @@ function SellStock(props) {
       })
    }
   }
-
   return (
     <div >
-      <form onSubmit={sellStock}>
-        <label>
-          Shares of {newStock.symbol}:
-          <input 
-            type="number"
-            min="1"
-            name="amount"
-            onChange={onChange}
-            value={newStock.amount}
-          />
-        </label>
-        <label>
-            Market Price x {newStock.price}
-        </label>
-        <label>
-            EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
-        </label>
-        <button type="submit">Sell</button>
-      </form>
+      {
+        stock.length > 0 &&
+        <form onSubmit={sellStock}>
+          <label>
+            Shares of {newStock.symbol}:
+            <input 
+              type="number"
+              min="1"
+              name="amount"
+              onChange={onChange}
+              value={newStock.amount}
+            />
+          </label>
+          <label>
+              Market Price x {newStock.price}
+          </label>
+          <label>
+              EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
+          </label>
+          <button type="submit">Sell</button>
+        </form>
+      }
     </div>
   );
 };

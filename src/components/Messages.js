@@ -8,7 +8,6 @@ import { css } from 'glamor';
 const Messages = props => {
   if (props.error) {
     toast(props.error ,{
-      toastId: 2,
       className: css({
         background: 'red'
       }),
@@ -24,7 +23,6 @@ const Messages = props => {
 
   if (props.success) {
     toast(props.success ,{
-      toastId: 2,
       className: css({
         background: 'green'
       }),
@@ -44,11 +42,6 @@ const Messages = props => {
         autoClose={3000}
         position="top-right"
         hideProgressBar={false}
-        closeOnClick
-        rtl={false}
-        pauseOnVisibilityChange
-        draggable
-        pauseOnHover
       />
     </div>
   );
