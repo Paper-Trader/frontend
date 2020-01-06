@@ -9,6 +9,7 @@ export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
 export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
 
 export const BUY_STOCK = 'BUY_STOCK';
+export const SELL_STOCK = 'SELL_STOCK';
 
 export const ERROR = 'ERROR';
 
@@ -46,6 +47,13 @@ export const fetchAll = () => dispatch => {
 export const buyStock = (data) => {
   return {
     type: BUY_STOCK,
+    payload: { ...data }
+  }
+}
+
+export const sellStock = (data) => {
+  return {
+    type: SELL_STOCK,
     payload: { ...data }
   }
 }

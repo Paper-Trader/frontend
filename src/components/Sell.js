@@ -1,40 +1,39 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { buyStock } from '../actions';
-import SellStock from './Sell';
+import { sellStock } from '../actions';
 
-const initialStock = {
-  symbol: 'AAPL',
-  price: 300,
-  amount: 0,
-};
-
-function BuyStock(props) {
+function SellStock(props) {
+  let initialStock = {
+    symbol: 'AAPL',
+    price: props.stocks[1].price,
+    amount: props.stocks[1].amount,
+  };
   const [newStock, setNewStock] = useState(initialStock);
 
-  const buyStock = (e) => {
+  const sellStock = (e) => {
     e.preventDefault();
-    props.buyStock(newStock)
+    props.sellStock(newStock)
   }
 
   const onChange = (e) => {
-    const re = /^[0-9\b]+$/;
+    const re = /^[0-9\b]+$/; 
 
     if (e.target.value === '' || re.test(e.target.value)) {
-      setNewStock({
-        ...newStock,
+      setNewStock({ 
+        ...newStock, 
         [e.target.name]: e.target.value
       })
-    }
+      console.log(newStock)
+   }
   }
 
   return (
     <div >
-      <form onSubmit={buyStock}>
+      <form onSubmit={sellStock}>
         <legend>{newStock.symbol}</legend>
         <label>
           Shares of {newStock.symbol}:
-          <input
+          <input 
             type="number"
             min="1"
             name="amount"
@@ -46,20 +45,18 @@ function BuyStock(props) {
             Market Price x {newStock.price}
         </label>
         <label>
-            EST COST = {newStock.amount * newStock.price}
+            EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
         </label>
         <div>
-          <button type="submit">Buy</button>
+          <button type="submit">Sell</button>
         </div>
       </form>
-
-      <SellStock />
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-
+  stocks: state.portfolio.stocks
 })
 
-export default connect(mapStateToProps, { buyStock })(BuyStock);
+export default connect(mapStateToProps, { sellStock })(SellStock);

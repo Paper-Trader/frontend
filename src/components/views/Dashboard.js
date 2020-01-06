@@ -6,11 +6,10 @@ import PortfolioChart from "../portfolio/PortfolioChart";
 import PortfolioList from "../portfolio/PortfolioList";
 
 function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll}) {
-
   useEffect(() => {
-    fetchAll()
+    fetchAll() // fetches first data
     setInterval(() => { // runs every 60 seconds
-      fetchAll()
+      fetchAll() // fetching data once per cycle and updates portfolio
     }, 60 * 1000);
   }, [fetchAll]);
 
