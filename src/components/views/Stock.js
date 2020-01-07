@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import BuyStock from './Buy';
 import SellStock from './Sell';
+import SideNav from '../nav/SideNav';
 
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
@@ -83,79 +84,89 @@ function Stock(props) {
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
-    <div className="stock-container">
-      <div className="topbar">
-        <div className="description">
-          <h1>
-            {company} <span>{companyInfo.companyName}</span>
-          </h1>
-          <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"])}`}</h3>
-          <h4>
-            {lowHighCashPerc[2] < 0 ? (
-              <span style={red}>{`-$${lowHighCashPerc[2]
-                .toString()
-                .substring(1)}`}</span>
-            ) : (
-              <span style={green}>{`$${lowHighCashPerc[2]}`}</span>
-            )}
-            {lowHighCashPerc[3].toString().includes("-") ? (
-              <span
-                style={red}
-              >{`  (${lowHighCashPerc[3].toString()}%)  Today`}</span>
-            ) : (
-              <span style={green}>{`  (${lowHighCashPerc[3]}%)  Today`}</span>
-            )}
-          </h4>
+    <div className="homeuser">
+      <SideNav />
+      <div className="stock-container">
+        <div className="topbar">
+          <div className="description">
+            <h1>
+              {company} <span>{companyInfo.companyName}</span>
+            </h1>
+            <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"])}`}</h3>
+            <h4>
+              {lowHighCashPerc[2] < 0 ? (
+                <span style={red}>{`-$${lowHighCashPerc[2]
+                  .toString()
+                  .substring(1)}`}</span>
+              ) : (
+                <span style={green}>{`$${lowHighCashPerc[2]}`}</span>
+              )}
+              {lowHighCashPerc[3].toString().includes("-") ? (
+                <span
+                  style={red}
+                >{`  (${lowHighCashPerc[3].toString()}%)  Today`}</span>
+              ) : (
+                <span style={green}>{`  (${lowHighCashPerc[3]}%)  Today`}</span>
+              )}
+            </h4>
+          </div>
+          <button 
+            style={
+              lowHighCashPerc[3].toString().includes("-") ?
+              { backgroundColor: "red" } :
+              { backgroundColor: "green" }
+            }
+            onClick={() => props.addWatchList({
+              symbol: company,
+              price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
+            })}>
+            WATCH
+          </button>
         </div>
-        {/* <img src="/plus-solid.svg" style={{ width: "30px" }} /> */}
-        <button onClick={() => props.addWatchList({
-          symbol: company,
-          price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
-        })}>WATCH</button>
-      </div>
-      <ResponsiveContainer height={300} width="100%">
-        <LineChart
-          width={500}
-          height={200}
-          data={graphInfo}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="timestamp" />
-          <YAxis
-            hide={true}
-            domain={[Number(lowHighCashPerc[0]), Number(lowHighCashPerc[1])]}
-          />
-          <Tooltip />
-          {lowHighCashPerc[2] < 0 ? (
-            <Line
-              connectNulls
-              type="monotone"
-              dataKey="price"
-              strokeWidth="3"
-              stroke="red"
-              dot={false}
+        <ResponsiveContainer height={300} width="100%">
+          <LineChart
+            width={500}
+            height={200}
+            data={graphInfo}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 0,
+              bottom: 0
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="timestamp" />
+            <YAxis
+              hide={true}
+              domain={[Number(lowHighCashPerc[0]), Number(lowHighCashPerc[1])]}
             />
-          ) : (
-            <Line
-              connectNulls
-              type="monotone"
-              dataKey="price"
-              strokeWidth="3"
-              stroke="green"
-              dot={false}
-            />
-          )}
-        </LineChart>
-      </ResponsiveContainer>
-      <div>
-        <BuyStock currPrice={graphInfo} company={company}/>
-        <SellStock currPrice={graphInfo} company={company}/>
+            <Tooltip />
+            {lowHighCashPerc[2] < 0 ? (
+              <Line
+                connectNulls
+                type="monotone"
+                dataKey="price"
+                strokeWidth="3"
+                stroke="red"
+                dot={false}
+              />
+            ) : (
+              <Line
+                connectNulls
+                type="monotone"
+                dataKey="price"
+                strokeWidth="3"
+                stroke="green"
+                dot={false}
+              />
+            )}
+          </LineChart>
+        </ResponsiveContainer>
+        <div>
+          <BuyStock currPrice={graphInfo} company={company}/>
+          <SellStock currPrice={graphInfo} company={company}/>
+        </div>
       </div>
     </div>
   );

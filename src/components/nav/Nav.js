@@ -16,9 +16,6 @@ function Nav() {
         <Link to="/team" className="nav-left-link">
           TEAM
         </Link>
-        <Link to="/watchlist" className="nav-left-link">
-          WATCHLIST
-        </Link>
       </div>
       <div className="nav-right">
         <Button size="small" className="signin-button">
