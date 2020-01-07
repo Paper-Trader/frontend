@@ -35,7 +35,7 @@ const initialState = {
       price: 48.39
     },
   ],
-  dailyInitial: 10000,
+  dailyInitial: 9716.36,
   valueCurr: 0,
   isFetching: false,
   dailyChange: 0,

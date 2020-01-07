@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
 
-function PortfolioList(props) {
+function PortfolioList({ stocks }) {
   return (
     <div className="portfoliolist">
-      {props.stocks.map(stock => (
+      {stocks.map(stock => (
         <div key={stock.symbol} className="stock-wrapper">
           <Link to={() => `/stock/${stock.symbol}`} >
             <div className="stock">

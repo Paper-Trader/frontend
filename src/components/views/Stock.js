@@ -110,11 +110,18 @@ function Stock(props) {
               )}
             </h4>
           </div>
-          {/* <img src="/plus-solid.svg" style={{ width: "30px" }} /> */}
-          <button onClick={() => props.addWatchList({
-            symbol: company,
-            price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
-          })}>WATCH</button>
+          <button 
+            style={
+              lowHighCashPerc[3].toString().includes("-") ?
+              { backgroundColor: "red" } :
+              { backgroundColor: "green" }
+            }
+            onClick={() => props.addWatchList({
+              symbol: company,
+              price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
+            })}>
+            WATCH
+          </button>
         </div>
         <ResponsiveContainer height={300} width="100%">
           <LineChart
