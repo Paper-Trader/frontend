@@ -23,15 +23,15 @@ function Stock(props) {
   const [loading, setLoading] = useState(true);
   const company = props.match.params.id;
 
-  function formatDate(date) {
-    var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-    return [year, month, day].join("-");
-  }
+  // function formatDate(date) {
+  //   var d = new Date(date),
+  //     month = "" + (d.getMonth() + 1),
+  //     day = "" + d.getDate(),
+  //     year = d.getFullYear();
+  //   if (month.length < 2) month = "0" + month;
+  //   if (day.length < 2) day = "0" + day;
+  //   return [year, month, day].join("-");
+  // }
 
   let high, low;
   let cash, perc;
@@ -47,8 +47,9 @@ function Stock(props) {
         .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`)
         .then(data => {
           let newArr = [];
+          let time = Object.keys(data.data["Time Series (60min)"])[0]
           for (const key in data.data["Time Series (60min)"]) {
-            if (key.includes(formatDate(Date.now()))) {
+            if (key.includes(time.slice(0, (time.length/2)+1))) {
               newArr.push({
                 ...data.data["Time Series (60min)"][key],
                 timestamp: key.split(" ")[1],
