@@ -9,9 +9,9 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll, fetchUse
   useEffect(() => {
     fetchAll() // fetches first data
     fetchUser()
-    // setInterval(() => { // runs every 60 seconds
-    //   fetchAll() // fetching data once per cycle and updates portfolio
-    // }, 60 * 1000);
+    setInterval(() => { // runs every 60 seconds
+      fetchAll() // fetching data once per cycle and updates portfolio
+    }, 60 * 1000);
   }, [fetchAll, fetchUser]);
 
   return (
