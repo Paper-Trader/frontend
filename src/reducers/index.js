@@ -2,7 +2,6 @@ import * as actionType from '../actions';
 
 const initialState = {
   portfolio: {
-    cash: 515,
     stocks: [
       {
         symbol: 'MU',
@@ -21,6 +20,7 @@ const initialState = {
       },
     ]
   },
+  cash: 515,
   watchList: [
     {
       symbol: 'TWTR',
@@ -74,7 +74,6 @@ export const rootReducer = (state = initialState, action) => {
         stockList: action.payload.stockList,
         isFetching: false,
         portfolio: {
-          cash: state.portfolio.cash,
           stocks: state.portfolio.stocks.map(val => {
             return {
               ...val,
@@ -84,7 +83,7 @@ export const rootReducer = (state = initialState, action) => {
         }
       }
     case actionType.UPDATE_PORTFOLIO:
-      let currPort = (state.portfolio.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
+      let currPort = (state.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
       return {
         ...state,
         error: '',
@@ -105,11 +104,11 @@ export const rootReducer = (state = initialState, action) => {
           error: 'Amount required',
           success: '',
         }
-      } else if (state.portfolio.cash < (action.payload.amount * action.payload.price)) { // check if you have enough cash 
+      } else if (state.cash < (action.payload.amount * action.payload.price)) { // check if you have enough cash 
         return {
           ...state,
           success: '',
-          error: `You do not have sufficient funds in your account. Current cash balance of $${state.portfolio.cash}.`
+          error: `You do not have sufficient funds in your account. Current cash balance of $${state.cash}.`
         }
       } else if (state.portfolio.stocks.filter(stock => stock.symbol === action.payload.symbol).length === 1) { // check if you already own that stock 
         for (let i=0; i < state.portfolio.stocks.length; i++) { // find the array
@@ -120,9 +119,9 @@ export const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           portfolio: {
-            cash: (state.portfolio.cash) - (action.payload.amount * action.payload.price),
             stocks: [...state.portfolio.stocks] // update with the new amount
           },
+          cash: (state.cash) - (action.payload.amount * action.payload.price),
           success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       } else { // add stock to portfolio list
@@ -130,9 +129,9 @@ export const rootReducer = (state = initialState, action) => {
           ...state,
           error: '',
           portfolio: {
-            cash: (state.portfolio.cash) - (action.payload.amount * action.payload.price),
             stocks: [...state.portfolio.stocks, action.payload]
           },
+          cash: (state.cash) - (action.payload.amount * action.payload.price),
           success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       }  
@@ -164,20 +163,20 @@ export const rootReducer = (state = initialState, action) => {
           error: '',
           success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
           portfolio: {
-            cash: (state.portfolio.cash) + (action.payload.amount * action.payload.price),
             stocks: state.portfolio.stocks.filter(val => val !== stock) // remove the stock from portfolio since we no longer own any
-          }
+          },
+          cash: (state.cash) + (action.payload.amount * action.payload.price),
         }
       } else {
         return {
           ...state,
           error: '',
           portfolio: {
-            cash: (state.portfolio.cash) + (action.payload.amount * action.payload.price),
             stocks: state.portfolio.stocks.map(val => val.symbol === action.payload.symbol 
               ? {...val, price: action.payload.price, amount: val.amount -= action.payload.amount}
               : val)
           },
+          cash: (state.cash) + (action.payload.amount * action.payload.price),
           success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       }
