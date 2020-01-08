@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchStock, addWatchList } from "../../actions";
+import { addWatchList } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -174,4 +174,4 @@ const mapStateToProps = state => ({
   stock: state.stock
 });
 
-export default connect(mapStateToProps, { fetchStock, addWatchList })(Stock);
+export default connect(mapStateToProps, { addWatchList })(Stock);

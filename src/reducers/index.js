@@ -2,40 +2,11 @@ import * as actionType from '../actions';
 
 const initialState = {
   portfolio: {
-    stocks: [
-      {
-        symbol: 'MU',
-        price: 65.37,
-        amount: 14
-      },
-      {
-        symbol: 'AAPL',
-        price: 300.28,
-        amount: 17
-      },
-      {
-        symbol: 'MSFT',
-        price: 160.52,
-        amount: 21
-      },
-    ]
+    stocks: []
   },
-  cash: 515,
-  watchList: [
-    {
-      symbol: 'TWTR',
-      price: 31.64
-    },
-    {
-      symbol: 'ATVI',
-      price: 59.74
-    },
-    {
-      symbol: 'AMD',
-      price: 48.39
-    },
-  ],
-  dailyInitial: 9716.36,
+  watchList: [],
+  cash: 0,
+  dailyInitial: 10000,
   valueCurr: 0,
   isFetching: false,
   dailyChange: 0,
@@ -45,21 +16,20 @@ const initialState = {
 
 export const rootReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionType.FETCH_STOCK_START:
+    case actionType.FETCH_USER:
       return {
         ...state,
         error: '',
         isFetching: true,
       }
-    case actionType.FETCH_STOCK_SUCCESS:
+    case actionType.FETCH_USER_SUCCESS:
       return {
         ...state,
-        error: '',
-        stock: {
-          symbol: action.payload.symbol,
-          price: action.payload.price
+        cash: action.payload.cash,
+        portfolio: {
+          stocks: [...action.payload.portfolio]
         },
-        isFetching: false,
+        watchList: [...action.payload.watchlist]
       }
     case actionType.FETCH_ALL_STOCKS:
       return {
