@@ -29,7 +29,6 @@ function SignIn(props) {
         [e.target.name]: e.target.value
       }
     });
-    console.log(loginData)
   };
 
   const login = e => {
@@ -37,8 +36,7 @@ function SignIn(props) {
     axiosWithAuth()
       .post('/auth/login', loginData.credentials)
       .then(res => {
-        console.log(res)
-        localStorage.setItem('token', res.data.payload);
+        localStorage.setItem('token', res.data.authToken);
         props.history.push('/dashboard')
       })
       .catch(err => console.log(err));
