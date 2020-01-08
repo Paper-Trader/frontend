@@ -16,32 +16,30 @@ export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
 
 export const ERROR = 'ERROR';
 
-export const fetchUser = () => dispatch => {
+export const fetchAll = () => dispatch => {
   dispatch({ type: FETCH_USER });
-  axiosWithAuth()
+  dispatch({ type: FETCH_ALL_STOCKS });
+  axiosWithAuth() // first grab user data from db
     .get('/user')
     .then(res => {
       console.log(res.data)
       dispatch({ type: FETCH_USER_SUCCESS, payload: res.data })
     })
+    .then(() => // then chain a promise to the fetch user and fetch stock data and update the state.
+      axios
+      .get('https://financialmodelingprep.com/api/v3/stock/real-time-price')
+      .then(res => {
+        dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
+        dispatch({ type: UPDATE_PORTFOLIO })
+      })
+      .catch(err => {
+        dispatch({
+          type: ERROR,
+          payload: err
+        })
+      }))
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
-    })
-}
-
-export const fetchAll = () => dispatch => {
-  dispatch({ type: FETCH_ALL_STOCKS });
-  axios
-    .get('https://financialmodelingprep.com/api/v3/stock/real-time-price')
-    .then(res => {
-      dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
-      dispatch({ type: UPDATE_PORTFOLIO })
-    })
-    .catch(err => {
-      dispatch({
-        type: ERROR,
-        payload: err
-      })
     })
 }
 

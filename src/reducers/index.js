@@ -6,9 +6,8 @@ const initialState = {
   },
   watchList: [],
   cash: 0,
-  dailyInitial: 10000,
+  dailyInitial: 9000,
   valueCurr: 0,
-  isFetching: false,
   dailyChange: 0,
   dailyPercentChange: 0,
   success: '',
@@ -20,7 +19,6 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        isFetching: true,
       }
     case actionType.FETCH_USER_SUCCESS:
       return {
@@ -29,20 +27,18 @@ export const rootReducer = (state = initialState, action) => {
         portfolio: {
           stocks: [...action.payload.portfolio]
         },
-        watchList: [...action.payload.watchlist]
+        watchList: [...action.payload.watchlist],
       }
     case actionType.FETCH_ALL_STOCKS:
       return {
         ...state,
         error: '',
-        isFetching: true,
       }
     case actionType.FETCH_ALL_SUCCESS:
       return {
         ...state,
         error: '',
         stockList: action.payload.stockList,
-        isFetching: false,
         portfolio: {
           stocks: state.portfolio.stocks.map(val => {
             return {
