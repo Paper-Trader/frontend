@@ -8,6 +8,7 @@ export const FETCH_USER = 'FETCH_USER';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 
 export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
+export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
 
 export const BUY_STOCK = 'BUY_STOCK';
 export const SELL_STOCK = 'SELL_STOCK';
@@ -42,6 +43,10 @@ export const fetchAll = () => dispatch => {
       dispatch({ type: ERROR, payload: err })
     })
 }
+
+// export const updateUserDB = () => dispatch => {
+
+// }
 
 export const buyStock = (data) => {
   return {
