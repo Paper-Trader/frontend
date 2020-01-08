@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchStock, addWatchList } from "../../actions";
+import { addWatchList } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -23,18 +23,15 @@ function Stock(props) {
   const [loading, setLoading] = useState(true);
   const company = props.match.params.id;
 
-  function formatDate(date) {
-    var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-    return [year, month, day].join("-");
-  }
-
-  let high, low;
-  let cash, perc;
+  // function formatDate(date) {
+  //   var d = new Date(date),
+  //     month = "" + (d.getMonth() + 1),
+  //     day = "" + d.getDate(),
+  //     year = d.getFullYear();
+  //   if (month.length < 2) month = "0" + month;
+  //   if (day.length < 2) day = "0" + day;
+  //   return [year, month, day].join("-");
+  // }
 
   const green = { color: "green" },
     red = { color: "red" };
@@ -47,8 +44,9 @@ function Stock(props) {
         .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`)
         .then(data => {
           let newArr = [];
+          let time = Object.keys(data.data["Time Series (60min)"])[0] // creates a var for most recent date, ex; '2020-01-08'
           for (const key in data.data["Time Series (60min)"]) {
-            if (key.includes(formatDate(Date.now()))) {
+            if (key.includes(time.slice(0, (time.length/2)+1))) { // checks if the key contains the variable above
               newArr.push({
                 ...data.data["Time Series (60min)"][key],
                 timestamp: key.split(" ")[1],
@@ -56,8 +54,8 @@ function Stock(props) {
               });
             }
           }
-          high = newArr[0]["2. high"];
-          low = newArr[0]["3. low"];
+          let high = newArr[0]["2. high"];
+          let low = newArr[0]["3. low"];
           newArr.forEach(obj => {
             if (obj["3. low"] < low) {
               low = obj["3. low"];
@@ -67,8 +65,8 @@ function Stock(props) {
             }
           });
           setGraphInfo(newArr.reverse());
-          cash = newArr[newArr.length - 1]["4. close"] - newArr[0].price;
-          perc = (cash / Math.abs(newArr[0].price)) * 100;
+          let cash = newArr[newArr.length - 1]["4. close"] - newArr[0].price;
+          let perc = (cash / Math.abs(newArr[0].price)) * 100;
           setLowHighCashPerc([low, high, cash.toFixed(2), perc.toFixed(2)]);
         });
       axios
@@ -79,7 +77,7 @@ function Stock(props) {
           setCompanyInfo(data.data.profile);
         });
     }
-  }, [lowHighCashPerc]);
+  }, [lowHighCashPerc, company]);
 
   return loading ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
@@ -176,4 +174,4 @@ const mapStateToProps = state => ({
   stock: state.stock
 });
 
-export default connect(mapStateToProps, { fetchStock, addWatchList })(Stock);
+export default connect(mapStateToProps, { addWatchList })(Stock);

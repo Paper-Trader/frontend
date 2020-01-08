@@ -5,13 +5,15 @@ import { Header } from "semantic-ui-react";
 import PortfolioChart from "../portfolio/PortfolioChart";
 import PortfolioList from "../portfolio/PortfolioList";
 
-function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll}) {
+function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
   useEffect(() => {
     fetchAll() // fetches first data
-    setInterval(() => { // runs every 60 seconds
-      fetchAll() // fetching data once per cycle and updates portfolio
-    }, 60 * 1000);
+    // setInterval(() => { // runs every 60 seconds
+    //   fetchAll() // fetching data once per cycle and updates portfolio
+    // }, 60 * 1000);
   }, [fetchAll]);
+
+
 
   return (
     <div className="dashboard">
