@@ -4,6 +4,7 @@ const initialState = {
   portfolio: {
     stocks: []
   },
+  stockList: [],
   watchList: [],
   cash: 0,
   dailyInitial: 9000,
