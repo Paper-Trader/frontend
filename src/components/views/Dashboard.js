@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchAll } from "../../actions";
+import { fetchAll, updateStockDB } from "../../actions";
 import { Header } from "semantic-ui-react";
 import PortfolioChart from "../portfolio/PortfolioChart";
 import PortfolioList from "../portfolio/PortfolioList";
 
-function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
+function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll, stockList, updateStockDB }) {
   useEffect(() => {
     fetchAll() // fetches first data
-    // setInterval(() => { // runs every 60 seconds
-    //   fetchAll() // fetching data once per cycle and updates portfolio
-    // }, 60 * 1000);
+    setInterval(() => { // runs every 60 seconds
+      fetchAll() // fetching data once per cycle and updates portfolio
+    }, 60 * 1000);
   }, [fetchAll]);
 
-
+  // if (stockList.length > 0) {
+  //   updateStockDB(stockList)
+  // }
 
   return (
     <div className="dashboard">
@@ -49,7 +51,8 @@ const mapStateToProps = state => ({
   value: state.valueCurr,
   dailyChange: state.dailyChange,
   dailyPercent: state.dailyPercentChange,
-  stocks: state.portfolio.stocks
+  stocks: state.portfolio.stocks,
+  stockList: state.stockList
 });
 
-export default connect(mapStateToProps, { fetchAll })(Dashboard);
+export default connect(mapStateToProps, { fetchAll, updateStockDB })(Dashboard);

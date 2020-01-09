@@ -8,7 +8,7 @@ export const FETCH_USER = 'FETCH_USER';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 
 export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
-export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
+export const UPDATE_STOCK_DATA_SUCCESS = 'UPDATE_STOCK_DATA_SUCCESS';
 
 export const BUY_STOCK = 'BUY_STOCK';
 export const SELL_STOCK = 'SELL_STOCK';
@@ -23,7 +23,6 @@ export const fetchAll = () => dispatch => {
   axiosWithAuth() // first grab user data from db
     .get('/user')
     .then(res => {
-      console.log(res.data)
       dispatch({ type: FETCH_USER_SUCCESS, payload: res.data })
     })
     .then(() => // then chain a promise to the fetch user and fetch stock data and update the state.
@@ -32,21 +31,22 @@ export const fetchAll = () => dispatch => {
       .then(res => {
         dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
         dispatch({ type: UPDATE_PORTFOLIO })
-      })
-      .catch(err => {
-        dispatch({
-          type: ERROR,
-          payload: err
-        })
       }))
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
     })
 }
 
-// export const updateUserDB = () => dispatch => {
-
-// }
+export const updateStockDB = (data) => dispatch => {
+  axios
+    .post('http://localhost:5000/stocks', data)
+    .then(res => {
+      dispatch({ type: UPDATE_STOCK_DATA_SUCCESS, payload: res.data })
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
+}
 
 export const buyStock = (data) => {
   return {
