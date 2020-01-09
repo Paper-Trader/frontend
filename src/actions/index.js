@@ -18,7 +18,6 @@ export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
 export const ERROR = 'ERROR';
 
 export const fetchAll = () => dispatch => {
-  dispatch({ type: FETCH_USER });
   dispatch({ type: FETCH_ALL_STOCKS });
   axiosWithAuth() // first grab user data from db
     .get('/user')
