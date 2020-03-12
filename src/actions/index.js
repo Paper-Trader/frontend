@@ -22,6 +22,7 @@ export const fetchAll = () => dispatch => {
   axiosWithAuth() // first grab user data from db
     .get('/user')
     .then(res => {
+      console.log(res)
       dispatch({ type: FETCH_USER_SUCCESS, payload: res.data })
     })
     .then(() => // then chain a promise to the fetch user and fetch stock data and update the state.
