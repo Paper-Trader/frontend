@@ -12,6 +12,7 @@ const initialState = {
   dailyChange: 0,
   dailyPercentChange: 0,
   success: '',
+  isFetching: false,
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -33,6 +34,7 @@ export const rootReducer = (state = initialState, action) => {
     case actionType.FETCH_ALL_STOCKS:
       return {
         ...state,
+        isFetching: true,
         error: '',
       }
     case actionType.FETCH_ALL_SUCCESS:
@@ -47,7 +49,7 @@ export const rootReducer = (state = initialState, action) => {
               price: action.payload.stockList[action.payload.stockList.findIndex(x => x.symbol === val.symbol)].price
             }
           })
-        }
+        },
       }
     case actionType.UPDATE_PORTFOLIO:
       let currPort = (state.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
@@ -56,7 +58,8 @@ export const rootReducer = (state = initialState, action) => {
         error: '',
         valueCurr: Math.round(currPort * 100) / 100,
         dailyChange: Math.round((currPort - state.dailyInitial) * 100) / 100,
-        dailyPercentChange: Math.round(((currPort - state.dailyInitial) * 100) / 100) / 100
+        dailyPercentChange: Math.round(((currPort - state.dailyInitial) * 100) / 100) / 100,
+        isFetching: false,
       }
     case actionType.ERROR:
       return {

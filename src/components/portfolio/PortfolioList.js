@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
 
-function PortfolioList({ stocks }) {
+function PortfolioList({ stocks, isFetching }) {
+  if (isFetching) {
+    return <div>Loading...</div>
+  }
   return (
     <div className="portfoliolist">
       {stocks.map(stock => (
@@ -25,7 +28,8 @@ function PortfolioList({ stocks }) {
 }
 
 const mapStateToProps = state => ({
-  portfolio: state.portfolio
+  portfolio: state.portfolio,
+  isFetching: state.isFetching,
 });
 
 export default connect(mapStateToProps, { fetchAll })(PortfolioList);
