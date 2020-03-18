@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addWatchList } from "../../actions";
+import { addToWatchList } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -114,10 +114,7 @@ function Stock(props) {
               { backgroundColor: "red" } :
               { backgroundColor: "green" }
             }
-            onClick={() => props.addWatchList({
-              symbol: company,
-              price: parseFloat(graphInfo[graphInfo.length - 1]["4. close"])
-            })}>
+            onClick={() => props.addToWatchList(company)}>
             WATCH
           </button>
         </div>
@@ -174,4 +171,4 @@ const mapStateToProps = state => ({
   stock: state.stock
 });
 
-export default connect(mapStateToProps, { addWatchList })(Stock);
+export default connect(mapStateToProps, { addToWatchList })(Stock);

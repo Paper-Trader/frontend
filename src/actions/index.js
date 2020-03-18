@@ -50,9 +50,12 @@ export const sellStock = (data) => {
   }
 }
 
-export const addWatchList = (data) => {
-  return {
-    type: ADD_WATCH_LIST,
-    payload: { ...data }
-  }
+export const addToWatchList = (data) => dispatch => {
+  dispatch({ type: FETCH_ALL_STOCKS });
+  axiosWithAuth() // first grab user data from db
+    .post('/watchlist', data)
+    .then(res => {
+      console.log(res)
+      dispatch({ type: ADD_WATCH_LIST, payload: res.data })
+    })
 }
