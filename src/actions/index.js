@@ -52,12 +52,14 @@ export const sellStock = (data) => {
 }
 
 export const addToWatchList = (data) => dispatch => {
-  console.log(data)
   dispatch({ type: ADD_WATCH_LIST_START });
   axiosWithAuth()
     .post('watchlist', data)
     .then(res => {
       console.log(res)
       dispatch({ type: ADD_WATCH_LIST_SUCCESS, payload: res.data })
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
     })
 }

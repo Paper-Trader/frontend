@@ -164,18 +164,20 @@ export const rootReducer = (state = initialState, action) => {
         isAdding: true
       }
     case actionType.ADD_WATCH_LIST_SUCCESS:
-      if (state.watchList.filter(stock => stock.symbol === action.payload.symbol).length === 1) {
+      if (state.watchList.filter(stock => stock.symbol === action.payload).length > 0) {
+        console.log('EXISTS', action.payload)
         return {
           ...state,
-          error: `You are already watching ${action.payload.symbol} i list.`,
+          error: `You are already watching ${action.payload}.`,
           success: '',
           isAdding: false
         }
       } else {
+        console.log('NOT EXISTS', action.payload)
         return {
           ...state,
           error: '',
-          success: `${action.payload.symbol} added to watch list.`,
+          success: `${action.payload} added to watch list.`,
           watchList: [...state.watchList, action.payload],
           isAdding: false
         }

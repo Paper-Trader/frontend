@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addToWatchList } from "../../actions";
+import { addToWatchList, fetchAll } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -104,7 +104,14 @@ function Stock(props) {
               { backgroundColor: "red" } :
               { backgroundColor: "green" }
             }
-            onClick={() => props.addToWatchList({symbol: company})}>
+            onClick={async () => {
+              if (props.watchList.filter(stock => stock.symbol === company).length > 0) {
+                alert('ALREADY EXISTS')
+              } else {
+                await props.addToWatchList({symbol: company})
+              }
+              props.fetchAll()
+            }}>
             WATCH
           </button>
         </div>
@@ -158,7 +165,8 @@ function Stock(props) {
 }
 
 const mapStateToProps = state => ({
-  stock: state.stock
+  stock: state.stock,
+  watchList: state.watchList
 });
 
-export default connect(mapStateToProps, { addToWatchList })(Stock);
+export default connect(mapStateToProps, { addToWatchList, fetchAll })(Stock);
