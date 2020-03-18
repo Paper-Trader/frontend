@@ -6,7 +6,7 @@ import { Header } from "semantic-ui-react";
 
 function PortfolioList({ stocks, isFetching }) {
   if (isFetching) {
-    return <div>Loading...</div>
+    return <div>Loading Portfolio...</div>
   }
   return (
     <div className="portfoliolist">

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 
 const data = [
-  {name: '9:00AM', value: 9650.12},
-  {name: '10:00AM', value: 9702.24},
-  {name: '11:00AM', value: 9751.78},
+  {name: '9:00AM', value: 12000.12},
+  {name: '10:00AM', value: 11002.24},
+  {name: '11:00AM', value: 10751.78},
   {name: '12:00PM', value: 9725.45},
-  {name: '1:00PM', value: 9735.57},
+  {name: '1:00PM', value: 10515.57},
   {name: '2:00PM', value: 9686.78},
   {name: '3:00PM', value: 9651.57},
   {name: '4:00PM', value: 9701.36}

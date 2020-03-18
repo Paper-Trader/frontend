@@ -38,27 +38,34 @@ export const rootReducer = (state = initialState, action) => {
         error: '',
       }
     case actionType.FETCH_ALL_SUCCESS:
+      const stockData = action.payload.stockList
       return {
         ...state,
         error: '',
-        stockList: action.payload.stockList,
+        stockList: stockData,
         portfolio: {
           stocks: state.portfolio.stocks.map(val => {
             return {
               ...val,
-              price: action.payload.stockList[action.payload.stockList.findIndex(x => x.symbol === val.symbol)].price
+              price: stockData[stockData.findIndex(x => x.symbol === val.symbol)].price
             }
           })
         },
+        watchList: state.watchList.map(val => {
+            return {
+              ...val,
+              price: stockData[stockData.findIndex(x => x.symbol === val.symbol)].price
+            }
+          }),
       }
     case actionType.UPDATE_PORTFOLIO:
       let currPort = (state.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
       return {
         ...state,
         error: '',
-        valueCurr: Math.round(currPort * 100) / 100,
-        dailyChange: Math.round((currPort - state.dailyInitial) * 100) / 100,
-        dailyPercentChange: Math.round(((currPort - state.dailyInitial) * 100) / 100) / 100,
+        valueCurr: currPort.toFixed(2),
+        dailyChange: (currPort - state.dailyInitial).toFixed(2),
+        dailyPercentChange: ((currPort - state.dailyInitial) / 100).toFixed(2),
         isFetching: false,
       }
     case actionType.ERROR:

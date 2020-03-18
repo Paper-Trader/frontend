@@ -36,17 +36,6 @@ export const fetchAll = () => dispatch => {
     })
 }
 
-export const updateStockDB = (data) => dispatch => {
-  axios
-    .post('http://localhost:5000/stocks', data)
-    .then(res => {
-      dispatch({ type: UPDATE_STOCK_DATA_SUCCESS, payload: res.data })
-    })
-    .catch(err => {
-      dispatch({ type: ERROR, payload: err })
-    })
-}
-
 export const buyStock = (data) => {
   return {
     type: BUY_STOCK,
