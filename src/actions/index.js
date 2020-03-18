@@ -13,7 +13,8 @@ export const UPDATE_STOCK_DATA_SUCCESS = 'UPDATE_STOCK_DATA_SUCCESS';
 export const BUY_STOCK = 'BUY_STOCK';
 export const SELL_STOCK = 'SELL_STOCK';
 
-export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
+export const ADD_WATCH_LIST_START = 'ADD_WATCH_LIST_START';
+export const ADD_WATCH_LIST_SUCCESS = 'ADD_WATCH_LIST_SUCCESS';
 
 export const ERROR = 'ERROR';
 
@@ -51,11 +52,12 @@ export const sellStock = (data) => {
 }
 
 export const addToWatchList = (data) => dispatch => {
-  dispatch({ type: FETCH_ALL_STOCKS });
-  axiosWithAuth() // first grab user data from db
-    .post('/watchlist', data)
+  console.log(data)
+  dispatch({ type: ADD_WATCH_LIST_START });
+  axiosWithAuth()
+    .post('watchlist', data)
     .then(res => {
       console.log(res)
-      dispatch({ type: ADD_WATCH_LIST, payload: res.data })
+      dispatch({ type: ADD_WATCH_LIST_SUCCESS, payload: res.data })
     })
 }

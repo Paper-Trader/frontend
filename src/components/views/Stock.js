@@ -23,16 +23,6 @@ function Stock(props) {
   const [loading, setLoading] = useState(true);
   const company = props.match.params.id;
 
-  // function formatDate(date) {
-  //   var d = new Date(date),
-  //     month = "" + (d.getMonth() + 1),
-  //     day = "" + d.getDate(),
-  //     year = d.getFullYear();
-  //   if (month.length < 2) month = "0" + month;
-  //   if (day.length < 2) day = "0" + day;
-  //   return [year, month, day].join("-");
-  // }
-
   const green = { color: "green" },
     red = { color: "red" };
 
@@ -114,7 +104,7 @@ function Stock(props) {
               { backgroundColor: "red" } :
               { backgroundColor: "green" }
             }
-            onClick={() => props.addToWatchList(company)}>
+            onClick={() => props.addToWatchList({symbol: company})}>
             WATCH
           </button>
         </div>

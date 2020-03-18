@@ -13,6 +13,7 @@ const initialState = {
   dailyPercentChange: 0,
   success: '',
   isFetching: false,
+  isAdding: false
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -157,19 +158,26 @@ export const rootReducer = (state = initialState, action) => {
           success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
         }
       }
-    case actionType.ADD_WATCH_LIST:
+    case actionType.ADD_WATCH_LIST_START:
+      return {
+        ...state,
+        isAdding: true
+      }
+    case actionType.ADD_WATCH_LIST_SUCCESS:
       if (state.watchList.filter(stock => stock.symbol === action.payload.symbol).length === 1) {
         return {
           ...state,
           error: `You are already watching ${action.payload.symbol} i list.`,
-          success: ''
+          success: '',
+          isAdding: false
         }
       } else {
         return {
           ...state,
           error: '',
           success: `${action.payload.symbol} added to watch list.`,
-          watchList: [...state.watchList, action.payload]
+          watchList: [...state.watchList, action.payload],
+          isAdding: false
         }
       }
     default:
