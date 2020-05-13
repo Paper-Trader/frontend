@@ -3,12 +3,12 @@ import { axiosWithAuth } from '../components/utils/axiosAuth';
 
 export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS';
 export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
-
 export const FETCH_USER = 'FETCH_USER';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 
 export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
 export const UPDATE_STOCK_DATA_SUCCESS = 'UPDATE_STOCK_DATA_SUCCESS';
+export const UPDATE_CASH = 'UPDATE_CASH';
 
 export const BUY_STOCK = 'BUY_STOCK';
 export const SELL_STOCK = 'SELL_STOCK';
@@ -37,12 +37,24 @@ export const fetchAll = () => dispatch => {
     })
 }
 
+export const updateCash = (data) => dispatch => {
+  console.log(data)
+  axiosWithAuth() 
+    .put('/portfolio/cash', data)
+    .then(() => 
+      dispatch({ type: UPDATE_CASH, payload: data })
+    )
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
+}
+
 export const buyStock = (data) => dispatch => {
   axiosWithAuth() 
     .post('/portfolio/buy', data)
-    .then(res => 
-      dispatch({ type: BUY_STOCK, payload: res.data })
-    )
+    .then(() => {
+      dispatch({ type: BUY_STOCK, payload: data })
+    })
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
     })
@@ -51,8 +63,7 @@ export const buyStock = (data) => dispatch => {
 export const buyExistingStock = (data) => dispatch => {
   axiosWithAuth() 
     .put('/portfolio/buy', data)
-    .then(res => {
-      console.log(res)
+    .then(() => {
       dispatch({ type: BUY_STOCK, payload: data })
     })
     .catch(err => {
@@ -78,4 +89,11 @@ export const addToWatchList = (data) => dispatch => {
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
     })
+}
+
+export const errorMessage = (data) => {
+  return {
+    type: ERROR,
+    payload: {...data}
+  }
 }

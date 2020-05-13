@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { buyStock, buyExistingStock } from '../../actions';
+import { buyStock, buyExistingStock, updateCash } from '../../actions';
 
 function BuyStock(props) {
   const stock = props.stocks.filter(stock => props.company === stock.symbol)
@@ -14,11 +14,18 @@ function BuyStock(props) {
 
   const buyStock = (e) => {
     e.preventDefault();
-
-    if (stock.length > 0) {
-      newStock.amount += stock[0].amount
+    let cash = (props.cash - (newStock.amount * newStock.price)).toFixed(2)
+    console.log(cash)
+    if (isNaN(newStock.amount)) {
+      alert('Amount required')
+    } else if (props.cash < (newStock.amount * newStock.price)) {
+      alert(`You do not have sufficient funds in your account. Current cash balance of $${props.cash}.`)
+    } else if (stock.length > 0) {
+      newStock.amount = parseInt(newStock.amount) + stock[0].amount
+      props.updateCash({cash: cash})
       props.buyExistingStock(newStock)
     } else {
+      props.updateCash({cash: cash})
       props.buyStock(newStock)
     }
   }
@@ -29,7 +36,7 @@ function BuyStock(props) {
     if (e.target.value === '' || re.test(e.target.value)) {
       setNewStock({
         ...newStock,
-        [e.target.name]: parseInt(e.target.value)
+        [e.target.name]: e.target.value
       })
     }
   }
@@ -48,10 +55,10 @@ function BuyStock(props) {
           />
         </label>
         <label>
-            Market Price x {newStock.price}
+            at {newStock.price.toFixed(2)} 
         </label>
         <label>
-            EST COST = ${(newStock.amount * newStock.price)}
+            Total: ${(newStock.amount * newStock.price).toFixed(2)}
         </label>
         <button type="submit">Buy</button>
       </form>
@@ -64,4 +71,4 @@ const mapStateToProps = state => ({
   cash: state.cash
 })
 
-export default connect(mapStateToProps, { buyStock, buyExistingStock })(BuyStock);
+export default connect(mapStateToProps, { buyStock, buyExistingStock, updateCash })(BuyStock);

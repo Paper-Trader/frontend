@@ -77,43 +77,14 @@ export const rootReducer = (state = initialState, action) => {
       }
     case actionType.BUY_STOCK:
       console.log(action.payload)
-      if (action.payload.amount === '') { // check if input is empty then return error
-        return {
-          ...state,
-          error: 'Amount required',
-          success: '',
-        }
-      } else if (state.cash < (action.payload.amount * action.payload.price)) { // check if you have enough cash 
-        return {
-          ...state,
-          success: '',
-          error: `You do not have sufficient funds in your account. Current cash balance of $${state.cash}.`
-        }
-      } else if (state.portfolio.stocks.filter(stock => stock.symbol === action.payload.symbol).length === 1) { // check if you already own that stock 
-        for (let i=0; i < state.portfolio.stocks.length; i++) { // find the array
-          if (state.portfolio.stocks[i].symbol === action.payload.symbol) {
-            state.portfolio.stocks[i].amount += action.payload.amount // add to the already existing amount
-          }
-        }
-        return {
-          ...state,
-          portfolio: {
-            stocks: [...state.portfolio.stocks] // update with the new amount
-          },
-          cash: (state.cash) - (action.payload.amount * action.payload.price),
-          success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
-        }
-      } else { // add stock to portfolio list
-        return {
-          ...state,
-          error: '',
-          portfolio: {
-            stocks: [...state.portfolio.stocks, action.payload]
-          },
-          cash: (state.cash) - (action.payload.amount * action.payload.price),
-          success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
-        }
-      }  
+      return {
+        ...state,
+        error: '',
+        portfolio: {
+          stocks: [...state.portfolio.stocks, action.payload]
+        },
+        success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.amount).toFixed(2)}.`,
+      }
     case actionType.SELL_STOCK:
       if (action.payload.amount === '') { // check if input is empty then return error
         return {
