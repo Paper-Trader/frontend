@@ -14,13 +14,15 @@ function BuyStock(props) {
 
   const buyStock = (e) => {
     e.preventDefault();
+
     let cash = (props.cash - (newStock.amount * newStock.price)).toFixed(2)
-    console.log(cash)
+
     if (isNaN(newStock.amount)) {
       alert('Amount required')
     } else if (props.cash < (newStock.amount * newStock.price)) {
       alert(`You do not have sufficient funds in your account. Current cash balance of $${props.cash}.`)
     } else if (stock.length > 0) {
+      newStock.prevAmount = parseInt(newStock.amount)
       newStock.amount = parseInt(newStock.amount) + stock[0].amount
       props.updateCash({cash: cash})
       props.buyExistingStock(newStock)

@@ -83,7 +83,7 @@ export const rootReducer = (state = initialState, action) => {
         portfolio: {
           stocks: [...state.portfolio.stocks, action.payload]
         },
-        success: `You have successfully purchased ${action.payload.amount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.amount).toFixed(2)}.`,
+        success: `You have successfully purchased ${action.payload.prevAmount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.prevAmount).toFixed(2)}.`,
       }
     case actionType.SELL_STOCK:
       if (action.payload.amount === '') { // check if input is empty then return error
