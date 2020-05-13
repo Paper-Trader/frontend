@@ -6,7 +6,7 @@ function SellStock(props) {
   let stock = props.stocks.filter(stock => props.company === stock.symbol)
 
   let initialStock = {
-    symbol: props.company,
+    stock_symbol: props.company,
     price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
     amount: stock.length === 1 ? stock[0].amount : 0,
   };
@@ -33,7 +33,7 @@ function SellStock(props) {
         stock.length > 0 &&
         <form onSubmit={sellStock}>
           <label>
-            Shares of {newStock.symbol}:
+            Shares of {newStock.stock_symbol}:
             <input 
               type="number"
               min="1"

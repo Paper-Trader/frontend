@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { buyStock } from '../../actions';
+import { buyStock, buyExistingStock } from '../../actions';
 
 function BuyStock(props) {
+  const stock = props.stocks.filter(stock => props.company === stock.symbol)
   const initialStock = {
-    symbol: props.company,
+    stock_symbol: props.company,
     price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
     amount: 0,
   };
@@ -13,7 +14,13 @@ function BuyStock(props) {
 
   const buyStock = (e) => {
     e.preventDefault();
-    props.buyStock(newStock)
+
+    if (stock.length > 0) {
+      newStock.amount += stock[0].amount
+      props.buyExistingStock(newStock)
+    } else {
+      props.buyStock(newStock)
+    }
   }
 
   const onChange = (e) => {
@@ -31,7 +38,7 @@ function BuyStock(props) {
     <div >
       <form onSubmit={buyStock}>
         <label>
-          Shares of {newStock.symbol}:
+          Shares of {newStock.stock_symbol}:
           <input
             type="number"
             min="1"
@@ -52,4 +59,9 @@ function BuyStock(props) {
   );
 };
 
-export default connect(null, { buyStock })(BuyStock);
+const mapStateToProps = state => ({
+  stocks: state.portfolio.stocks,
+  cash: state.cash
+})
+
+export default connect(mapStateToProps, { buyStock, buyExistingStock })(BuyStock);

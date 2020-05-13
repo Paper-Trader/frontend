@@ -76,6 +76,7 @@ export const rootReducer = (state = initialState, action) => {
         isFetching: false,
       }
     case actionType.BUY_STOCK:
+      console.log(action.payload)
       if (action.payload.amount === '') { // check if input is empty then return error
         return {
           ...state,
@@ -165,7 +166,6 @@ export const rootReducer = (state = initialState, action) => {
       }
     case actionType.ADD_WATCH_LIST_SUCCESS:
       if (state.watchList.filter(stock => stock.symbol === action.payload).length > 0) {
-        console.log('EXISTS', action.payload)
         return {
           ...state,
           error: `You are already watching ${action.payload}.`,
@@ -173,7 +173,6 @@ export const rootReducer = (state = initialState, action) => {
           isAdding: false
         }
       } else {
-        console.log('NOT EXISTS', action.payload)
         return {
           ...state,
           error: '',

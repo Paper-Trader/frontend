@@ -80,7 +80,7 @@ function Stock(props) {
             <h1>
               {company} <span>{companyInfo.companyName}</span>
             </h1>
-            <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"])}`}</h3>
+            <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"]).toFixed(2)}`}</h3>
             <h4>
               {lowHighCashPerc[2] < 0 ? (
                 <span style={red}>{`-$${lowHighCashPerc[2]

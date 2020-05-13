@@ -37,11 +37,27 @@ export const fetchAll = () => dispatch => {
     })
 }
 
-export const buyStock = (data) => {
-  return {
-    type: BUY_STOCK,
-    payload: { ...data }
-  }
+export const buyStock = (data) => dispatch => {
+  axiosWithAuth() 
+    .post('/portfolio/buy', data)
+    .then(res => 
+      dispatch({ type: BUY_STOCK, payload: res.data })
+    )
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
+}
+
+export const buyExistingStock = (data) => dispatch => {
+  axiosWithAuth() 
+    .put('/portfolio/buy', data)
+    .then(res => {
+      console.log(res)
+      dispatch({ type: BUY_STOCK, payload: data })
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
 }
 
 export const sellStock = (data) => {
@@ -54,7 +70,7 @@ export const sellStock = (data) => {
 export const addToWatchList = (data) => dispatch => {
   dispatch({ type: ADD_WATCH_LIST_START });
   axiosWithAuth()
-    .post('watchlist', data)
+    .post('/watchlist', data)
     .then(res => {
       console.log(res)
       dispatch({ type: ADD_WATCH_LIST_SUCCESS, payload: res.data })
