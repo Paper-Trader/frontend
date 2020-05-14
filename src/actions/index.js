@@ -9,12 +9,10 @@ export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
 export const UPDATE_STOCK_DATA_SUCCESS = 'UPDATE_STOCK_DATA_SUCCESS';
 export const UPDATE_CASH = 'UPDATE_CASH';
 
-export const BUY_STOCK = 'BUY_STOCK';
-export const SELL_STOCK = 'SELL_STOCK';
-
 export const ADD_WATCH_LIST_START = 'ADD_WATCH_LIST_START';
 export const ADD_WATCH_LIST_SUCCESS = 'ADD_WATCH_LIST_SUCCESS';
 
+export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
 
 export const fetchAll = () => dispatch => {
@@ -47,44 +45,44 @@ export const updateCash = (data) => dispatch => {
     })
 }
 
-export const buyStock = (data) => dispatch => {
+export const buyStock = (data, message) => dispatch => {
   axiosWithAuth() 
     .post('/portfolio/buy', data)
     .then(() => {
-      dispatch({ type: BUY_STOCK, payload: data })
+      dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
     })
 }
 
-export const buyExistingStock = (data) => dispatch => {
+export const buyExistingStock = (data, message) => dispatch => {
   axiosWithAuth() 
     .put('/portfolio/buy', data)
     .then(() => {
-      dispatch({ type: BUY_STOCK, payload: data })
+      dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
     })
 }
 
-export const sellPartialStock = (data) => dispatch => {
+export const sellPartialStock = (data, message) => dispatch => {
   axiosWithAuth() 
     .put('/portfolio/sell', data)
     .then(() => {
-      dispatch({ type: SELL_STOCK, payload: data })
+      dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
       dispatch({ type: ERROR, payload: err })
     })
 }
 
-export const sellStock = (stock) => dispatch => {
+export const sellStock = (stock, message) => dispatch => {
   axiosWithAuth() 
     .delete('/portfolio/sell', { data: {stock_symbol: stock.stock_symbol}})
     .then(() => {
-      dispatch({ type: SELL_STOCK, payload: stock })
+      dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
       dispatch({ type: ERROR, payload: err })

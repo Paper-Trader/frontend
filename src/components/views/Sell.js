@@ -29,23 +29,20 @@ function SellStock({
     e.preventDefault();
 
     let newSum = (cash + (newStock.amount * newStock.price)).toFixed(2)
-    console.log('Cash', newSum)
-    console.log('Current Stock', stock[0])
-    console.log('New Stock', newStock)
+    let message = `You have successfully sold ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
+    console.log(newSum)
 
     if (stock[0].amount !== parseInt(newStock.amount)) {
-      newStock.soldAmount = parseInt(newStock.amount)
       newStock.amount = stock[0].amount - newStock.amount
       updateCash({cash: newSum})
-      sellPartialStock(newStock)
+      sellPartialStock(newStock, message)
       setNewStock({
         ...newStock,
         amount: 0
       })
     } else {
-      newStock.soldAmount = parseInt(newStock.amount)
       updateCash({cash: newSum})
-      sellStock(newStock)
+      sellStock(newStock, message)
       setNewStock({
         ...newStock,
         amount: 0

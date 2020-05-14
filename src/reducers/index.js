@@ -68,15 +68,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       }
-    case actionType.BUY_STOCK:
+    case actionType.SUCCESS:
+      console.log(action.payload)
       return {
         ...state,
-        success: `You have successfully purchased ${action.payload.purchasedAmount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.purchasedAmount).toFixed(2)}.`,
-      }
-    case actionType.SELL_STOCK:
-      return {
-        ...state,
-        success: `You have successfully sold ${parseInt(action.payload.soldAmount)} shares of ${action.payload.stock_symbol} for $${(action.payload.price * parseInt(action.payload.soldAmount)).toFixed(2)}.`,
+        success: action.payload,
       }
     case actionType.ADD_WATCH_LIST_START:
       return {

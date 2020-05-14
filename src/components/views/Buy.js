@@ -30,23 +30,22 @@ function BuyStock({
     e.preventDefault();
 
     let newSum = (cash - (newStock.amount * newStock.price)).toFixed(2)
+    let message = `You have successfully purchased ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
     console.log(newSum)
 
     if (newSum < 0) {
       errorMessage(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
     } else if (stock.length > 0) {
-      newStock.purchasedAmount = parseInt(newStock.amount)
       newStock.amount = parseInt(newStock.amount) + stock[0].amount
       updateCash({cash: newSum})
-      buyExistingStock(newStock)
+      buyExistingStock(newStock, message)
       setNewStock({
         ...newStock,
         amount: 0
       })
     } else {
-      newStock.purchasedAmount = parseInt(newStock.amount)
       updateCash({cash: newSum})
-      buyStock(newStock)
+      buyStock(newStock, message)
       setNewStock({
         ...newStock,
         amount: 0
