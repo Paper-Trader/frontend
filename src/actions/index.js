@@ -38,7 +38,6 @@ export const fetchAll = () => dispatch => {
 }
 
 export const updateCash = (data) => dispatch => {
-  console.log(data)
   axiosWithAuth() 
     .put('/portfolio/cash', data)
     .then(() => 
@@ -71,11 +70,27 @@ export const buyExistingStock = (data) => dispatch => {
     })
 }
 
-export const sellStock = (data) => {
-  return {
-    type: SELL_STOCK,
-    payload: { ...data }
-  }
+export const sellPartialStock = (data) => dispatch => {
+  axiosWithAuth() 
+    .put('/portfolio/sell', data)
+    .then(() => {
+      dispatch({ type: SELL_STOCK, payload: data })
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
+}
+
+export const sellStock = (stock) => dispatch => {
+  console.log(stock)
+  axiosWithAuth() 
+    .delete('/portfolio/sell', { data: {stock_symbol: stock.stock_symbol}})
+    .then(() => {
+      dispatch({ type: SELL_STOCK, payload: stock })
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
 }
 
 export const addToWatchList = (data) => dispatch => {

@@ -1,20 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { sellStock } from '../../actions';
+import { sellStock, updateCash, fetchAll, sellPartialStock } from '../../actions';
 
-function SellStock(props) {
-  let stock = props.stocks.filter(stock => props.company === stock.symbol)
+function SellStock({ 
+  stocks, 
+  company, 
+  currPrice, 
+  sellStock, 
+  updateCash, 
+  fetchAll, 
+  cash, 
+  sellPartialStock 
+}) {
+  useEffect(() => {
+    fetchAll()
+  }, [fetchAll]);
 
+  const stock = stocks.filter(stock => company === stock.symbol)
   let initialStock = {
-    stock_symbol: props.company,
-    price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
-    amount: stock.length === 1 ? stock[0].amount : 0,
+    stock_symbol: company,
+    price: parseFloat(currPrice[currPrice.length - 1]["4. close"]),
+    amount: 0,
   };
+
   const [newStock, setNewStock] = useState(initialStock);
 
-  const sellStock = (e) => {
+  const sellStocks = (e) => {
     e.preventDefault();
-    props.sellStock(newStock)
+
+    let newSum = (cash + (newStock.amount * newStock.price)).toFixed(2)
+    console.log('Cash', newSum)
+    console.log('Current Stock', stock[0])
+    console.log('New Stock', newStock)
+
+    if (stock[0].amount !== parseInt(newStock.amount)) {
+      newStock.soldAmount = parseInt(newStock.amount)
+      newStock.amount = stock[0].amount - newStock.amount
+      console.log(newStock)
+      // updateCash({cash: newSum})
+      // sellPartialStock(newStock)
+      // setNewStock({
+      //   ...newStock,
+      //   amount: 0
+      // })
+      alert('diff amount')
+    } else {
+      newStock.soldAmount = parseInt(newStock.amount)
+      updateCash({cash: newSum})
+      sellStock(newStock)
+      setNewStock({
+        ...newStock,
+        amount: 0
+      })
+    }
   }
 
   const onChange = (e) => {
@@ -25,38 +63,45 @@ function SellStock(props) {
         ...newStock, 
         [e.target.name]: e.target.value
       })
-   }
+    }
   }
+
   return (
     <div >
-      {
-        stock.length > 0 &&
-        <form onSubmit={sellStock}>
-          <label>
-            Shares of {newStock.stock_symbol}:
-            <input 
-              type="number"
-              min="1"
-              name="amount"
-              onChange={onChange}
-              value={newStock.amount}
-            />
-          </label>
-          <label>
-              Market Price x {newStock.price}
-          </label>
-          <label>
-              EST COST = ${(newStock.amount * newStock.price).toFixed(2)}
-          </label>
-          <button type="submit">Sell</button>
-        </form>
-      }
+      <form onSubmit={sellStocks}>
+        <label>
+          Shares of {newStock.stock_symbol}:
+          <input 
+            type="number"
+            min="1"
+            name="amount"
+            onChange={onChange}
+            value={newStock.amount}
+          />
+        </label>
+        <label>
+            at {newStock.price.toFixed(2)}
+        </label>
+        <label>
+          Total: ${(newStock.amount * newStock.price).toFixed(2)}
+        </label>
+        <button type="submit">Sell</button>
+      </form>
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-  stocks: state.portfolio.stocks
+  stocks: state.portfolio.stocks,
+  cash: state.cash,
+  isFetching: state.isFetching
 })
 
-export default connect(mapStateToProps, { sellStock })(SellStock);
+export default connect(
+  mapStateToProps, { 
+    sellStock, 
+    updateCash, 
+    fetchAll,
+    sellPartialStock
+  }
+)(SellStock);

@@ -80,55 +80,13 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        portfolio: {
-          stocks: [...state.portfolio.stocks, action.payload]
-        },
-        success: `You have successfully purchased ${action.payload.prevAmount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.prevAmount).toFixed(2)}.`,
+        success: `You have successfully purchased ${action.payload.purchasedAmount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.purchasedAmount).toFixed(2)}.`,
       }
     case actionType.SELL_STOCK:
-      if (action.payload.amount === '') { // check if input is empty then return error
-        return {
-          ...state,
-          error: 'Amount required',
-          success: '',
-        }
-      } 
-
-      let stock;
-      for (let i=0; i < state.portfolio.stocks.length; i++) { // find the array
-        if (state.portfolio.stocks[i].symbol === action.payload.symbol) {
-          stock = state.portfolio.stocks[i] // set stock var to the proper stock in portfolio
-        }
-      }
-
-      if (parseFloat(action.payload.amount) > stock.amount) { // check if user put more than they own
-        return {
-          ...state,
-          error: `Too many, you only have ${stock.amount} shares of ${stock.symbol} in your account.`,
-          success: '',
-        }
-      } else if (parseFloat(action.payload.amount) === stock.amount) { // check if user is selling the max stock they own
-        return {
-          ...state,
-          error: '',
-          success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
-          portfolio: {
-            stocks: state.portfolio.stocks.filter(val => val !== stock) // remove the stock from portfolio since we no longer own any
-          },
-          cash: (state.cash) + (action.payload.amount * action.payload.price),
-        }
-      } else {
-        return {
-          ...state,
-          error: '',
-          portfolio: {
-            stocks: state.portfolio.stocks.map(val => val.symbol === action.payload.symbol 
-              ? {...val, price: action.payload.price, amount: val.amount -= action.payload.amount}
-              : val)
-          },
-          cash: (state.cash) + (action.payload.amount * action.payload.price),
-          success: `You have successfully sold ${action.payload.amount} shares of ${action.payload.symbol} for $${action.payload.price * action.payload.amount}.`,
-        }
+      return {
+        ...state,
+        error: '',
+        success: `You have successfully sold ${parseInt(action.payload.soldAmount)} shares of ${action.payload.stock_symbol} for $${(action.payload.price * parseInt(action.payload.soldAmount)).toFixed(2)}.`,
       }
     case actionType.ADD_WATCH_LIST_START:
       return {

@@ -2,7 +2,17 @@ import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { buyStock, buyExistingStock, updateCash, fetchAll } from '../../actions';
 
-function BuyStock({ buyStock, buyExistingStock, updateCash, fetchAll, stocks, company, currPrice, cash, isFetching }) {
+function BuyStock({ 
+  buyStock, 
+  buyExistingStock, 
+  updateCash, 
+  fetchAll, 
+  stocks, 
+  company, 
+  currPrice, 
+  cash, 
+  isFetching 
+}) {
   useEffect(() => {
     fetchAll()
   }, [fetchAll]);
@@ -19,23 +29,23 @@ function BuyStock({ buyStock, buyExistingStock, updateCash, fetchAll, stocks, co
   const buyStocks = (e) => {
     e.preventDefault();
 
-    let cash = (cash - (newStock.amount * newStock.price)).toFixed(2)
+    let newSum = (cash - (newStock.amount * newStock.price)).toFixed(2)
+    console.log(newSum)
 
-    if (isNaN(newStock.amount)) {
-      alert('Amount required')
-    } else if (cash < (newStock.amount * newStock.price)) {
+    if (newSum < 0) {
       alert(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
     } else if (stock.length > 0) {
-      newStock.prevAmount = parseInt(newStock.amount)
+      newStock.purchasedAmount = parseInt(newStock.amount)
       newStock.amount = parseInt(newStock.amount) + stock[0].amount
-      updateCash({cash: cash})
+      updateCash({cash: newSum})
       buyExistingStock(newStock)
       setNewStock({
         ...newStock,
         amount: 0
       })
     } else {
-      updateCash({cash: cash})
+      newStock.purchasedAmount = parseInt(newStock.amount)
+      updateCash({cash: newSum})
       buyStock(newStock)
       setNewStock({
         ...newStock,
@@ -54,8 +64,6 @@ function BuyStock({ buyStock, buyExistingStock, updateCash, fetchAll, stocks, co
       })
     }
   }
-
-  console.log(stocks, cash)
 
   if (isFetching) {
     return <div>Loading your stocks...</div>
@@ -92,4 +100,11 @@ const mapStateToProps = state => ({
   isFetching: state.isFetching
 })
 
-export default connect(mapStateToProps, { buyStock, buyExistingStock, updateCash, fetchAll })(BuyStock);
+export default connect(
+  mapStateToProps, { 
+    buyStock, 
+    buyExistingStock, 
+    updateCash, 
+    fetchAll 
+  }
+)(BuyStock);
