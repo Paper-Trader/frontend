@@ -3,7 +3,6 @@ import { axiosWithAuth } from '../components/utils/axiosAuth';
 
 export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS';
 export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
-export const FETCH_USER = 'FETCH_USER';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 
 export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
@@ -104,9 +103,9 @@ export const addToWatchList = (data) => dispatch => {
     })
 }
 
-export const errorMessage = (data) => {
+export const errorMessage = (message) => {
   return {
     type: ERROR,
-    payload: {...data}
+    payload: message
   }
 }

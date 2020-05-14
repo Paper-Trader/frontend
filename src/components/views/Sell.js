@@ -42,7 +42,6 @@ function SellStock({
         ...newStock,
         amount: 0
       })
-      alert('diff amount')
     } else {
       newStock.soldAmount = parseInt(newStock.amount)
       updateCash({cash: newSum})
@@ -93,7 +92,6 @@ function SellStock({
 const mapStateToProps = state => ({
   stocks: state.portfolio.stocks,
   cash: state.cash,
-  isFetching: state.isFetching
 })
 
 export default connect(

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { buyStock, buyExistingStock, updateCash, fetchAll } from '../../actions';
+import { buyStock, buyExistingStock, updateCash, fetchAll, errorMessage } from '../../actions';
 
 function BuyStock({ 
   buyStock, 
@@ -10,8 +10,8 @@ function BuyStock({
   stocks, 
   company, 
   currPrice, 
-  cash, 
-  isFetching 
+  cash,
+  errorMessage
 }) {
   useEffect(() => {
     fetchAll()
@@ -33,7 +33,7 @@ function BuyStock({
     console.log(newSum)
 
     if (newSum < 0) {
-      alert(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
+      errorMessage(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
     } else if (stock.length > 0) {
       newStock.purchasedAmount = parseInt(newStock.amount)
       newStock.amount = parseInt(newStock.amount) + stock[0].amount
@@ -65,10 +65,6 @@ function BuyStock({
     }
   }
 
-  if (isFetching) {
-    return <div>Loading your stocks...</div>
-  }
-
   return (
     <div >
       <form onSubmit={buyStocks}>
@@ -97,7 +93,6 @@ function BuyStock({
 const mapStateToProps = state => ({
   stocks: state.portfolio.stocks,
   cash: state.cash,
-  isFetching: state.isFetching
 })
 
 export default connect(
@@ -105,6 +100,7 @@ export default connect(
     buyStock, 
     buyExistingStock, 
     updateCash, 
-    fetchAll 
+    fetchAll,
+    errorMessage
   }
 )(BuyStock);

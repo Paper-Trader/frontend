@@ -12,17 +12,13 @@ const initialState = {
   dailyChange: 0,
   dailyPercentChange: 0,
   success: '',
+  error: '',
   isFetching: false,
   isAdding: false
 }
 
 export const rootReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionType.FETCH_USER:
-      return {
-        ...state,
-        error: '',
-      }
     case actionType.FETCH_USER_SUCCESS:
       return {
         ...state,
@@ -36,13 +32,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: true,
-        error: '',
       }
     case actionType.FETCH_ALL_SUCCESS:
       const stockData = action.payload.stockList
       return {
         ...state,
-        error: '',
         stockList: stockData,
         portfolio: {
           stocks: state.portfolio.stocks.map(val => {
@@ -63,28 +57,25 @@ export const rootReducer = (state = initialState, action) => {
       let currPort = (state.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
       return {
         ...state,
-        error: '',
         valueCurr: currPort.toFixed(2),
         dailyChange: (currPort - state.dailyInitial).toFixed(2),
         dailyPercentChange: ((currPort - state.dailyInitial) / 100).toFixed(2),
         isFetching: false,
       }
     case actionType.ERROR:
+      console.log(action.payload)
       return {
         ...state,
         error: action.payload,
-        isFetching: false,
       }
     case actionType.BUY_STOCK:
       return {
         ...state,
-        error: '',
         success: `You have successfully purchased ${action.payload.purchasedAmount} shares of ${action.payload.stock_symbol} for $${(action.payload.price * action.payload.purchasedAmount).toFixed(2)}.`,
       }
     case actionType.SELL_STOCK:
       return {
         ...state,
-        error: '',
         success: `You have successfully sold ${parseInt(action.payload.soldAmount)} shares of ${action.payload.stock_symbol} for $${(action.payload.price * parseInt(action.payload.soldAmount)).toFixed(2)}.`,
       }
     case actionType.ADD_WATCH_LIST_START:
@@ -96,14 +87,12 @@ export const rootReducer = (state = initialState, action) => {
       if (state.watchList.filter(stock => stock.symbol === action.payload).length > 0) {
         return {
           ...state,
-          error: `You are already watching ${action.payload}.`,
           success: '',
           isAdding: false
         }
       } else {
         return {
           ...state,
-          error: '',
           success: `${action.payload} added to watch list.`,
           watchList: [...state.watchList, action.payload],
           isAdding: false
