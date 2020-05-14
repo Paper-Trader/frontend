@@ -1,34 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { buyStock, buyExistingStock, updateCash } from '../../actions';
+import { buyStock, buyExistingStock, updateCash, fetchAll } from '../../actions';
 
-function BuyStock(props) {
-  const stock = props.stocks.filter(stock => props.company === stock.symbol)
+function BuyStock({ buyStock, buyExistingStock, updateCash, fetchAll, stocks, company, currPrice, cash, isFetching }) {
+  useEffect(() => {
+    fetchAll()
+  }, [fetchAll]);
+
+  const stock = stocks.filter(stock => company === stock.symbol)
   const initialStock = {
-    stock_symbol: props.company,
-    price: parseFloat(props.currPrice[props.currPrice.length - 1]["4. close"]),
+    stock_symbol: company,
+    price: parseFloat(currPrice[currPrice.length - 1]["4. close"]),
     amount: 0,
   };
 
   const [newStock, setNewStock] = useState(initialStock);
 
-  const buyStock = (e) => {
+  const buyStocks = (e) => {
     e.preventDefault();
 
-    let cash = (props.cash - (newStock.amount * newStock.price)).toFixed(2)
+    let cash = (cash - (newStock.amount * newStock.price)).toFixed(2)
 
     if (isNaN(newStock.amount)) {
       alert('Amount required')
-    } else if (props.cash < (newStock.amount * newStock.price)) {
-      alert(`You do not have sufficient funds in your account. Current cash balance of $${props.cash}.`)
+    } else if (cash < (newStock.amount * newStock.price)) {
+      alert(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
     } else if (stock.length > 0) {
       newStock.prevAmount = parseInt(newStock.amount)
       newStock.amount = parseInt(newStock.amount) + stock[0].amount
-      props.updateCash({cash: cash})
-      props.buyExistingStock(newStock)
+      updateCash({cash: cash})
+      buyExistingStock(newStock)
+      setNewStock({
+        ...newStock,
+        amount: 0
+      })
     } else {
-      props.updateCash({cash: cash})
-      props.buyStock(newStock)
+      updateCash({cash: cash})
+      buyStock(newStock)
+      setNewStock({
+        ...newStock,
+        amount: 0
+      })
     }
   }
 
@@ -43,9 +55,15 @@ function BuyStock(props) {
     }
   }
 
+  console.log(stocks, cash)
+
+  if (isFetching) {
+    return <div>Loading your stocks...</div>
+  }
+
   return (
     <div >
-      <form onSubmit={buyStock}>
+      <form onSubmit={buyStocks}>
         <label>
           Shares of {newStock.stock_symbol}:
           <input
@@ -70,7 +88,8 @@ function BuyStock(props) {
 
 const mapStateToProps = state => ({
   stocks: state.portfolio.stocks,
-  cash: state.cash
+  cash: state.cash,
+  isFetching: state.isFetching
 })
 
-export default connect(mapStateToProps, { buyStock, buyExistingStock, updateCash })(BuyStock);
+export default connect(mapStateToProps, { buyStock, buyExistingStock, updateCash, fetchAll })(BuyStock);
