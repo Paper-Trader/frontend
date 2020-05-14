@@ -36,13 +36,12 @@ function SellStock({
     if (stock[0].amount !== parseInt(newStock.amount)) {
       newStock.soldAmount = parseInt(newStock.amount)
       newStock.amount = stock[0].amount - newStock.amount
-      console.log(newStock)
-      // updateCash({cash: newSum})
-      // sellPartialStock(newStock)
-      // setNewStock({
-      //   ...newStock,
-      //   amount: 0
-      // })
+      updateCash({cash: newSum})
+      sellPartialStock(newStock)
+      setNewStock({
+        ...newStock,
+        amount: 0
+      })
       alert('diff amount')
     } else {
       newStock.soldAmount = parseInt(newStock.amount)

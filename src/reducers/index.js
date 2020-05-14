@@ -76,7 +76,6 @@ export const rootReducer = (state = initialState, action) => {
         isFetching: false,
       }
     case actionType.BUY_STOCK:
-      console.log(action.payload)
       return {
         ...state,
         error: '',

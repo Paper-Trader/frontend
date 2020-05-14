@@ -25,7 +25,6 @@ function SignUp(props) {
   const [registerData, setRegisterData] = useState(initialState)
 
   const handleChange = e => {
-    console.log(e.target.name, e.target.value)
     setRegisterData({
       credentials: {
         ...registerData.credentials,
@@ -39,7 +38,6 @@ function SignUp(props) {
     axiosWithAuth()
       .post('/auth/register', registerData.credentials)
       .then(res => {
-        console.log(res)
         localStorage.setItem('token', res.data.authToken);
         props.history.push('/dashboard')
       })

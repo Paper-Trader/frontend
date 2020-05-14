@@ -7,7 +7,6 @@ import { fetchAll } from "../../actions";
 import { Link } from "react-router-dom";
 
 function WatchList({ isFetching, watchList, fetchAll}) {
-  console.log(watchList, isFetching)
   useEffect(() => {
     fetchAll() // fetches first data
     setInterval(() => { // runs every 60 seconds

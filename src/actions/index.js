@@ -82,7 +82,6 @@ export const sellPartialStock = (data) => dispatch => {
 }
 
 export const sellStock = (stock) => dispatch => {
-  console.log(stock)
   axiosWithAuth() 
     .delete('/portfolio/sell', { data: {stock_symbol: stock.stock_symbol}})
     .then(() => {
@@ -98,7 +97,6 @@ export const addToWatchList = (data) => dispatch => {
   axiosWithAuth()
     .post('/watchlist', data)
     .then(res => {
-      console.log(res)
       dispatch({ type: ADD_WATCH_LIST_SUCCESS, payload: res.data })
     })
     .catch(err => {
