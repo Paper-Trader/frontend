@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addToWatchList, fetchAll } from "../../actions";
+import { addToWatchList, removeFromWatchList, fetchAll } from "../../actions";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -78,7 +78,7 @@ function Stock(props) {
         <div className="topbar">
           <div className="description">
             <h1>
-              {company} <span>{companyInfo.companyName}</span>
+              {company.toUpperCase()} <span>{companyInfo.companyName}</span>
             </h1>
             <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"]).toFixed(2)}`}</h3>
             <h4>
@@ -98,22 +98,31 @@ function Stock(props) {
               )}
             </h4>
           </div>
-          <button 
-            style={
-              lowHighCashPerc[3].toString().includes("-") ?
-              { backgroundColor: "red" } :
-              { backgroundColor: "green" }
-            }
-            onClick={async () => {
-              if (props.watchList.filter(stock => stock.symbol === company).length > 0) {
-                alert('ALREADY EXISTS')
-              } else {
-                await props.addToWatchList({symbol: company})
-              }
-              props.fetchAll()
-            }}>
-            WATCH
-          </button>
+          {
+            props.watchList.filter(stock => stock.symbol === company).length > 0 ? 
+            <button 
+              style={{backgroundColor: "#DC4A7F"}}
+              onClick={() => {
+                props.removeFromWatchList(
+                  {symbol: company}, 
+                  `Removed ${company} from watch list.`
+                )
+                props.fetchAll()
+              }}>
+              UNWATCH
+            </button> : 
+            <button 
+              style={{backgroundColor: "#00D1C5"}}
+              onClick={() => {
+                props.addToWatchList(
+                  {symbol: company}, 
+                  `Added ${company} to watch list.`
+                )
+                props.fetchAll()
+              }}>
+              WATCH
+            </button>
+          }
         </div>
         <ResponsiveContainer height={300} width="100%">
           <LineChart
@@ -169,4 +178,8 @@ const mapStateToProps = state => ({
   watchList: state.watchList
 });
 
-export default connect(mapStateToProps, { addToWatchList, fetchAll })(Stock);
+export default connect(mapStateToProps, { 
+  addToWatchList, 
+  removeFromWatchList, 
+  fetchAll 
+})(Stock);

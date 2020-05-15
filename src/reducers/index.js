@@ -74,26 +74,6 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         success: action.payload,
       }
-    case actionType.ADD_WATCH_LIST_START:
-      return {
-        ...state,
-        isAdding: true
-      }
-    case actionType.ADD_WATCH_LIST_SUCCESS:
-      if (state.watchList.filter(stock => stock.symbol === action.payload).length > 0) {
-        return {
-          ...state,
-          success: '',
-          isAdding: false
-        }
-      } else {
-        return {
-          ...state,
-          success: `${action.payload} added to watch list.`,
-          watchList: [...state.watchList, action.payload],
-          isAdding: false
-        }
-      }
     default:
       return state;
   }

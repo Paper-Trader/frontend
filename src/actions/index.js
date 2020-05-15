@@ -9,8 +9,8 @@ export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
 export const UPDATE_STOCK_DATA_SUCCESS = 'UPDATE_STOCK_DATA_SUCCESS';
 export const UPDATE_CASH = 'UPDATE_CASH';
 
-export const ADD_WATCH_LIST_START = 'ADD_WATCH_LIST_START';
-export const ADD_WATCH_LIST_SUCCESS = 'ADD_WATCH_LIST_SUCCESS';
+export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
+export const REMOVE_WATCH_LIST = 'REMOVE_WATCH_LIST';
 
 export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
@@ -89,12 +89,22 @@ export const sellStock = (stock, message) => dispatch => {
     })
 }
 
-export const addToWatchList = (data) => dispatch => {
-  dispatch({ type: ADD_WATCH_LIST_START });
+export const addToWatchList = (stock, message) => dispatch => {
   axiosWithAuth()
-    .post('/watchlist', data)
-    .then(res => {
-      dispatch({ type: ADD_WATCH_LIST_SUCCESS, payload: res.data })
+    .post('/watchlist', stock)
+    .then(() => {
+      dispatch({ type: SUCCESS, payload: message })
+    })
+    .catch(err => {
+      dispatch({ type: ERROR, payload: err })
+    })
+}
+
+export const removeFromWatchList = (stock, message) => dispatch => {
+  axiosWithAuth()
+    .delete('/watchlist', { data: {symbol: stock.symbol}})
+    .then(() => {
+      dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
       dispatch({ type: ERROR, payload: err })

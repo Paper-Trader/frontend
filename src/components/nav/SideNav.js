@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Image } from "semantic-ui-react";
 import dashboardIcon from "../../assets/activity-icon.svg";
 import watchListIcon from "../../assets/bar-chart-icon.svg";
-import browseIcon from "../../assets/eye-icon.svg";
+// import browseIcon from "../../assets/eye-icon.svg";
 
 function SideNav() {
   return (
@@ -20,12 +20,12 @@ function SideNav() {
           WATCHLIST
         </Link>
       </div>
-      <div className="sidenav-item nav-browse">
+      {/* <div className="sidenav-item nav-browse">
         <Image src={browseIcon} size="mini" spaced="right" />
         <Link to="/browse" className="sidenav-link">
           BROWSE
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }
