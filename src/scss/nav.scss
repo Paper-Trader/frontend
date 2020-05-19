@@ -23,19 +23,34 @@
     // display: flex;
 
     .signin-button {
-      background-color: #110034;
-      border: 2px solid #DC4A7F;
-      color: #DC4A7F;
+      width: 120px;
+      background-color: #DC4A7F;
+      color: white;
+      transition: .5s;
+      &:hover {
+        background-color: #00D1C5;
+      }
     }
     .signup-button {
+      width: 120px;
       margin: 0 1rem;
-      color: #DC4A7F;
-      background-color: #fff;
+      color: white;
+      background-color: #DC4A7F;
+      transition: .5s;
+      &:hover {
+        background-color: #00D1C5;
+      }
     }
     .signout-button {
+      width: 120px;
       margin: 0 1rem;
       color: #DC4A7F;
       background-color: #fff;
+      transition: .5s;
+      &:hover {
+        background: #DC4A7F;
+        color: white;
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addToWatchList, removeFromWatchList, fetchAll } from "../../actions";
+import { Button } from "semantic-ui-react";
 import Loader from "react-loader-spinner";
 import {
   LineChart,
@@ -100,8 +101,9 @@ function Stock(props) {
           </div>
           {
             props.watchList.filter(stock => stock.symbol === company).length > 0 ? 
-            <button 
-              style={{backgroundColor: "#DC4A7F"}}
+            <Button 
+              size="small"
+              className="unwatch-button"
               onClick={() => {
                 props.removeFromWatchList(
                   {symbol: company}, 
@@ -110,9 +112,10 @@ function Stock(props) {
                 props.fetchAll()
               }}>
               UNWATCH
-            </button> : 
-            <button 
-              style={{backgroundColor: "#00D1C5"}}
+            </Button> : 
+            <Button 
+              size="small"
+              className="watch-button"
               onClick={() => {
                 props.addToWatchList(
                   {symbol: company}, 
@@ -121,7 +124,7 @@ function Stock(props) {
                 props.fetchAll()
               }}>
               WATCH
-            </button>
+            </Button>
           }
         </div>
         <ResponsiveContainer height={300} width="100%">
