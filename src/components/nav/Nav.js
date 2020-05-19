@@ -28,7 +28,7 @@ function Nav() {
         {
           isAuthenticated 
             ? <Link to="/">
-                <Button size="small" className="signin-button" onClick={onLogout}>
+                <Button size="small" className="signout-button" onClick={onLogout}>
                   SIGN OUT
                 </Button>
               </Link>

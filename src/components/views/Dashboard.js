@@ -18,11 +18,7 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
       <div className="dashboard-breakdown">
         <Header as="h5">Aggregated Daily Activity</Header>
         <Header as="h2"
-          style={
-            dailyChange.toString().includes("-") ?
-            { color: "#DC4A7F" } : 
-            { color: "#00D1C5" }
-          }>
+          style={{ color: "black" }}>
           ${value}
         </Header>
         <Header as="h4"
@@ -31,7 +27,7 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
             { color: "#DC4A7F" } : 
             { color: "#00D1C5" }
           }>
-          {dailyChange} ({dailyPercent}%)
+          {dailyChange.toString().includes("-") ? '-' : '+' }{dailyChange} ({dailyPercent}%) Today
         </Header>
         <PortfolioChart />
       </div>

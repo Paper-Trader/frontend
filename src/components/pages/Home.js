@@ -2,7 +2,7 @@ import React from 'react';
 import api from '../../assets/api-icon.svg';
 import safety from '../../assets/safety-icon.svg';
 import analytic from '../../assets/analytics-icon.svg';
-import { Button, Image } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 function Home() {
