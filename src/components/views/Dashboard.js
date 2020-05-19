@@ -20,16 +20,16 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
         <Header as="h2"
           style={
             dailyChange.toString().includes("-") ?
-            { color: "red" } : 
-            { color: "green" }
+            { color: "#DC4A7F" } : 
+            { color: "#00D1C5" }
           }>
           ${value}
         </Header>
         <Header as="h4"
           style={
             dailyChange.toString().includes("-") ?
-            { color: "red" } : 
-            { color: "green" }
+            { color: "#DC4A7F" } : 
+            { color: "#00D1C5" }
           }>
           {dailyChange} ({dailyPercent}%)
         </Header>

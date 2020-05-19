@@ -6,8 +6,6 @@ const prodEndpoint = 'https://papr-tradr.herokuapp.com';
 export const axiosWithAuth = () => {
   const token = localStorage.getItem('token');
 
-
-
   return axios.create({
     baseURL: 
       process.env.REACT_APP_CURR_ENV === "dev" 

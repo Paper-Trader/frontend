@@ -23,8 +23,8 @@ function Stock(props) {
   const [loading, setLoading] = useState(true);
   const company = props.match.params.id;
 
-  const green = { color: "green" },
-    red = { color: "red" };
+  const green = { color: "#00D1C5" },
+    red = { color: "#DC4A7F" };
 
   useEffect(() => {
     if (lowHighCashPerc.length > 0) {
@@ -149,7 +149,7 @@ function Stock(props) {
                 type="monotone"
                 dataKey="price"
                 strokeWidth="3"
-                stroke="red"
+                stroke="#DC4A7F"
                 dot={false}
               />
             ) : (
@@ -158,7 +158,7 @@ function Stock(props) {
                 type="monotone"
                 dataKey="price"
                 strokeWidth="3"
-                stroke="green"
+                stroke="#00D1C5"
                 dot={false}
               />
             )}

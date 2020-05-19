@@ -8,7 +8,7 @@ import { css } from 'glamor';
 const Messages = props => {
   const errorToast = () => toast(props.error ,{
     className: css({
-      background: 'red'
+      background: '#DC4A7F'
     }),
     bodyClassName: css({
       fontSize: '1rem',
@@ -21,7 +21,7 @@ const Messages = props => {
 
   const successToast = () => toast(props.success ,{
     className: css({
-      background: 'green'
+      background: '#00D1C5'
     }),
     bodyClassName: css({
       fontSize: '1rem',
