@@ -1,0 +1,44 @@
+.home {
+  .home-data {
+    display: flex;
+    margin: 3rem auto;
+    .home-data-container {
+      width: 370px;
+      height: 430px;
+      margin: 2rem;
+      padding: 3rem;
+      background: #FFFFFF;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+
+      h2 {
+        margin-top: 3rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        font-weight: normal;
+        font-size: 28px;
+        line-height: 38px;
+        color: #111111;
+      }
+    }
+  }
+  .try-it-button {
+    color: white;
+    background: #DC4A7F;
+    border-radius: 5px;
+    width: 253px;
+    height: 69px;
+    &:hover {
+      background: white;
+      border: 2px solid #00D1C5;
+      color: #00D1C5;
+    }
+    h2 {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 27px;
+      text-align: center;
+    }
+  }
+}

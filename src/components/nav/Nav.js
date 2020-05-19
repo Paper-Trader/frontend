@@ -4,6 +4,13 @@ import { Button, Image } from "semantic-ui-react";
 import logo from "../../assets/logo.svg";
 
 function Nav() {
+
+  const isAuthenticated = localStorage.getItem('token');
+
+  const onLogout = () => {
+    localStorage.removeItem('token')
+  }
+
   return (
     <div className="navbar">
       <div className="nav-left">
@@ -18,16 +25,26 @@ function Nav() {
         </Link>
       </div>
       <div className="nav-right">
-        <Button size="small" className="signin-button">
-          <Link to="/signin" className="signin-button-text">
-            SIGN IN
-          </Link>
-        </Button>
-        <Button size="small" className="signup-button">
-          <Link to="/signup" className="signup-button-text">
-            SIGN UP
-          </Link>
-        </Button>
+        {
+          isAuthenticated 
+            ? <Link to="/">
+                <Button size="small" className="signin-button" onClick={onLogout}>
+                  SIGN OUT
+                </Button>
+              </Link>
+            : <div>
+                <Link to="/signin">  
+                  <Button size="small" className="signin-button">
+                    SIGN IN
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button size="small" className="signup-button">
+                    SIGN UP
+                  </Button>
+                </Link>
+              </div>
+        }
       </div>
     </div>
   );

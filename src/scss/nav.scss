@@ -14,7 +14,8 @@
       margin: .5rem 1.25rem;
     }
     .nav-left-link {
-      color: #fff;
+      color: #00D1C5;
+      font-weight: bold;
       margin: .65rem;
     }
   }
@@ -24,16 +25,12 @@
     .signin-button {
       background-color: #110034;
       border: 2px solid #DC4A7F;
-      .signin-button-text {
-        color: #DC4A7F;
-      }
+      color: #DC4A7F;
     }
     .signup-button {
       margin: 0 1rem;
+      color: #DC4A7F;
       background-color: #fff;
-      .signup-button-text {
-        color: #DC4A7F;
-      }
     }
   }
 }

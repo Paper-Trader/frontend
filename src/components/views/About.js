@@ -18,8 +18,8 @@ function About() {
               Test your trading strategies before you trade
             </Header>
             <p>
-              PaprTradr is a paper stock trading app. Get updates on constantly
-              updates your portfolio based on market fluctuations via API calls.
+              PaprTradr is a paper stock trading app. Get updates on 
+              your portfolio based on market fluctuations via API calls.
             </p>
             <p>
               Our simulated trading account allows you to test your strategies
