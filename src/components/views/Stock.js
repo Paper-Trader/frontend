@@ -93,7 +93,7 @@ function Stock(props) {
               {lowHighCashPerc[3].toString().includes("-") ? (
                 <span
                   style={red}
-                >{`  (${lowHighCashPerc[3].toString()}%)  Today`}</span>
+                >{`  (${lowHighCashPerc[3].toString()}%) Today`}</span>
               ) : (
                 <span style={green}>{`  (${lowHighCashPerc[3]}%)  Today`}</span>
               )}
@@ -106,8 +106,8 @@ function Stock(props) {
               className="unwatch-button"
               onClick={() => {
                 props.removeFromWatchList(
-                  {symbol: company}, 
-                  `Removed ${company} from watch list.`
+                  {symbol: company.toUpperCase()}, 
+                  `Removed ${company.toUpperCase()} from watch list.`
                 )
                 props.fetchAll()
               }}>
@@ -118,8 +118,8 @@ function Stock(props) {
               className="watch-button"
               onClick={() => {
                 props.addToWatchList(
-                  {symbol: company}, 
-                  `Added ${company} to watch list.`
+                  {symbol: company.toUpperCase()}, 
+                  `Added ${company.toUpperCase()} to watch list.`
                 )
                 props.fetchAll()
               }}>
@@ -167,7 +167,7 @@ function Stock(props) {
             )}
           </LineChart>
         </ResponsiveContainer>
-        <div>
+        <div className="buy-sell-container">
           <BuyStock currPrice={graphInfo} company={company}/>
           <SellStock currPrice={graphInfo} company={company}/>
         </div>

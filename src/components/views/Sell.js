@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
+import { Button } from "semantic-ui-react";
 import { sellStock, updateCash, fetchAll, sellPartialStock } from '../../actions';
 
 function SellStock({ 
@@ -62,27 +63,33 @@ function SellStock({
   }
 
   return (
-    <div >
-      <form onSubmit={sellStocks}>
-        <label>
-          Shares of {newStock.stock_symbol}:
-          <input 
-            type="number"
-            min="1"
-            name="amount"
-            onChange={onChange}
-            value={newStock.amount}
-          />
-        </label>
-        <label>
-            at {newStock.price.toFixed(2)}
-        </label>
-        <label>
-          Total: ${(newStock.amount * newStock.price).toFixed(2)}
-        </label>
-        <button type="submit">Sell</button>
-      </form>
-    </div>
+    <form onSubmit={sellStocks} className="sell-container">
+      <h2 className="sell-name">Sell {newStock.stock_symbol}</h2>
+      <label className="shares-label">
+        Shares of {newStock.stock_symbol}:
+        <input 
+          type="number"
+          min="1"
+          name="amount"
+          onChange={onChange}
+          className="shares-input"
+          value={newStock.amount}
+        />
+      </label>
+      <label className="market-price">
+        <h2>Market Price</h2>
+        ${newStock.price.toFixed(2)} 
+      </label>
+      <label className="estimated-cost">
+        <h2>Estimated Cost</h2>
+        ${(newStock.amount * newStock.price).toFixed(2)}
+      </label>
+      <Button 
+        size="small" 
+        type="submit"
+        className="sell-button"
+      >Sell</Button>
+    </form>
   );
 };
 

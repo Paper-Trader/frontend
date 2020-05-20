@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
+import { Button } from "semantic-ui-react";
 import { buyStock, buyExistingStock, updateCash, fetchAll, errorMessage } from '../../actions';
 
 function BuyStock({ 
@@ -65,27 +66,33 @@ function BuyStock({
   }
 
   return (
-    <div >
-      <form onSubmit={buyStocks}>
-        <label>
-          Shares of {newStock.stock_symbol}:
-          <input
-            type="number"
-            min="1"
-            name="amount"
-            onChange={onChange}
-            value={newStock.amount}
-          />
-        </label>
-        <label>
-            at {newStock.price.toFixed(2)} 
-        </label>
-        <label>
-            Total: ${(newStock.amount * newStock.price).toFixed(2)}
-        </label>
-        <button type="submit">Buy</button>
-      </form>
-    </div>
+    <form onSubmit={buyStocks} className="buy-container">
+      <h2 className="buy-name">Buy {newStock.stock_symbol}</h2>
+      <label className="shares-label">
+        <h2>Shares</h2>
+        <input
+          type="number"
+          min="1"
+          name="amount"
+          onChange={onChange}
+          className="shares-input"
+          value={newStock.amount}
+        />
+      </label>
+      <label className="market-price">
+        <h2>Market Price</h2>
+        ${newStock.price.toFixed(2)} 
+      </label>
+      <label className="estimated-cost">
+        <h2>Estimated Cost</h2>
+        ${(newStock.amount * newStock.price).toFixed(2)}
+      </label>
+      <Button 
+        size="small" 
+        type="submit"
+        className="buy-button"
+      >Buy</Button>
+    </form>
   );
 };
 
