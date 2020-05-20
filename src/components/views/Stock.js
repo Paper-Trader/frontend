@@ -23,7 +23,6 @@ function Stock(props) {
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
   const company = props.match.params.id.toUpperCase();
-
   const green = { color: "#00D1C5" },
     red = { color: "#DC4A7F" };
 
@@ -61,12 +60,8 @@ function Stock(props) {
           setLowHighCashPerc([low, high, cash.toFixed(2), perc.toFixed(2)]);
         });
       axios
-        .get(
-          `https://financialmodelingprep.com/api/v3/company/profile/${company}`
-        )
-        .then(data => {
-          setCompanyInfo(data.data.profile);
-        });
+        .get(`https://financialmodelingprep.com/api/v3/company/profile/${company}?apikey=d9392208d6ed4660fbde19cfe5c99f43`)
+        .then(data => setCompanyInfo(data.data.profile));
     }
   }, [lowHighCashPerc, company]);
 

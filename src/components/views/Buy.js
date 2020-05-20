@@ -24,9 +24,7 @@ function BuyStock({
     price: parseFloat(currPrice[currPrice.length - 1]["4. close"]),
     amount: 0,
   };
-
   const [newStock, setNewStock] = useState(initialStock);
-  console.log(cash)
 
   const buyStocks = (e) => {
     e.preventDefault();

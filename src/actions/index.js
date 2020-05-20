@@ -24,7 +24,7 @@ export const fetchAll = () => dispatch => {
     })
     .then(() => // then chain a promise to the fetch user and fetch stock data and update the state.
       axios
-      .get('https://financialmodelingprep.com/api/v3/stock/real-time-price')
+      .get(`https://financialmodelingprep.com/api/v3/stock/real-time-price?apikey=d9392208d6ed4660fbde19cfe5c99f43`)
       .then(res => {
         dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
         dispatch({ type: UPDATE_PORTFOLIO })
