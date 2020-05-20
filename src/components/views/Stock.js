@@ -22,7 +22,7 @@ function Stock(props) {
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
-  const company = props.match.params.id;
+  const company = props.match.params.id.toUpperCase();
 
   const green = { color: "#00D1C5" },
     red = { color: "#DC4A7F" };
@@ -79,7 +79,7 @@ function Stock(props) {
         <div className="topbar">
           <div className="description">
             <h1>
-              {company.toUpperCase()} <span>{companyInfo.companyName}</span>
+              {company} <span>{companyInfo.companyName}</span>
             </h1>
             <h3>{`$${parseFloat(graphInfo[graphInfo.length - 1]["4. close"]).toFixed(2)}`}</h3>
             <h4>
@@ -106,8 +106,8 @@ function Stock(props) {
               className="unwatch-button"
               onClick={() => {
                 props.removeFromWatchList(
-                  {symbol: company.toUpperCase()}, 
-                  `Removed ${company.toUpperCase()} from watch list.`
+                  {symbol: company}, 
+                  `Removed ${company} from watch list.`
                 )
                 props.fetchAll()
               }}>
@@ -118,8 +118,8 @@ function Stock(props) {
               className="watch-button"
               onClick={() => {
                 props.addToWatchList(
-                  {symbol: company.toUpperCase()}, 
-                  `Added ${company.toUpperCase()} to watch list.`
+                  {symbol: company}, 
+                  `Added ${company} to watch list.`
                 )
                 props.fetchAll()
               }}>

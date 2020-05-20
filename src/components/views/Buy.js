@@ -26,6 +26,7 @@ function BuyStock({
   };
 
   const [newStock, setNewStock] = useState(initialStock);
+  console.log(cash)
 
   const buyStocks = (e) => {
     e.preventDefault();

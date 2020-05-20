@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { Button } from "semantic-ui-react";
-import { sellStock, updateCash, fetchAll, sellPartialStock } from '../../actions';
+import { sellStock, updateCash, sellPartialStock, errorMessage } from '../../actions';
 
 function SellStock({ 
   stocks, 
@@ -9,13 +9,10 @@ function SellStock({
   currPrice, 
   sellStock, 
   updateCash, 
-  fetchAll, 
+  errorMessage,
   cash, 
   sellPartialStock 
 }) {
-  useEffect(() => {
-    fetchAll()
-  }, [fetchAll]);
 
   const stock = stocks.filter(stock => company === stock.symbol)
   let initialStock = {
@@ -28,12 +25,17 @@ function SellStock({
 
   const sellStocks = (e) => {
     e.preventDefault();
-
     let newSum = (cash + (newStock.amount * newStock.price)).toFixed(2)
     let message = `You have successfully sold ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
-    console.log(newSum)
+    
+    console.log(stock)
+    console.log(newStock)
 
-    if (stock[0].amount !== parseInt(newStock.amount)) {
+    if (stock.length < 1) {
+      errorMessage(`You don't own any shares of ${company}.`)
+    } else if (stock[0].amount < newStock.amount) {
+      errorMessage(`You only own ${stock[0].amount} shares of ${company}. ${newStock.amount - stock[0].amount} too many.`)
+    } else if (stock[0].amount !== parseInt(newStock.amount)) {
       newStock.amount = stock[0].amount - newStock.amount
       updateCash({cash: newSum})
       sellPartialStock(newStock, message)
@@ -41,7 +43,7 @@ function SellStock({
         ...newStock,
         amount: 0
       })
-    } else {
+    } else if (stock[0].amount === parseInt(newStock.amount)) {
       updateCash({cash: newSum})
       sellStock(newStock, message)
       setNewStock({
@@ -66,7 +68,7 @@ function SellStock({
     <form onSubmit={sellStocks} className="sell-container">
       <h2 className="sell-name">Sell {newStock.stock_symbol}</h2>
       <label className="shares-label">
-        Shares of {newStock.stock_symbol}:
+        Shares
         <input 
           type="number"
           min="1"
@@ -96,13 +98,14 @@ function SellStock({
 const mapStateToProps = state => ({
   stocks: state.portfolio.stocks,
   cash: state.cash,
+  isFetching: state.isFetching,
 })
 
 export default connect(
   mapStateToProps, { 
     sellStock, 
     updateCash, 
-    fetchAll,
+    errorMessage,
     sellPartialStock
   }
 )(SellStock);

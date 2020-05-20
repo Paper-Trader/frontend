@@ -27,12 +27,13 @@ export const rootReducer = (state = initialState, action) => {
           stocks: [...action.payload.portfolio]
         },
         watchList: [...action.payload.watchlist],
-      }
-    case actionType.FETCH_ALL_STOCKS:
-      return {
-        ...state,
         isFetching: true,
       }
+    // case actionType.FETCH_ALL_STOCKS:
+    //   return {
+    //     ...state,
+    //     isFetching: true,
+    //   }
     case actionType.FETCH_ALL_SUCCESS:
       const stockData = action.payload.stockList
       return {
@@ -52,6 +53,7 @@ export const rootReducer = (state = initialState, action) => {
               price: stockData[stockData.findIndex(x => x.symbol === val.symbol)].price
             }
           }),
+        isFetching: false
       }
     case actionType.UPDATE_PORTFOLIO:
       let currPort = (state.cash + state.portfolio.stocks.reduce((acc, val) => acc + (val.price * val.amount), 0))
