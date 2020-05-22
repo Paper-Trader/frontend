@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { Button } from "semantic-ui-react";
 import { sellStock, updateCash, sellPartialStock, errorMessage } from '../../actions';

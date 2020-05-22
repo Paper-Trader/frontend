@@ -5,14 +5,17 @@ import { Header } from "semantic-ui-react";
 import PortfolioChart from "../portfolio/PortfolioChart";
 import PortfolioList from "../portfolio/PortfolioList";
 
-function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
+function Dashboard({stocks, fetchAll, cash, dailyInitial }) {
   useEffect(() => {
     fetchAll() // fetches first data
     setInterval(() => { // runs every 60 seconds
       fetchAll() // fetching data once per cycle and updates portfolio
-    }, 60 * 1000);
+    }, 60 * 1000000);
   }, [fetchAll]);
 
+  let value = cash + stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)
+  let dailyChange = value - dailyInitial
+  let dailyPercent = (((value / dailyInitial) - 1)*100)
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">
@@ -22,12 +25,16 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
           ${value}
         </Header>
         <Header as="h4"
+          style={{ color: "black" }}>
+          ${cash} cash
+        </Header>
+        <Header as="h4"
           style={
             dailyChange.toString().includes("-") ?
             { color: "#DC4A7F" } : 
             { color: "#00D1C5" }
           }>
-          {dailyChange.toString().includes("-") ? '-' : '+' }{dailyChange} ({dailyPercent}%) Today
+          {dailyChange.toString().includes("-") ? '-' : '+' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
         </Header>
         <PortfolioChart />
       </div>
@@ -40,9 +47,8 @@ function Dashboard({value, dailyChange, dailyPercent, stocks, fetchAll }) {
 }
 
 const mapStateToProps = state => ({
-  value: state.valueCurr,
-  dailyChange: state.dailyChange,
-  dailyPercent: state.dailyPercentChange,
+  cash: state.cash,
+  dailyInitial: state.dailyInitial,
   stocks: state.portfolio.stocks,
   stockList: state.stockList
 });

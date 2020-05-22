@@ -4,13 +4,7 @@ import { axiosWithAuth } from '../components/utils/axiosAuth';
 export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS';
 export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
-
-export const UPDATE_PORTFOLIO = 'UPDATE_PORTFOLIO';
-export const UPDATE_STOCK_DATA_SUCCESS = 'UPDATE_STOCK_DATA_SUCCESS';
 export const UPDATE_CASH = 'UPDATE_CASH';
-
-export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
-export const REMOVE_WATCH_LIST = 'REMOVE_WATCH_LIST';
 
 export const SUCCESS = 'SUCCESS';
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
@@ -28,11 +22,10 @@ export const fetchAll = () => dispatch => {
       .get(`https://financialmodelingprep.com/api/v3/stock/real-time-price?apikey=d9392208d6ed4660fbde19cfe5c99f43`)
       .then(res => {
         dispatch({ type: FETCH_ALL_SUCCESS, payload: res.data })
-        dispatch({ type: UPDATE_PORTFOLIO })
       }))
     .catch(err => {
-      console.log(err.response.data.message)
-      dispatch({ type: ERROR, payload: err.response.data.message })
+      // console.log(err.response.data.message)
+      dispatch({ type: ERROR, payload: err })
     })
 }
 
