@@ -13,6 +13,7 @@ export const ADD_WATCH_LIST = 'ADD_WATCH_LIST';
 export const REMOVE_WATCH_LIST = 'REMOVE_WATCH_LIST';
 
 export const SUCCESS = 'SUCCESS';
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 export const ERROR = 'ERROR';
 
 export const fetchAll = () => dispatch => {
@@ -30,7 +31,8 @@ export const fetchAll = () => dispatch => {
         dispatch({ type: UPDATE_PORTFOLIO })
       }))
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      console.log(err.response.data.message)
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -41,7 +43,7 @@ export const updateCash = (data) => dispatch => {
       dispatch({ type: UPDATE_CASH, payload: data })
     )
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -52,7 +54,7 @@ export const buyStock = (data, message) => dispatch => {
       dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -63,7 +65,7 @@ export const buyExistingStock = (data, message) => dispatch => {
       dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -74,7 +76,7 @@ export const sellPartialStock = (data, message) => dispatch => {
       dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -85,7 +87,7 @@ export const sellStock = (stock, message) => dispatch => {
       dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -96,7 +98,7 @@ export const addToWatchList = (stock, message) => dispatch => {
       dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
@@ -107,13 +109,13 @@ export const removeFromWatchList = (stock, message) => dispatch => {
       dispatch({ type: SUCCESS, payload: message })
     })
     .catch(err => {
-      dispatch({ type: ERROR, payload: err })
+      dispatch({ type: ERROR, payload: err.response.data.message })
     })
 }
 
 export const errorMessage = (message) => {
   return {
-    type: ERROR,
+    type: ERROR_MESSAGE,
     payload: message
   }
 }

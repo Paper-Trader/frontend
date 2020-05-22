@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const devEndpoint = 'http://localhost:5000'
+const devEndpoint = 'http://localhost:5000';
 const prodEndpoint = 'https://papr-tradr.herokuapp.com';
 
 export const axiosWithAuth = () => {

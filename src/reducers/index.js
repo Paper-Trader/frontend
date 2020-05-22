@@ -12,6 +12,7 @@ const initialState = {
   dailyChange: 0,
   dailyPercentChange: 0,
   success: '',
+  serverError: '',
   error: '',
   isFetching: false,
   isAdding: false
@@ -64,14 +65,18 @@ export const rootReducer = (state = initialState, action) => {
         dailyPercentChange: ((currPort - state.dailyInitial) / 100).toFixed(2),
         isFetching: false,
       }
-    case actionType.ERROR:
-      console.log(action.payload)
+    case actionType.ERROR_MESSAGE:
       return {
         ...state,
         error: action.payload,
       }
-    case actionType.SUCCESS:
+    case actionType.ERROR:
       console.log(action.payload)
+      return {
+        ...state,
+        serverError: action.payload,
+      }
+    case actionType.SUCCESS:
       return {
         ...state,
         success: action.payload,
