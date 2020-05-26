@@ -13,9 +13,10 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial }) {
     }, 60 * 1000000);
   }, [fetchAll]);
 
-  let value = cash + stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)
+  let value = (cash + stocks.reduce((acc, val) => acc + (val.price * val.amount), 0)).toFixed(2)
   let dailyChange = value - dailyInitial
   let dailyPercent = (((value / dailyInitial) - 1)*100)
+
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">

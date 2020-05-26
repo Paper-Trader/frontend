@@ -60,7 +60,7 @@ function Stock(props) {
           setLowHighCashPerc([low, high, cash.toFixed(2), perc.toFixed(2)]);
         });
       axios
-        .get(`https://financialmodelingprep.com/api/v3/company/profile/${company}?apikey=d9392208d6ed4660fbde19cfe5c99f43`)
+        .get(`https://financialmodelingprep.com/api/v3/company/profile/${company}?apikey=${process.env.REACT_APP_FMP_KEY}`)
         .then(data => setCompanyInfo(data.data.profile));
     }
   }, [lowHighCashPerc, company]);
