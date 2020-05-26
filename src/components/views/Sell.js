@@ -22,14 +22,14 @@ function SellStock({
   };
 
   const [newStock, setNewStock] = useState(initialStock);
+  // console.log(stock[0].amount)
+  console.log(stock)
+  console.log(newStock)
 
   const sellStocks = (e) => {
     e.preventDefault();
     let newSum = (cash + (newStock.amount * newStock.price)).toFixed(2)
     let message = `You have successfully sold ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
-    
-    console.log(stock)
-    console.log(newStock)
 
     if (stock.length < 1) {
       errorMessage(`You don't own any shares of ${company}.`)
@@ -64,35 +64,39 @@ function SellStock({
     }
   }
 
-  return (
-    <form onSubmit={sellStocks} className="sell-container">
-      <h2 className="sell-name">Sell {newStock.stock_symbol}</h2>
-      <label className="shares-label">
-        Shares
-        <input 
-          type="number"
-          min="1"
-          name="amount"
-          onChange={onChange}
-          className="shares-input"
-          value={newStock.amount}
-        />
-      </label>
-      <label className="market-price">
-        <h2>Market Price</h2>
-        ${newStock.price.toFixed(2)} 
-      </label>
-      <label className="estimated-cost">
-        <h2>Estimated Cost</h2>
-        ${(newStock.amount * newStock.price).toFixed(2)}
-      </label>
-      <Button 
-        size="small" 
-        type="submit"
-        className="sell-button"
-      >Sell</Button>
-    </form>
-  );
+  if (stock.length > 0) {
+    return (
+      <form onSubmit={sellStocks} className="sell-container">
+        <h2 className="sell-name">Sell {newStock.stock_symbol}</h2>
+        <label className="shares-label">
+          Shares
+          <input 
+            type="number"
+            min="1"
+            name="amount"
+            onChange={onChange}
+            className="shares-input"
+            defaultValue={stock[0].amount}
+          />
+        </label>
+        <label className="market-price">
+          <h2>Market Price</h2>
+          ${newStock.price.toFixed(2)} 
+        </label>
+        <label className="estimated-cost">
+          <h2>Estimated Cost</h2>
+          ${(newStock.amount * newStock.price).toFixed(2)}
+        </label>
+        <Button 
+          size="small" 
+          type="submit"
+          className="sell-button"
+        >Sell</Button>
+      </form>
+    );
+  } else {
+    return <></>
+  }
 };
 
 const mapStateToProps = state => ({

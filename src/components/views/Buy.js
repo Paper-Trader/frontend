@@ -25,11 +25,11 @@ function BuyStock({
     amount: 0,
   };
   const [newStock, setNewStock] = useState(initialStock);
+  let newSum = (cash - (newStock.amount * newStock.price)).toFixed(2)
 
   const buyStocks = (e) => {
     e.preventDefault();
 
-    let newSum = (cash - (newStock.amount * newStock.price)).toFixed(2)
     let message = `You have successfully purchased ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
     console.log(newSum)
 
@@ -85,6 +85,10 @@ function BuyStock({
       <label className="estimated-cost">
         <h2>Estimated Cost</h2>
         ${(newStock.amount * newStock.price).toFixed(2)}
+      </label>
+      <label className="post-balance">
+        <h2>Post Balance</h2>
+        ${newSum}
       </label>
       <Button 
         size="small" 
