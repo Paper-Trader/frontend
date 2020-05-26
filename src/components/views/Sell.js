@@ -22,13 +22,10 @@ function SellStock({
   };
 
   const [newStock, setNewStock] = useState(initialStock);
-  // console.log(stock[0].amount)
-  console.log(stock)
-  console.log(newStock)
+  let newSum = (cash + (newStock.amount * newStock.price)).toFixed(2)
 
   const sellStocks = (e) => {
     e.preventDefault();
-    let newSum = (cash + (newStock.amount * newStock.price)).toFixed(2)
     let message = `You have successfully sold ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
 
     if (stock.length < 1) {
@@ -86,6 +83,10 @@ function SellStock({
         <label className="estimated-cost">
           <h2>Estimated Cost</h2>
           ${(newStock.amount * newStock.price).toFixed(2)}
+        </label>
+        <label className="post-balance">
+          <h2>Post Balance</h2>
+          ${newSum}
         </label>
         <Button 
           size="small" 

@@ -155,6 +155,16 @@
         }
       }
 
+      .post-balance {
+        margin: .5rem 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: .5rem;
+        border-top: 2px dotted rgb(94, 91, 91);
+      }
+
       .sell-button {
         width: 100%;
         height: 40px;
