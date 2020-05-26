@@ -111,3 +111,17 @@ export const errorMessage = (message) => {
     payload: message
   }
 }
+
+export const clearErrorMessage = () => {
+  return {
+    type: ERROR_MESSAGE,
+    payload: ''
+  }
+}
+
+export const clearSuccessMessage = () => {
+  return {
+    type: SUCCESS,
+    payload: ''
+  }
+}

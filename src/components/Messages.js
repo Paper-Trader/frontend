@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { clearErrorMessage, clearSuccessMessage } from '../actions';
 import 'react-toastify/dist/ReactToastify.css';
 import { css } from 'glamor';
 
@@ -32,8 +33,14 @@ const Messages = props => {
     })
   });
 
-  if (props.error) errorToast();
-  if (props.success) successToast()
+  if (props.error) {
+    errorToast();
+    props.clearErrorMessage()
+  }
+  if (props.success) {
+    successToast()
+    props.clearSuccessMessage()
+  }
 
   return <ToastContainer autoClose={3000} />;
 }
@@ -43,4 +50,4 @@ const mapStateToProps = state => ({
   success: state.success,
 })
 
-export default connect(mapStateToProps, {})(Messages)
+export default connect(mapStateToProps, {clearErrorMessage, clearSuccessMessage})(Messages)

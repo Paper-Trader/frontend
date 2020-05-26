@@ -34,7 +34,7 @@ function BuyStock({
     console.log(newSum)
 
     if (newSum < 0) {
-      errorMessage(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
+      return errorMessage(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
     } else if (stock.length > 0) {
       newStock.amount = parseInt(newStock.amount) + stock[0].amount
       updateCash({cash: newSum})
