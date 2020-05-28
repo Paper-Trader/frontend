@@ -51,6 +51,12 @@
         background: #DC4A7F;
         color: white;
       }
+
+      @media (max-width: $bp-mobile) {
+        width: 100px;
+        font-size: 12px;
+        height: 30px;
+      }
     }
   }
 }

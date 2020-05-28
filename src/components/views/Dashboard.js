@@ -27,7 +27,7 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial }) {
         </Header>
         <Header as="h4"
           style={{ color: "black" }}>
-          ${cash} cash
+          ${cash.toFixed(2)} cash
         </Header>
         <Header as="h4"
           style={
