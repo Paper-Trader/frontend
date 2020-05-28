@@ -1,11 +1,21 @@
 .side-nav {
   background-color: #261f35;
-  height: 100vh;
+  min-height: 100vh;
   width: 200px;
   padding: 0 .5rem;
+
+  @media (max-width: $bp-mobile) {
+    width: 100%;
+    min-height: 20px;
+    display: flex;
+    flex-direction: row;
+  }
   .sidenav-item {
     display: flex;
     margin: 2.5rem 1rem;
+    @media (max-width: $bp-mobile) {
+      margin: 1rem .5rem;
+    }
     .sidenav-link {
       color: #fff;
     }

@@ -3,6 +3,10 @@
   flex-direction: column;
   width: 100%;
   padding-left: .5rem;
+
+  @media (max-width: $bp-mobile) {
+    padding-left: 0;
+  }
   .stock-wrapper {
     margin: 0;
     padding: 0;
@@ -21,6 +25,10 @@
         h3 {
           color: #dc4a7f;
         }
+      }
+
+      @media (max-width: $bp-mobile) {
+        padding: .75rem 0 ;
       }
       .stock-header {
         display: flex;
