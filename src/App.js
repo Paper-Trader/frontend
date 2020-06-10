@@ -7,10 +7,11 @@ import About from './components/views/About';
 import Team from './components/views/Team';
 import SignUp from './components/login_register/SignUp';
 import SignIn from './components/login_register/SignIn';
-import WatchList from './components/watchlist/WatchList';
+import WatchList from './components/pages/WatchList';
 import Stock from './components/views/Stock';
 import Messages from './components/Messages';
 import PrivateRoute from './components/utils/PrivateRoute';
+import Browse from './components/pages/Browse';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/signin" component={SignIn} />
       <PrivateRoute exact path="/dashboard" component={HomeUser} />
+      <PrivateRoute exact path="/browse" component={Browse} />
       <PrivateRoute exact path="/watchlist" component={WatchList} />
       <PrivateRoute exact path="/stock/:id" component={Stock} />
       <Messages />

@@ -10,8 +10,12 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
     margin-right: 2rem;
+    @media (max-width: $bp-mobile) {
+      width: 100%;
+    }
+
     h5 {
       font-weight: normal;
     }
@@ -24,9 +28,22 @@
       padding: 0;
       margin: 0;
     }
+    .chart-container {
+      width: 100%;
+
+      .recharts-wrapper {
+        margin-top: 1.5rem;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        @media (max-width: $bp-mobile) {
+          width: 400px
+        }
+      }
+    }
   }
   .dashboard-listing {
-    width: 100%;
+    width: 50%;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -40,16 +57,8 @@
       border: none;
       padding-left: 0;
       margin-top: 1.5rem;
+      width: 100%;
     }
   }
-  
-  .recharts-wrapper {
-    margin-top: 1.5rem;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    @media (max-width: $bp-mobile) {
-      width: 400px
-    }
-  }
+
 }

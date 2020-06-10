@@ -15,9 +15,8 @@ const data = [
 
 function PortfolioChart() {
   return (
-    <div>
-      {/* chart for dashboard page, x and y axis are hidden*/}
-      <ResponsiveContainer width={420} height={300}>
+    <div className="chart-container">
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <Line 
             type="monotone" 

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-// import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import SideNav from "../nav/SideNav";
 import { Header } from "semantic-ui-react";
 import { fetchAll } from "../../actions";
