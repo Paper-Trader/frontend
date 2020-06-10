@@ -38,8 +38,7 @@ function SignUp(props) {
     axiosWithAuth()
       .post('/auth/register', registerData.credentials)
       .then(res => {
-        localStorage.setItem('token', res.data.authToken);
-        props.history.push('/dashboard')
+        props.history.push('/signin')
       })
       .catch(err => console.log(err));
   };
