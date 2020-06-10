@@ -2,8 +2,21 @@
   display: flex;
   width: 100%;
 
+  @media (max-width: $bp-mobile) {
+    flex-direction: column;
+  }
+
   .browse-content {
     width: 100%;
+
+    .search_name {
+      width: 70%;
+      margin: 5px auto;
+      display: flex;
+      padding: 2px 10px;
+      border-radius: 10px;
+      box-shadow: #000A 4px 4px 4px;
+    }
 
     .stock_cell {
       &:hover {

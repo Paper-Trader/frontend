@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import SideNav from '../nav/SideNav';
 import { data } from '../../assets/company_data';
 import { Table } from 'semantic-ui-react'
 
 function Browse(props) {
+  const [stockSearch, setStockSearch] = useState('');
+  const filterOnChange = (e) => {
+    setStockSearch(e.target.value);
+  }
+
+  let filteredStock = data.filter(stockName => stockName.Symbol.indexOf(stockSearch.toUpperCase()) !== -1)
+
   return (
     <div className="browse-container">
       <SideNav />
       <div className="browse-content">
+        <input 
+          className="search_name"
+          type="text"
+          placeholder="Search Stock Symbol"
+          value={stockSearch}
+          onChange={filterOnChange}
+        />
         <Table celled>
           <Table.Header>
             <Table.Row>
@@ -16,7 +30,7 @@ function Browse(props) {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {data.map(stock => {
+            {filteredStock.map(stock => {
                 return <Table.Row 
                   key={stock.Symbol} 
                   className="stock_cell"
