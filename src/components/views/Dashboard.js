@@ -4,8 +4,9 @@ import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
 import PortfolioChart from "../portfolio/PortfolioChart";
 import PortfolioList from "../portfolio/PortfolioList";
+import Loader from "react-loader-spinner";
 
-function Dashboard({stocks, fetchAll, cash, dailyInitial }) {
+function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
   useEffect(() => {
     fetchAll() // fetches first data
     setInterval(() => { // runs every 60 seconds
@@ -17,6 +18,10 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial }) {
   let dailyChange = value - dailyInitial
   let dailyPercent = (((value / dailyInitial) - 1)*100)
 
+  if (isFetching) {
+    return <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
+  }
+  
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">
@@ -51,7 +56,8 @@ const mapStateToProps = state => ({
   cash: state.cash,
   dailyInitial: state.dailyInitial,
   stocks: state.portfolio.stocks,
-  stockList: state.stockList
+  stockList: state.stockList,
+  isFetching: state.isFetching,
 });
 
 export default connect(mapStateToProps, { fetchAll })(Dashboard);

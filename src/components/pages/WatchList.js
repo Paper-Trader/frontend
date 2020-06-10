@@ -4,17 +4,18 @@ import SideNav from "../nav/SideNav";
 import { Header } from "semantic-ui-react";
 import { fetchAll } from "../../actions";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 function WatchList({ isFetching, watchList, fetchAll}) {
   useEffect(() => {
     fetchAll() // fetches first data
     setInterval(() => { // runs every 60 seconds
       fetchAll() // fetching data once per cycle and updates portfolio
-    }, 60 * 1000);
+    }, 60 * 10000);
   }, [fetchAll]);
 
   if (isFetching) {
-    return <div>Loading Watchlist...</div>
+    return <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   }
   return (
     <div className="watchlist-container">

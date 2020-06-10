@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
+import Loader from "react-loader-spinner";
 
 function PortfolioList({ stocks, isFetching }) {
   if (isFetching) {
-    return <div>Loading Portfolio...</div>
+    return <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   }
   return (
     <div className="portfoliolist">

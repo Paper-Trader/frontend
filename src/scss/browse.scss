@@ -1,14 +1,15 @@
 .browse-container {
   display: flex;
   width: 100%;
+
   .browse-content {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 1rem 2rem;
     width: 100%;
-    h5 {
-      font-weight: normal;
+
+    .stock_cell {
+      &:hover {
+        cursor: pointer;
+        background: #efefef;
+      }
     }
   }
 }
