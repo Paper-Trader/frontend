@@ -122,10 +122,8 @@ function Stock(props) {
             </Button>
           }
         </div>
-        <ResponsiveContainer height={300} width="100%">
+        <ResponsiveContainer height={300} width="99%">
           <LineChart
-            width={500}
-            height={200}
             data={graphInfo}
             margin={{
               top: 10,
