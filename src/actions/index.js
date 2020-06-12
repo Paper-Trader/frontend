@@ -5,6 +5,7 @@ export const FETCH_ALL_STOCKS = 'FETCH_ALL_STOCKS';
 export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 export const UPDATE_CASH = 'UPDATE_CASH';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 
 export const SUCCESS = 'SUCCESS';
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
@@ -123,5 +124,12 @@ export const clearSuccessMessage = () => {
   return {
     type: SUCCESS,
     payload: ''
+  }
+}
+
+export const changePage = currPage => {
+  return {
+    type: CHANGE_PAGE,
+    payload: currPage
   }
 }

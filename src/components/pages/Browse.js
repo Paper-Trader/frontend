@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux';
 import SideNav from '../nav/SideNav';
 import { data } from '../../assets/company_data';
-import { Table } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react';
+import Pagination from '../views/Pagination';
 
 function Browse(props) {
   const [stockSearch, setStockSearch] = useState('');
@@ -9,7 +11,9 @@ function Browse(props) {
     setStockSearch(e.target.value);
   }
 
-  let filteredStock = data.filter(stockName => stockName.Symbol.indexOf(stockSearch.toUpperCase()) !== -1)
+  let filteredStock = data
+    .filter(stockName => stockName.Symbol.indexOf(stockSearch.toUpperCase()) !== -1)
+    .slice((props.currPage * 15 ) - 15, props.currPage * 15)
 
   return (
     <div className="browse-container">
@@ -41,9 +45,14 @@ function Browse(props) {
             }
           </Table.Body>
         </Table>
+        <Pagination />
       </div>
     </div>
   );
 }
 
-export default Browse;
+const mapStateToProps = state => ({
+  currPage: state.currPage,
+})
+
+export default connect(mapStateToProps, null)(Browse);

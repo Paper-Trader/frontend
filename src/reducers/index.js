@@ -12,7 +12,8 @@ const initialState = {
   serverError: '',
   error: '',
   isFetching: false,
-  isAdding: false
+  isAdding: false,
+  currPage: 1,
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -63,6 +64,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         success: action.payload,
+      }
+    case actionType.CHANGE_PAGE:
+      return {
+        ...state,
+        currPage: action.payload,
       }
     default:
       return state;
