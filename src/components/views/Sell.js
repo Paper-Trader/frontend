@@ -26,12 +26,12 @@ function SellStock({
 
   const sellStocks = (e) => {
     e.preventDefault();
-    let message = `You have successfully sold ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
+    let message = `You have successfully sold ${newStock.amount} share(s) of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
 
     if (stock.length < 1) {
       errorMessage(`You don't own any shares of ${company}.`)
     } else if (stock[0].amount < newStock.amount) {
-      errorMessage(`You only own ${stock[0].amount} shares of ${company}. ${newStock.amount - stock[0].amount} too many.`)
+      errorMessage(`You only own ${stock[0].amount} share(s) of ${company}. ${newStock.amount - stock[0].amount} too many.`)
     } else if (stock[0].amount !== parseInt(newStock.amount)) {
       newStock.amount = stock[0].amount - newStock.amount
       updateCash({cash: newSum})

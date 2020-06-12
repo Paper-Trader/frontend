@@ -30,7 +30,7 @@ function BuyStock({
   const buyStocks = (e) => {
     e.preventDefault();
 
-    let message = `You have successfully purchased ${newStock.amount} shares of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
+    let message = `You have successfully purchased ${newStock.amount} share(s) of ${newStock.stock_symbol} for $${(newStock.price * newStock.amount).toFixed(2)}.`
 
     if (newSum < 0) {
       return errorMessage(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
