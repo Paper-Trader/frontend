@@ -16,12 +16,14 @@ import axios from "axios";
 import BuyStock from './Buy';
 import SellStock from './Sell';
 import SideNav from '../nav/SideNav';
+import StockNews from './StockNews';
 
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [companyNews, setCompanyNews] = useState([]);
   const company = props.match.params.id.toUpperCase();
   const green = { color: "#00D1C5" },
     red = { color: "#DC4A7F" };
@@ -31,7 +33,7 @@ function Stock(props) {
       setLoading(false);
     } else {
       axios
-        .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=${process.env.ALPHA_KEY}`)
+        .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${company}&interval=60min&apikey=${process.env.REACT_APP_ALPHA_KEY}`)
         .then(data => {
           let newArr = [];
           let time = Object.keys(data.data["Time Series (60min)"])[0] // creates a var for most recent date, ex; '2020-01-08'
@@ -61,7 +63,14 @@ function Stock(props) {
         });
       axios
         .get(`https://financialmodelingprep.com/api/v3/company/profile/${company}?apikey=${process.env.REACT_APP_FMP_KEY}`)
-        .then(data => setCompanyInfo(data.data.profile));
+        .then(data => setCompanyInfo(data.data.profile))
+        .catch(err => console.log(err));
+      axios
+        .get(`https://stocknewsapi.com/api/v1?tickers=${company}&items=10&token=${process.env.REACT_APP_STOCK_NEWS_KEY}`)
+        .then(res => {
+          setCompanyNews(res.data);
+        })
+        .catch(err => console.log(err));
     }
   }, [lowHighCashPerc, company]);
 
@@ -164,6 +173,7 @@ function Stock(props) {
           <BuyStock currPrice={graphInfo} company={company}/>
           <SellStock currPrice={graphInfo} company={company}/>
         </div>
+        <StockNews companyNews={companyNews}/>
       </div>
     </div>
   );
