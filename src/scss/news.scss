@@ -1,0 +1,111 @@
+.news_container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 1rem auto;
+  width: 80%;
+  font-family: avenir, sans-serif;
+
+  @media (max-width: 1800px) {
+    flex-flow: column wrap;
+    align-items: center;
+  }
+
+  @media (max-width: $bp-tablet) {
+    width: 100%;
+  }
+
+  .news_header {
+    width: 100%;
+    font-size: 32px;
+    text-align: left;
+    border-bottom: 1px solid rgb(207, 205, 205);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  .news_card {
+    color: black;
+    width: 48%;
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 2rem;
+    background-color: white;
+    padding: .5rem .5rem 1.5rem .5rem;
+    cursor: pointer;
+    transition: .5s;
+    border-bottom: 1px solid rgb(207, 205, 205);
+    &:hover {
+      background-color: rgb(214, 214, 214);
+    }
+
+    @media (max-width: 1800px) {
+      width: 100%;
+    }
+
+    .news_source {
+      font-weight: bold;
+      margin: 0 .5rem 1.5rem 0;
+
+      @media (max-width: 1800px) {
+        font-size: 1.3rem;
+      }
+    }
+
+    .news_time {
+      width: 60%;
+      text-align: left;
+      @media (max-width: 1800px) {
+        font-size: 1.3rem;
+      }
+    }
+
+    .news_content {
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+      justify-content: space-between;
+
+      @media (max-width: $bp-mobile) {
+        flex-flow: column wrap;
+      }
+
+      .news_body_text {
+        width: 52%;
+
+        @media (max-width: $bp-mobile) {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+        .news_title {
+          text-align: left;
+          font-weight: bold;
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+
+          @media (max-width: 1800px) {
+            font-size: 1.6rem;
+          }
+        }
+          
+        .news_text {
+          text-align: left;
+          font-size: 1rem;
+          @media (max-width: 1800px) {
+            font-size: 1.3rem;
+          }
+        }
+      }
+  
+      img { 
+        width: 40%;
+        border-radius: 3px;
+
+        @media (max-width: $bp-mobile) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

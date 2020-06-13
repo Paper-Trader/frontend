@@ -1,6 +1,10 @@
 .stock-container {
   width: 100%;
   padding: 3rem;
+
+  @media (max-width: $bp-mobile) {
+    padding: 1rem;
+  }
   .topbar {
     margin-top: 10px;
     display: flex;

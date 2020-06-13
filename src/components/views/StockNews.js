@@ -1,5 +1,6 @@
 import React from 'react';
 import Loader from "react-loader-spinner";
+import moment from 'moment';
 
 function StockNews({ companyNews }) {
   console.log(companyNews)
@@ -7,17 +8,20 @@ function StockNews({ companyNews }) {
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
     <div className="news_container">
-      <h2>News</h2>
-      <div className="news_feed">
-        {companyNews.data.map(data => {
-          return <div className="news_card">
-            <h3>{data.source_name}</h3>
-            <h2>{data.title}</h2>
-            <img src={data.image_url} alt={data.news_url}/>
-            <p>{data.text}</p>
+      <h2 className="news_header" >News</h2>
+      {companyNews.data.map((data, id) => {
+        return <a href={data.news_url} className="news_card" key={id}>
+          <h3 className="news_source">{data.source_name}</h3>
+          <h3 className="news_time">{moment(data.date).fromNow()}</h3>
+          <div className="news_content">
+            <div className="news_body_text">
+              <h2 className="news_title">{data.title}</h2>
+              <p className="news_text">{data.text}</p>
+            </div>
+            <img src={data.image_url} alt={data.news_url} />
           </div>
-        })}
-      </div>
+        </a>
+      })}
     </div>
   )
 }
