@@ -22,3 +22,4 @@ PaprTradr is a desktop application that simulates a real world trading platforms
 ##### API's:
     - https://www.alphavantage.co/
     - https://financialmodelingprep.com/developer/docs/
+    - https://stocknewsapi.com/
