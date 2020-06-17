@@ -40,7 +40,7 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
             { color: "#DC4A7F" } : 
             { color: "#00D1C5" }
           }>
-          {dailyChange.toString().includes("-") ? '-' : '+' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
+          {dailyChange.toString().includes("-") ? '' : '+' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
         </Header>
         <PortfolioChart />
       </div>
