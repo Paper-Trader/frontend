@@ -3,6 +3,10 @@ PaprTradr is a desktop application that simulates a real world trading platforms
 **[Link](https://papr-tradr.netlify.com/)**  
 **[Github](https://github.com/Paper-Trader)**
 
+#### TEST-LOGIN: 
+- user: ArthurPi
+- pass: password1
+
 ##### Stack:
 - React.js:
     - Based on **reusable components** to build an entire app
