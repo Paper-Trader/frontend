@@ -9,7 +9,20 @@ function Team() {
           <Header as="h2">MEET THE TEAM</Header>
         </Grid.Row>
 
-        <Grid.Row columns={4}>
+        <Grid.Row columns={5}>
+            <Grid.Column width={4}>
+            <Image src="" alt="" />
+            <Header as="h4">Bryce Soghigian</Header>
+            <Header as="h6" color="grey">
+              Software Developer
+            </Header>
+            <List.Item as="a" href="https://github.com/Bryce-Soghigian">
+              <List.Icon name="github" size="big" />
+            </List.Item>
+            <List.Item as="a" href="https://www.linkedin.com/in/bsoghigian">
+              <List.Icon name="linkedin" size="big" />
+            </List.Item>
+          </Grid.Column>
           <Grid.Column width={4}>
             <Image src="" alt="" />
             <Header as="h4">Kristin Barr</Header>
@@ -30,7 +43,7 @@ function Team() {
             <Header as="h6" color="grey">
               Software Developer
             </Header>
-            <List.Item as="a" href="https://github.com/">
+            <List.Item as="a" href="https://github.com/rushman7">
               <List.Icon name="github" size="big" />
             </List.Item>
             <List.Item as="a" href="https://www.linkedin.com/in/">

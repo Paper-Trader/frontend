@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
-import PortfolioChart from "../portfolio/PortfolioChart";
 import PortfolioList from "../portfolio/PortfolioList";
 import Loader from "react-loader-spinner";
-
+import PieChart from "./PieChart"
 function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
   useEffect(() => {
     fetchAll() // fetches first data
@@ -42,7 +41,9 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
           }>
           {dailyChange.toString().includes("-") ? '' : '+' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
         </Header>
-        <PortfolioChart />
+        <div className="pieChartContainer">
+           <PieChart />
+        </div>
       </div>
       <div className="dashboard-listing">
         <Header as="h5">Portfolio Stock Listing</Header>

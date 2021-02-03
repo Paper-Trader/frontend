@@ -3,7 +3,6 @@ import Loader from "react-loader-spinner";
 import moment from 'moment';
 
 function StockNews({ companyNews }) {
-  console.log(companyNews)
   return companyNews.length === 0 ? (
     <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   ) : (
