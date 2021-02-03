@@ -73,13 +73,14 @@ function SellStock({
             name="amount"
             onChange={onChange}
             className="shares-input"
-            defaultValue={stock[0].amount}
+            defaultValue={0}
           />
         </label>
         <label className="market-price">
           <h2>Market Price</h2>
           ${newStock.price.toFixed(2)} 
         </label>
+        
         <label className="estimated-cost">
           <h2>Estimated Cost</h2>
           ${(newStock.amount * newStock.price).toFixed(2)}

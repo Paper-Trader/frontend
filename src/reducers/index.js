@@ -7,7 +7,7 @@ const initialState = {
   stockList: [],
   watchList: [],
   cash: 0,
-  dailyInitial: 10000,
+  dailyInitial: 50000,
   success: '',
   serverError: '',
   error: '',

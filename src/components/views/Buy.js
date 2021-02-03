@@ -27,6 +27,16 @@ function BuyStock({
   const [newStock, setNewStock] = useState(initialStock);
   let newSum = (cash - (newStock.amount * newStock.price)).toFixed(2)
 
+
+const newPriceAggregated = (currPrice, prevPrice,currAmount,prevAmount) => {
+  Number(currPrice, prevPrice,currAmount,prevAmount)
+    let currTotal = currPrice * currAmount
+    let prevTotal = prevPrice * prevAmount
+    let totalShares = currAmount + prevAmount
+    let totalPrice = (currTotal + prevTotal) / totalShares
+    return [totalPrice.toFixed(2), totalShares]
+
+}
   const buyStocks = (e) => {
     e.preventDefault();
 
@@ -35,7 +45,9 @@ function BuyStock({
     if (newSum < 0) {
       return errorMessage(`You do not have sufficient funds in your account. Current cash balance of $${cash}.`)
     } else if (stock.length > 0) {
-      newStock.amount = parseInt(newStock.amount) + stock[0].amount
+      let newValues = newPriceAggregated(newStock.price, stock[0].price, Number(newStock.amount), stock[0].amount)
+      newStock.amount = Number(newValues[1])
+      newStock.price = Number(newValues[0])
       updateCash({cash: newSum})
       buyExistingStock(newStock, message)
       setNewStock({
