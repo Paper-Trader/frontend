@@ -65,13 +65,13 @@ function Stock(props) {
         .get(`https://financialmodelingprep.com/api/v3/company/profile/${company}?apikey=${process.env.REACT_APP_FMP_KEY}`)
         .then(data => setCompanyInfo(data.data.profile))
         .catch(err => console.log(err));
-      axios
-        .get(`https://stocknewsapi.com/api/v1?tickers=${company}&items=50&token=${process.env.REACT_APP_NEWS_TOKEN}`)
-        .then(res => {
-          console.log(res.data,company)
-          setCompanyNews(res.data);
-        })
-        .catch(err => console.log(err));
+      // axios
+      //   .get(`https://stocknewsapi.com/api/v1?tickers=${company}&items=50&token=${process.env.REACT_APP_NEWS_TOKEN}`)
+      //   .then(res => {
+      //     console.log(res.data,company)
+      //     setCompanyNews(res.data);
+      //   })
+      //   .catch(err => console.log(err));
     }
   }, [lowHighCashPerc, company]);
 
@@ -174,7 +174,7 @@ function Stock(props) {
           <BuyStock currPrice={graphInfo} company={company}/>
           <SellStock currPrice={graphInfo} company={company}/>
         </div>
-        <StockNews companyNews={companyNews}/>
+        {/* <StockNews companyNews={companyNews}/> */}
       </div>
     </div>
   );

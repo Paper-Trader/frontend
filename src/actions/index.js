@@ -33,7 +33,7 @@ export const updateCash = (data) => dispatch => {
   axiosWithAuth() 
     .put('/portfolio/cash', data)
     .then(() => 
-      dispatch({ type: UPDATE_CASH, payload: data })
+      dispatch({ type: UPDATE_CASH, payload: Number(data.cash) })
     )
     .catch(err => {
       dispatch({ type: ERROR, payload: err.response.data.message })

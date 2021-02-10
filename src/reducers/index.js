@@ -49,6 +49,11 @@ export const rootReducer = (state = initialState, action) => {
           }),
         isFetching: false
       }
+    case actionType.UPDATE_CASH:
+      return {
+        ...state,
+        cash: action.payload,
+      }
     case actionType.ERROR_MESSAGE:
       return {
         ...state,

@@ -15,6 +15,7 @@ function SellStock({
 }) {
 
   const stock = stocks.filter(stock => company === stock.symbol)
+
   let initialStock = {
     stock_symbol: company,
     price: parseFloat(currPrice[currPrice.length - 1]["4. close"]),
@@ -30,6 +31,8 @@ function SellStock({
 
     if (stock.length < 1) {
       errorMessage(`You don't own any shares of ${company}.`)
+    } else if (newStock.amount === 0) {
+      errorMessage(`Please input at least 1 share of ${company}.`)
     } else if (stock[0].amount < newStock.amount) {
       errorMessage(`You only own ${stock[0].amount} share(s) of ${company}. ${newStock.amount - stock[0].amount} too many.`)
     } else if (stock[0].amount !== parseInt(newStock.amount)) {
@@ -52,8 +55,8 @@ function SellStock({
 
   const onChange = (e) => {
     const re = /^[0-9\b]+$/; 
-
     if (e.target.value === '' || re.test(e.target.value)) {
+      console.log(e.target.name, e.target.value)
       setNewStock({ 
         ...newStock, 
         [e.target.name]: e.target.value
@@ -73,7 +76,7 @@ function SellStock({
             name="amount"
             onChange={onChange}
             className="shares-input"
-            defaultValue={0}
+            placeholder={stock[0].amount}
           />
         </label>
         <label className="market-price">
@@ -82,7 +85,7 @@ function SellStock({
         </label>
         
         <label className="estimated-cost">
-          <h2>Estimated Cost</h2>
+          <h2>Estimated Profit</h2>
           ${(newStock.amount * newStock.price).toFixed(2)}
         </label>
         <label className="post-balance">

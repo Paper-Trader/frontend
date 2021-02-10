@@ -1,6 +1,10 @@
 .watchlist-container {
   display: flex;
   width: 100%;
+
+  @media (max-width: $bp-mobile) {
+    flex-wrap: wrap;
+  }
   .watchlist-content {
     display: flex;
     align-items: flex-start;
