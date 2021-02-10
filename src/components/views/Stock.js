@@ -16,14 +16,14 @@ import axios from "axios";
 import BuyStock from './Buy';
 import SellStock from './Sell';
 import SideNav from '../nav/SideNav';
-import StockNews from './StockNews';
+// import StockNews from './StockNews';
 
 function Stock(props) {
   const [companyInfo, setCompanyInfo] = useState({});
   const [graphInfo, setGraphInfo] = useState([]);
   const [lowHighCashPerc, setLowHighCashPerc] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [companyNews, setCompanyNews] = useState([]);
+  // const [companyNews, setCompanyNews] = useState([]);
   const company = props.match.params.id.toUpperCase();
   const green = { color: "#00D1C5" },
     red = { color: "#DC4A7F" };
