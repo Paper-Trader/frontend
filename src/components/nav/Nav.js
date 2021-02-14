@@ -14,9 +14,11 @@ function Nav() {
   return (
     <div className="navbar">
       <div className="nav-left">
-        <Link to="/" className="logo">
-          <Image src={logo} alt="logo" />
-        </Link>
+        {
+          localStorage.getItem('token') ?
+          <Link to="/dashboard" className="logo"><Image src={logo} alt="logo" /></Link> :
+          <Link to="/" className="logo"><Image src={logo} alt="logo" /></Link>
+        }
         {localStorage.getItem('token') && <Link to="/dashboard" className="nav-left-link">DASHBOARD</Link>}
         <Link to="/about" className="nav-left-link">
           ABOUT

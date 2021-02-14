@@ -61,10 +61,6 @@ function SignUp(props) {
               name="email"
               control={Input}
               id='form-input-control-error-email'
-              error={{
-                content: 'Please enter a valid email address',
-                pointing: 'below',
-              }}
             />
             <Form.Input
               fluid
