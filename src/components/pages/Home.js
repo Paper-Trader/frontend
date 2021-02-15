@@ -5,8 +5,11 @@ import analytic from '../../assets/analytics-icon.svg';
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-function Home() {
-
+function Home(props) {
+  let token = localStorage.getItem("token");
+  if(token){
+    props.history.push("/dashboard")
+  }
   const homeData = [
     {
       icon: safety,
@@ -27,6 +30,7 @@ function Home() {
 
   return (
     <div className="home">
+      <h4 className="welcome-home">Welcome To Our Paper Trading Platform</h4>
       <div className="home-data">
         {homeData.map(x => 
           <div className="home-data-container" key={x.id}>

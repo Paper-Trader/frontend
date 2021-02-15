@@ -19,7 +19,12 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
   let dailyPercent = (((value / dailyInitial) - 1)*100)
 
   if (isFetching) {
-    return <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
+    return(
+      <div>
+        <h1>Fetching your user data</h1>
+        <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
+      </div>
+    ) 
   }
 
   return (

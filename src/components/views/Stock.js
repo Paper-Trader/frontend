@@ -66,7 +66,7 @@ function Stock(props) {
         .then(data => setCompanyInfo(data.data.profile))
         .catch(err => console.log(err));
       axios
-        .get(`https://stocknewsapi.com/api/v1?tickers=${company}&items=50&token=${process.env.REACT_APP_NEWS_TOKEN}`)
+        .get(`https://stocknewsapi.com/api/v1?tickers=${company}&items=10&token=${process.env.REACT_APP_NEWS_TOKEN}`)
         .then(res => {
           setCompanyNews(res.data);
         })

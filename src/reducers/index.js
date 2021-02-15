@@ -17,6 +17,7 @@ const initialState = {
 }
 
 export const rootReducer = (state = initialState, action) => {
+  console.log(state)
   switch(action.type) {
     case actionType.FETCH_USER_SUCCESS:
       action.payload.portfolio.map(x => x['purchased'] = x.price)

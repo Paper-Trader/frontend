@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import Loader from 'react-loader-spinner';
 import {
   Button,
   Form,
@@ -10,17 +11,22 @@ import {
 } from "semantic-ui-react";
 import paper from "../../assets/paper-icon.svg";
 import { axiosWithAuth } from '../utils/axiosAuth';
-
+import "./login.css"
 
 function SignIn(props) {
+  useEffect(() => {
+    localStorage.removeItem("token")
+  }, [])
   const initialState = {
     credentials: {
       username: '',
-      password: '',
+      password: ''
     }
+
   }
 
   const [loginData, setLoginData] = useState(initialState)
+  const [isLoading,setLoading] = useState(false)
 
   const handleChange = e => {
     setLoginData({
@@ -33,11 +39,13 @@ function SignIn(props) {
 
   const login = e => {
     e.preventDefault();
+    setLoading(true)
     axiosWithAuth()
       .post('/auth/login', loginData.credentials)
       .then(res => {
         localStorage.setItem('token', res.data.authToken);
         props.history.push('/dashboard')
+        setLoading(false)
       })
       .catch(err => console.log(err));
   };
@@ -71,13 +79,14 @@ function SignIn(props) {
               type="password"
             />
 
+
             <Button color="teal" fluid size="large">
-              Login
+              {isLoading ? <div className="loadingButtonStyle"><p>Loading</p><Loader type="ThreeDots" color="#FFF" height={10} width={100} /></div> : <p>Login</p>}
             </Button>
           </Segment>
         </Form>
         <Message>
-          New to us? <a href="/signup">Sign Up</a>
+          First Time User? <a href="/signup">Sign Up</a>
         </Message>
       </Grid.Column>
     </Grid>
