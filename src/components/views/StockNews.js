@@ -4,7 +4,10 @@ import moment from 'moment';
 
 function StockNews({ companyNews }) {
   return companyNews.length === 0 ? (
-    <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
+    <div>
+      <h2>If this loader doesn't go away it means the stock news API key trial is over or reached its limit :(.</h2>
+      <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
+    </div> 
   ) : (
     <div className="news_container">
       <h2 className="news_header" >News</h2>

@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Sector } from 'recharts';
 import { connect } from "react-redux";
 import { fetchAll } from "../../actions";
 
@@ -77,22 +77,20 @@ class PieChartComponent extends Component {
 
   render() {
     return (
-      <ResponsiveContainer height={300} width={400}>
-        <PieChart>
-          <Pie
-            activeIndex={this.state.activeIndex}
-            activeShape={renderActiveShape}
-            data={this.state.data}
-            cx="50%"
-            cy="30%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#110034"
-            dataKey="value"
-            onMouseEnter={this.onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <PieChart height={300} width={400}>
+        <Pie
+          activeIndex={this.state.activeIndex}
+          activeShape={renderActiveShape}
+          data={this.state.data}
+          cx="50%"
+          cy="40%"
+          innerRadius={60}
+          outerRadius={80}
+          fill="#110034"
+          dataKey="value"
+          onMouseEnter={this.onPieEnter}
+        />
+      </PieChart>
     );
   }
 }
