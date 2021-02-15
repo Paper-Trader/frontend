@@ -15,9 +15,12 @@ import Browse from './components/pages/Browse';
 
 function App() {
     //Removing token when user unloads the page via refresh
-    window.onbeforeunload = function () {
-      localStorage.clear();
-    };
+    if(localStorage.getItem("rememberMe") === false || undefined){
+      window.onbeforeunload = function () {
+        localStorage.clear();
+      };
+    }
+
   return (
     <div className="App">
       <Route path="/" component={Nav} />

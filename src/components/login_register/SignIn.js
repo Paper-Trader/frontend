@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import {
   Button,
@@ -14,6 +14,9 @@ import { axiosWithAuth } from '../utils/axiosAuth';
 import "./login.css"
 
 function SignIn(props) {
+  useEffect(() => {
+    localStorage.removeItem("token")
+  }, [])
   const initialState = {
     credentials: {
       username: '',
@@ -24,6 +27,7 @@ function SignIn(props) {
 
   const [loginData, setLoginData] = useState(initialState)
   const [isLoading,setLoading] = useState(false)
+
   const handleChange = e => {
     setLoginData({
       credentials: {
@@ -74,6 +78,7 @@ function SignIn(props) {
               placeholder="Password"
               type="password"
             />
+
 
             <Button color="teal" fluid size="large">
               {isLoading ? <div className="loadingButtonStyle"><p>Loading</p><Loader type="ThreeDots" color="#FFF" height={10} width={100} /></div> : <p>Login</p>}
