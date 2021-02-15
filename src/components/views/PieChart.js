@@ -6,13 +6,13 @@ import { Header } from "semantic-ui-react";
 const shapeData = (array) => {
 //We want to generate an array that calculates the value which is proportional to the total valuation
 const output  = []
-console.log(array)//{symbol: "AMD", amount: 14, price: 87.7}
+// console.log(array)//{symbol: "AMD", amount: 14, price: 87.7}
 for(let i = 0;i<array.length;i++){
     const item = array[i]
     let formattedObject = {}
     formattedObject.name = item.symbol
     formattedObject.value = Math.ceil(item.amount * item.price)
-    console.log(formattedObject)
+    // console.log(formattedObject)
     output.push(formattedObject)
 }
 

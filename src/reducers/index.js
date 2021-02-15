@@ -19,6 +19,7 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch(action.type) {
     case actionType.FETCH_USER_SUCCESS:
+      action.payload.portfolio.map(x => x['purchased'] = x.price)
       return {
         ...state,
         cash: action.payload.cash,
@@ -60,7 +61,6 @@ export const rootReducer = (state = initialState, action) => {
         error: action.payload,
       }
     case actionType.ERROR:
-      console.log(action.payload)
       return {
         ...state,
         serverError: action.payload,

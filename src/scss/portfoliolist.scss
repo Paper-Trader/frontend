@@ -19,12 +19,6 @@
       border-bottom: 1px solid #ddd;
       &:hover {
         background: #efefef;
-        h2 {
-          color: #dc4a7f;
-        }
-        h3 {
-          color: #dc4a7f;
-        }
       }
 
       @media (max-width: $bp-mobile) {

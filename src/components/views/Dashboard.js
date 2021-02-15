@@ -5,6 +5,7 @@ import { Header } from "semantic-ui-react";
 import PortfolioList from "../portfolio/PortfolioList";
 import Loader from "react-loader-spinner";
 import PieChart from "./PieChart"
+
 function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
   useEffect(() => {
     fetchAll() // fetches first data
@@ -20,7 +21,7 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
   if (isFetching) {
     return <Loader type="BallTriangle" color="#00BFFF" height={100} width={100} />
   }
-  
+
   return (
     <div className="dashboard">
       <div className="dashboard-breakdown">
@@ -39,7 +40,7 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
             { color: "#DC4A7F" } : 
             { color: "#00D1C5" }
           }>
-          {dailyChange.toString().includes("-") ? '' : '+' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
+          {dailyChange.toString().includes("-") ? '$' : '+$' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
         </Header>
         <div className="pieChartContainer">
            <PieChart />
@@ -47,7 +48,7 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
       </div>
       <div className="dashboard-listing">
         <Header as="h5">Portfolio Stock Listing</Header>
-        <PortfolioList stocks={stocks} />
+        <PortfolioList/>
       </div>
     </div>
   );

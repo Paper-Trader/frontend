@@ -56,7 +56,6 @@ function SellStock({
   const onChange = (e) => {
     const re = /^[0-9\b]+$/; 
     if (e.target.value === '' || re.test(e.target.value)) {
-      console.log(e.target.name, e.target.value)
       setNewStock({ 
         ...newStock, 
         [e.target.name]: e.target.value
