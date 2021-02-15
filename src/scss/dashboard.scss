@@ -28,17 +28,15 @@
       padding: 0;
       margin: 0;
     }
-    .chart-container {
+    .recharts-responsive-container {
       width: 100%;
 
       .recharts-wrapper {
         margin-top: 1.5rem;
-        background: #FFFFFF;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
-        @media (max-width: $bp-mobile) {
-          width: 400px
-        }
+        width: 400px
+        // @media (max-width: $bp-mobile) {
+        //   width: 400px
+        // }
       }
     }
   }

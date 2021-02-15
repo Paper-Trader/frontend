@@ -4,7 +4,7 @@ import { fetchAll } from "../../actions";
 import { Header } from "semantic-ui-react";
 import PortfolioList from "../portfolio/PortfolioList";
 import Loader from "react-loader-spinner";
-import PieChart from "./PieChart"
+import PieChartComponent from "./PieChart"
 
 function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
   useEffect(() => {
@@ -40,11 +40,9 @@ function Dashboard({stocks, fetchAll, cash, dailyInitial, isFetching }) {
             { color: "#DC4A7F" } : 
             { color: "#00D1C5" }
           }>
-          {dailyChange.toString().includes("-") ? '$' : '+$' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%) Today
+          {dailyChange.toString().includes("-") ? '$' : '+$' }{dailyChange.toFixed(2)} ({dailyPercent.toFixed(2)}%)
         </Header>
-        <div className="pieChartContainer">
-           <PieChart />
-        </div>
+        <PieChartComponent />
       </div>
       <div className="dashboard-listing">
         <Header as="h5">Portfolio Stock Listing</Header>
